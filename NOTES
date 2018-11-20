@@ -1,0 +1,15 @@
+#   Build and Reload Package:  'Ctrl + Shift + B'
+#   Check Package:             'Ctrl + Shift + E'
+#   Test Package:              'Ctrl + Shift + T'
+
+To do:
+
+1. Sort out Travis integration
+2. Submit
+
+
+Future:
+Multiple Dimensions (Sampling Routine)
+Relax RCPP dependence
+Clean up 'permutation_test_interpreter'
+Glance at functions under 'leftovers.R'
