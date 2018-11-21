@@ -1,6 +1,7 @@
+^README\.Rmd$
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-powertest.R
-^NOTES
-^\R\Extras
+^NOTES$
+^/R/Extras
+^cran-comments.md$

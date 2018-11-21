@@ -1,7 +1,7 @@
 Package: twosamples
 Type: Package
 Title: Fast Permutation Based Two Sample Tests
-Version: 0.1.0
+Version: 1.0.0
 Author: Connor Dowd
 Maintainer: Connor Dowd <cdowd@chicagobooth.edu>
 Description: Fast randomization based two sample tests.
