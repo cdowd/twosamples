@@ -28,7 +28,7 @@ Output is a length 2 Vector with test stat and p-value in that order. That vecto
 Performs a permutation based two sample test using the Kuiper test statistic (kuiper_stat).
 }
 \details{
-The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KUIPER = max_x E(x)-F(x) + max_x F(x)-E(x). The test p-value is caculated by randomly resampling two samples of the same size using the combined sample.
+The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KUIPER = max_x E(x)-F(x) + max_x F(x)-E(x). The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 }
 \section{Functions}{
 \itemize{

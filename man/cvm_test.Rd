@@ -28,7 +28,7 @@ Output is a length 2 Vector with test stat and p-value in that order. That vecto
 Cramer-vonMises Test
 }
 \details{
-The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then CVM = SUM_(x in k) (E(x)-F(x))^2 where k is the joint sample. The test p-value is caculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
+The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then CVM = SUM_(x in k) (E(x)-F(x))^2 where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
 }
 \section{Functions}{
 \itemize{

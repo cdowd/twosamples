@@ -30,7 +30,7 @@ Wasserstein Distance Test
 A two-sample test based on Wasserstein's distance.
 }
 \details{
-The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then WASS = Integral |E(x)-F(x)| across all x. The test p-value is caculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
+The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then WASS = Integral |E(x)-F(x)| across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
 }
 \section{Functions}{
 \itemize{

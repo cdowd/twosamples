@@ -4,7 +4,7 @@
 \name{ks_stat}
 \alias{ks_stat}
 \alias{ks_test}
-\title{Kolmorov-Smirnov Test}
+\title{Kolmogorov-Smirnov Test}
 \usage{
 ks_stat(a, b, power = 1)
 
@@ -28,7 +28,7 @@ Output is a length 2 Vector with test stat and p-value in that order. That vecto
 Performs a permutation based two sample test using the Kolmogorov-Smirnov test statistic (ks_stat).
 }
 \details{
-The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KS = max |E(x)-F(x)| for values of x in the joint sample. The test p-value is caculated by randomly resampling two samples of the same size using the combined sample.
+The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KS = max |E(x)-F(x)| for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 }
 \section{Functions}{
 \itemize{

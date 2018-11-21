@@ -28,7 +28,7 @@ Output is a length 2 Vector with test stat and p-value in that order. That vecto
 Anderson-Darling Test
 }
 \details{
-The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then CVM = SUM_(x in k) (E(x)-F(x))^2/(G(x)*(1-G(x))) where k is the joint sample. The test p-value is caculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then CVM = SUM_(x in k) (E(x)-F(x))^2/(G(x)*(1-G(x))) where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
 }
 \section{Functions}{
 \itemize{
