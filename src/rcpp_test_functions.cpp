@@ -8,10 +8,10 @@ using namespace Rcpp;
 //' @return same length vector of integers representing order of input vector
 //' @examples
 //' vec = c(1,4,3,2)
-//' order_cpp(vec)
+//' order_stl(vec)
 //' @export
 // [[Rcpp::export]]
-IntegerVector order_cpp(NumericVector x) {
+IntegerVector order_stl(NumericVector x) {
   int n = x.size();
   std::vector<std::pair<double, int> > paired(n);
   for (int i = 0; i < n; i++) {
@@ -51,7 +51,7 @@ double ks_stat(NumericVector a,NumericVector b, double power=1.0) {
     }
   }
   // Finding proper order
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing sorted cdf & sample vectors
   NumericVector dd(n);
   NumericVector ee(n);
@@ -118,7 +118,7 @@ double kuiper_stat(NumericVector a,NumericVector b, double power=1.0) {
     }
   }
   // Finding proper order
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing sorted cdf & sample vectors
   NumericVector dd(n);
   NumericVector ee(n);
@@ -190,7 +190,7 @@ double cvm_stat(NumericVector a,NumericVector b, double power=2.0) {
     }
   }
   // Finding proper order
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing sorted cdf & sample vectors
   NumericVector dd(n);
   NumericVector ee(n);
@@ -254,7 +254,7 @@ double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
     }
   }
   // Finding proper order
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing sorted vectors
   NumericVector dd(n);
   NumericVector ee(n);
@@ -325,7 +325,7 @@ double wass_stat(NumericVector a,NumericVector b,double power=1.0) {
     }
   }
   // Finding proper order
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing ordered CDF, sample vectors
   NumericVector dd(n);
   NumericVector ee(n);
@@ -388,7 +388,7 @@ double dts_stat(NumericVector a,NumericVector b,double power=1.0) {
     }
   }
   // Finding order for vectors
-  IntegerVector order = order_cpp(d);
+  IntegerVector order = order_stl(d);
   // Initializing ordered CDF, sample vectors
   NumericVector dd(n);
   NumericVector ee(n);
