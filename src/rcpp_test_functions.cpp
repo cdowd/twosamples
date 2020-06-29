@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' Order in C++
+//' Order function in C++ using the STL
 //'
 //' Simply finds the order of a vector in c++. Mostly for internals.
 //' @param x numeric vector
@@ -12,27 +12,19 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 IntegerVector order_cpp(NumericVector x) {
-  // Sample Size
   int n = x.size();
-  // Initializing outcome
-  IntegerVector ord(n);
-  // Bubble sort on vector x
-  for (int i=0;i<n;i++){
-    for (int j=0;j<n;j++) {
-      if (x[i]>x[j]) {
-        // Actually sorting 'order'
-        ord[i] += 1;
-      }
-      if (x[i]==x[j]) {
-        if(i>j) {
-          // Dealing with ties consistently
-          ord[i] +=1;
-        }
-      }
-    }
+  std::vector<std::pair<double, int> > paired(n);
+  for (int i = 0; i < n; i++) {
+    paired[i] = std::make_pair(x[i], i);
   }
-  return ord;
+  std::sort(paired.begin(), paired.end());
+  IntegerVector indices(n);
+  for (int i = 0; i < n; i++) {
+    indices[i] = paired[i].second;
+  }
+  return indices;
 }
+
 
 //' @describeIn ks_test Kolmogorov-Smirnov test statistic
 //' @export
@@ -65,9 +57,9 @@ double ks_stat(NumericVector a,NumericVector b, double power=1.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling sorted cdf & sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
 
   // Initializing CDF heights & distances
   double height=0.0;
@@ -132,9 +124,9 @@ double kuiper_stat(NumericVector a,NumericVector b, double power=1.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling sorted cdf & sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
 
   // Initializing CDF heights & distances
   double height=0.0;
@@ -204,9 +196,9 @@ double cvm_stat(NumericVector a,NumericVector b, double power=2.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling sorted cdf & sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
 
   // Initializing CDF heights & distances
   double height=0.0;
@@ -268,9 +260,9 @@ double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling sorted CDF & sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
   // Initializing cdfs (each & joint), diff, outcome, sd
   double height = 0.0;
   double ecur = 0.0;
@@ -339,9 +331,9 @@ double wass_stat(NumericVector a,NumericVector b,double power=1.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling ordered cdf, sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
 
   // Initializing current distances
   double ecur = 0.0;
@@ -402,9 +394,9 @@ double dts_stat(NumericVector a,NumericVector b,double power=1.0) {
   NumericVector ee(n);
   NumericVector ff(n);
   // Filling ordered cdf, sample vectors
-  dd[order] = d;
-  ee[order] = e;
-  ff[order] = f;
+  dd = d[order];
+  ee = e[order];
+  ff = f[order];
 
   // Initializing CDFs, width, outcome, sd, cdf diff
   double height = 0.0;
