@@ -5,14 +5,14 @@
 
 using namespace Rcpp;
 
-// order_cpp
-IntegerVector order_cpp(NumericVector x);
-RcppExport SEXP _twosamples_order_cpp(SEXP xSEXP) {
+// order_stl
+IntegerVector order_stl(NumericVector x);
+RcppExport SEXP _twosamples_order_stl(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(order_cpp(x));
+    rcpp_result_gen = Rcpp::wrap(order_stl(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -96,7 +96,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_twosamples_order_cpp", (DL_FUNC) &_twosamples_order_cpp, 1},
+    {"_twosamples_order_stl", (DL_FUNC) &_twosamples_order_stl, 1},
     {"_twosamples_ks_stat", (DL_FUNC) &_twosamples_ks_stat, 3},
     {"_twosamples_kuiper_stat", (DL_FUNC) &_twosamples_kuiper_stat, 3},
     {"_twosamples_cvm_stat", (DL_FUNC) &_twosamples_cvm_stat, 3},
