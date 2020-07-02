@@ -6,13 +6,15 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
   fun = function(a,b,nboots=2000,p=default.p){
     t = test_stat_function(a,b,p)			#Finds test stat
     na = length(a)										#Finds length of A
-    n = length(b)+na 									#Finds total length
+    nb = length(b)
+    n = nb+na 									#Finds total length
     comb = c(a,b)											#Combined vector
     nboots = as.integer(nboots)					#Speeds up comparison below.
     reps = bigger = 0L							  #Initializes Counters
     while (reps < nboots) {						#Loops over vector
-      d=sample.int(n,na)							#Samples indexes
-      boot_t = test_stat_function(comb[d],comb[-d],p) #boot strap test stat
+      e = sample.int(n,na,T)
+      f = sample.int(n,nb,T)#Samples indexes
+      boot_t = test_stat_function(comb[e],comb[f],p) #boot strap test stat
       if(boot_t >= t) bigger = 1L+bigger #if new stat is bigger, increment
       reps = 1L+reps
     }
