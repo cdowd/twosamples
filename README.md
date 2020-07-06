@@ -5,6 +5,8 @@ twosamples
 
 The goal of twosamples is to allow easy two-sample testing using permutations. This package offers quick (O(n^2) worst) and memory light (O(n)) code for a number of standard distance metrics between two samples. Using permutations of observed samples to calculate null distributions for those metrics, this package also provides assumption free p-values for the samples coming from the same distribution.
 
+Details about the DTS statistic's calculation, and performance can be found [here.](https://arxiv.org/abs/2007.01360)
+
 Installation
 ------------
 
