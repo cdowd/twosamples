@@ -1,3 +1,4 @@
+if (F) {
 library(twosamples)
 
 
@@ -132,3 +133,4 @@ test4$sig2 = sig.diffs
 #---------------------------------------------
 
 save.image("dts_sims.RData")
+}

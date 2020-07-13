@@ -1,3 +1,4 @@
+if (F) {
 library(twosamples)
 library(tidyverse)
 
@@ -116,6 +117,6 @@ p6+ ylab("ECDF") + xlab("Value")+
   theme(legend.position="none")
 
 
-
+}
 
 

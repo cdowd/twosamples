@@ -1,10 +1,8 @@
+if (F) {
 library(tidyverse)
 library(ggplot2)
 
-save = F
-
 load("dts_sims.RData")
-
 
 test_cleaner = function(test,alt="PLACEHOLDER") {
   test = gather(test,key="Test",value="power",ks,kuiper,ad,cvm,wass,dts,starts_with(alt))
@@ -53,3 +51,5 @@ test1 %>% select(nobs,Test,power) %>% spread(Test,power) %>% mutate_at(-1,~./T.T
 
 
 test2 %>% select(nobs,Test,power) %>% spread(Test,power) %>% mutate_at(-1,~./F.TEST) %>% gather("Test","power",-nobs) %>% mutate(Test=fct_rev(fct_reorder(Test,power,min))) %>% ggplot(aes(x=nobs,col=Test,y=power)) +geom_line()+ylab("Relative Power Loss")+xlab("Sample Size")
+
+}

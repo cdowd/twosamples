@@ -1,3 +1,5 @@
+if (F) {
+
 dts_stat_R = function(vec1,vec2,power=1) {
   n1 = length(vec1)
   n2 = length(vec2)
@@ -171,4 +173,7 @@ wass_stat_R = function(vec1,vec2,power=1) {
     out = out + (height**power)*width
   }
   out
+}
+
+
 }
