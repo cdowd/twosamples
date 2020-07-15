@@ -30,7 +30,7 @@ A two-sample test using the Kolmogorov-Smirnov test statistic (\code{ks_stat}).
 \details{
 The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 
-In the example plot below, the KS statistic is the height of the vertical black line. \figure{demo_ks.png}{Example KS stat plot}
+In the example plot below, the KS statistic is the height of the vertical black line. \figure{ks.png}{Example KS stat plot}
 }
 \section{Functions}{
 \itemize{
