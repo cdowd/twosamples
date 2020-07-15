@@ -13,7 +13,9 @@ NULL
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
-#' @seealso [dts_test()] for a more powerful test statistic.
+#'
+#' In the example plot below, the KS statistic is the height of the vertical black line. ![](demo_ks.png "Example KS stat plot")
+#' @seealso [dts_test()] for a more powerful test statistic. See [kuiper_test()] or [cvm_test()] for the natural successors to this test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -31,7 +33,9 @@ NULL
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KUIPER = |max_x E(x)-F(x)|^p + |max_x F(x)-E(x)|^p}. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
-#' @seealso [dts_test()] for a more powerful test statistic.
+#'
+#' In the example plot below, the Kuiper statistic is the sum of the heights of the vertical black lines. ![](demo_kuiper.png "Example Kuiper stat plot")
+#' @seealso [dts_test()] for a more powerful test statistic. See [ks_test()] for the predecessor to this test statistic, and [cvm_test()] for its natural successor.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -49,7 +53,9 @@ NULL
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{CVM = \sum_{x\in k}|E(x)-F(x)|^p}{CVM = SUM_(x in k) |E(x)-F(x)|^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
-#' @seealso [dts_test()] for a more powerful test statistic.
+#'
+#' In the example plot below, the CVM statistic is the sum of the heights of the vertical black lines. ![](demo_cvm.png "Example CVM stat plot")
+#' @seealso [dts_test()] for a more powerful test statistic. See [ks_test()] or [kuiper_test()] for the predecessors to this test statistic. See [wass_test()] and [ad_test()] for the successors to this test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -66,8 +72,12 @@ NULL
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} {|E(x)-F(x)|^p \over G(x)(1-G(x)) } }{AD = SUM_(x in k) |E(x)-F(x)|^p/(G(x)*(1-G(x)))} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
-#' @seealso [dts_test()] for a more powerful test statistic.
+#' @details The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point, which peaks in the middle of the joint distribution (see figure below). Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} {|E(x)-F(x)|^p \over G(x)(1-G(x)) } }{AD = SUM_(x in k) |E(x)-F(x)|^p/(G(x)*(1-G(x)))} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+#'
+#' In the example plot below, we see the variance of the joint ECDF over the range of the data. It clearly peaks in the middle of the joint sample. ![](demo_var.png "Plot of Variance of joint ECDF")
+#'
+#' In the example plot below, the AD statistic is the weighted sum of the heights of the vertical lines, where weights are represented by the shading of the lines. ![](demo_ad.png "Example AD stat plot")
+#' @seealso [dts_test()] for a more powerful test statistic. See [cvm_test()] for the predecessor to this test statistic. See [dts_test()] for the natural successor to this test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -85,7 +95,9 @@ NULL
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{WASS = \int_{x \in R} |E(x)-F(x)|^p}{WASS = Integral |E(x)-F(x)|^p} across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
-#' @seealso [dts_test()] for a more powerful test statistic.
+#'
+#' In the example plot below, the Wasserstein statistic is the shaded area between the ECDFs. ![](demo_wass.png "Example Wasserstein stat plot")
+#' @seealso [dts_test()] for a more powerful test statistic. See [cvm_test()] for the predecessor to this test statistic. See [dts_test()] for the natural successor of this test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -107,7 +119,9 @@ NULL
 #'
 #' If the [wass_test()] extends [cvm_test()] to interval data, then [dts_test()] extends [ad_test()] to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then \deqn{DTS = \int_{x\in R} {|E(x)-F(x)|^p\over G(x)(1-G(x))}}{DTS = Integral |E(x)-F(x)|^p/(G(x)(1-G(x)))} for all x.
 #' The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on the AD test by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS (and Wasserstein) gain power because they take advantages of the properties of interval data -- i.e. the distances have some meaning. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to Wass, thus (hopefully) giving it extra power.
-#' @seealso [wass_test()], [ad_test()], [cvm_test()] for details on those test statistics. [arXiv:2007.01360](https://arxiv.org/abs/2007.01360) or <https://codowd.com/public/DTS.pdf> for details of this test statistic
+#'
+#' In the example plot below, the DTS statistic is the shaded area between the ECDFs, weighted by the variances -- shown by the color of the shading. ![](demo_dts.png "Example Wasserstein stat plot")
+#' @seealso [wass_test()], [ad_test()] for the predecessors of this test statistic. [arXiv:2007.01360](https://arxiv.org/abs/2007.01360) or <https://codowd.com/public/DTS.pdf> for details of this test statistic
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)

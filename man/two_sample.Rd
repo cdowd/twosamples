@@ -35,6 +35,8 @@ The DTS test compares two ECDFs by looking at the reweighted Wasserstein distanc
 
 If the \code{\link[=wass_test]{wass_test()}} extends \code{\link[=cvm_test]{cvm_test()}} to interval data, then \code{\link[=dts_test]{dts_test()}} extends \code{\link[=ad_test]{ad_test()}} to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then \deqn{DTS = \int_{x\in R} {|E(x)-F(x)|^p\over G(x)(1-G(x))}}{DTS = Integral |E(x)-F(x)|^p/(G(x)(1-G(x)))} for all x.
 The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on the AD test by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS (and Wasserstein) gain power because they take advantages of the properties of interval data -- i.e. the distances have some meaning. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to Wass, thus (hopefully) giving it extra power.
+
+In the example plot below, the DTS statistic is the shaded area between the ECDFs, weighted by the variances -- shown by the color of the shading. \figure{demo_dts.png}{Example Wasserstein stat plot}
 }
 \section{Functions}{
 \itemize{
@@ -53,5 +55,5 @@ dts_test(vec1,vec2)
 two_sample(vec1,vec2)
 }
 \seealso{
-\code{\link[=wass_test]{wass_test()}}, \code{\link[=ad_test]{ad_test()}}, \code{\link[=cvm_test]{cvm_test()}} for details on those test statistics. \href{https://arxiv.org/abs/2007.01360}{arXiv:2007.01360} or \url{https://codowd.com/public/DTS.pdf} for details of this test statistic
+\code{\link[=wass_test]{wass_test()}}, \code{\link[=ad_test]{ad_test()}} for the predecessors of this test statistic. \href{https://arxiv.org/abs/2007.01360}{arXiv:2007.01360} or \url{https://codowd.com/public/DTS.pdf} for details of this test statistic
 }

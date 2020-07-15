@@ -29,6 +29,8 @@ A two-sample test based on the Kuiper test statistic (\code{kuiper_stat}).
 }
 \details{
 The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KUIPER = |max_x E(x)-F(x)|^p + |max_x F(x)-E(x)|^p}. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+
+In the example plot below, the Kuiper statistic is the sum of the heights of the vertical black lines. \figure{demo_kuiper.png}{Example Kuiper stat plot}
 }
 \section{Functions}{
 \itemize{
@@ -43,5 +45,5 @@ vec2 = rnorm(20,4)
 kuiper_test(vec1,vec2)
 }
 \seealso{
-\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic. See \code{\link[=ks_test]{ks_test()}} for the predecessor to this test statistic, and \code{\link[=cvm_test]{cvm_test()}} for its natural successor.
 }

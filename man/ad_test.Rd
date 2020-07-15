@@ -28,7 +28,11 @@ Output is a length 2 Vector with test stat and p-value in that order. That vecto
 A two-sample test based on the Anderson-Darling test statistic (\code{ad_stat}).
 }
 \details{
-The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} {|E(x)-F(x)|^p \over G(x)(1-G(x)) } }{AD = SUM_(x in k) |E(x)-F(x)|^p/(G(x)*(1-G(x)))} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point, which peaks in the middle of the joint distribution (see figure below). Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} {|E(x)-F(x)|^p \over G(x)(1-G(x)) } }{AD = SUM_(x in k) |E(x)-F(x)|^p/(G(x)*(1-G(x)))} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+
+In the example plot below, we see the variance of the joint ECDF over the range of the data. It clearly peaks in the middle of the joint sample. \figure{demo_var.png}{Plot of Variance of joint ECDF}
+
+In the example plot below, the AD statistic is the weighted sum of the heights of the vertical lines, where weights are represented by the shading of the lines. \figure{demo_ad.png}{Example AD stat plot}
 }
 \section{Functions}{
 \itemize{
@@ -43,5 +47,5 @@ vec2 = rnorm(20,4)
 ad_test(vec1,vec2)
 }
 \seealso{
-\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic. See \code{\link[=cvm_test]{cvm_test()}} for the predecessor to this test statistic. See \code{\link[=dts_test]{dts_test()}} for the natural successor to this test statistic.
 }

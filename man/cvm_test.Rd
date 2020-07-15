@@ -29,6 +29,8 @@ A two-sample test based on the Cramer-Von Mises test statistic (\code{cvm_stat})
 }
 \details{
 The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{CVM = \sum_{x\in k}|E(x)-F(x)|^p}{CVM = SUM_(x in k) |E(x)-F(x)|^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
+
+In the example plot below, the CVM statistic is the sum of the heights of the vertical black lines. \figure{demo_cvm.png}{Example CVM stat plot}
 }
 \section{Functions}{
 \itemize{
@@ -43,5 +45,5 @@ vec2 = rnorm(20,4)
 cvm_test(vec1,vec2)
 }
 \seealso{
-\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic. See \code{\link[=ks_test]{ks_test()}} or \code{\link[=kuiper_test]{kuiper_test()}} for the predecessors to this test statistic. See \code{\link[=wass_test]{wass_test()}} and \code{\link[=ad_test]{ad_test()}} for the successors to this test statistic.
 }
