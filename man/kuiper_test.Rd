@@ -25,10 +25,10 @@ kuiper_test(a, b, nboots = 2000, p = default.p)
 Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 }
 \description{
-Performs a permutation based two sample test using the Kuiper test statistic (kuiper_stat).
+A two-sample test based on the Kuiper test statistic (\code{kuiper_stat}).
 }
 \details{
-The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KUIPER = max_x E(x)-F(x) + max_x F(x)-E(x). The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KUIPER = |max_x E(x)-F(x)|^p + |max_x F(x)-E(x)|^p}. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 }
 \section{Functions}{
 \itemize{
@@ -41,4 +41,7 @@ The Kuiper test compares two ECDFs by looking at the maximum positive and negati
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
 kuiper_test(vec1,vec2)
+}
+\seealso{
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
 }

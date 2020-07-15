@@ -15,7 +15,7 @@ permutation_test_builder(test_stat_function, default.p = 2)
 This function returns a function which will perform permutation tests on given test stat.
 }
 \description{
-This function takes a simple two-sample test statistic and produces a function which performs permutation tests using that test stat.
+This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
 }
 \details{
 test_stat_function must be structured to take two separate vectors, and then a third value. i.e. (fun = function(vec1,vec2,val1) ...). See examples.
@@ -31,4 +31,7 @@ myfun = permutation_test_builder(mean_stat,2.0)
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
 myfun(vec1,vec2)
+}
+\seealso{
+\code{\link[=two_sample]{two_sample()}}
 }

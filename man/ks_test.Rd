@@ -25,10 +25,10 @@ ks_test(a, b, nboots = 2000, p = default.p)
 Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 }
 \description{
-Performs a permutation based two sample test using the Kolmogorov-Smirnov test statistic (ks_stat).
+A two-sample test using the Kolmogorov-Smirnov test statistic (\code{ks_stat}).
 }
 \details{
-The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KS = max |E(x)-F(x)| for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 }
 \section{Functions}{
 \itemize{
@@ -41,4 +41,7 @@ The KS test compares two ECDFs by looking at the maximum difference between them
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
 ks_test(vec1,vec2)
+}
+\seealso{
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
 }

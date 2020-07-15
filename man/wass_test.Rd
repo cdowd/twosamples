@@ -4,8 +4,7 @@
 \name{wass_stat}
 \alias{wass_stat}
 \alias{wass_test}
-\title{Wasserstein Distance Test
-A two-sample test based on Wasserstein's distance.}
+\title{Wasserstein Distance Test}
 \usage{
 wass_stat(a, b, power = 1)
 
@@ -26,11 +25,10 @@ wass_test(a, b, nboots = 2000, p = default.p)
 Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 }
 \description{
-Wasserstein Distance Test
-A two-sample test based on Wasserstein's distance.
+A two-sample test based on Wasserstein's distance (\code{wass_stat}).
 }
 \details{
-The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then WASS = Integral |E(x)-F(x)| across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
+The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{WASS = \int_{x \in R} |E(x)-F(x)|^p}{WASS = Integral |E(x)-F(x)|^p} across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
 }
 \section{Functions}{
 \itemize{
@@ -43,4 +41,7 @@ The Wasserstein test compares two ECDFs by looking at the Wasserstein distance b
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
 wass_test(vec1,vec2)
+}
+\seealso{
+\code{\link[=dts_test]{dts_test()}} for a more powerful test statistic.
 }

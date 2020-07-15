@@ -5,14 +5,15 @@ NULL
 
 #' Kolmogorov-Smirnov Test
 #'
-#' Performs a permutation based two sample test using the Kolmogorov-Smirnov test statistic (ks_stat).
+#' @description A two-sample test using the Kolmogorov-Smirnov test statistic (`ks_stat`).
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KS = max |E(x)-F(x)| for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+#' @details The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+#' @seealso [dts_test()] for a more powerful test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -22,14 +23,15 @@ NULL
 
 #' Kuiper Test
 #'
-#' Performs a permutation based two sample test using the Kuiper test statistic (kuiper_stat).
+#' @description A two-sample test based on the Kuiper test statistic (`kuiper_stat`).
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then KUIPER = max_x E(x)-F(x) + max_x F(x)-E(x). The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+#' @details The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KUIPER = |max_x E(x)-F(x)|^p + |max_x F(x)-E(x)|^p}. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
+#' @seealso [dts_test()] for a more powerful test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -37,15 +39,17 @@ NULL
 #' @name kuiper_test
 NULL
 
-#' Cramer-vonMises Test
+#' Cramer-von Mises Test
 #'
+#' @description A two-sample test based on the Cramer-Von Mises test statistic (`cvm_stat`).
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then CVM = SUM_(x in k) (E(x)-F(x))^2 where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
+#' @details The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{CVM = \sum_{x\in k}|E(x)-F(x)|^p}{CVM = SUM_(x in k) |E(x)-F(x)|^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
+#' @seealso [dts_test()] for a more powerful test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -55,13 +59,15 @@ NULL
 
 #' Anderson-Darling Test
 #'
+#' @description A two-sample test based on the Anderson-Darling test statistic (`ad_stat`).
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then CVM = SUM_(x in k) (E(x)-F(x))^2/(G(x)*(1-G(x))) where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+#' @details The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} {|E(x)-F(x)|^p \over G(x)(1-G(x)) } }{AD = SUM_(x in k) |E(x)-F(x)|^p/(G(x)*(1-G(x)))} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
+#' @seealso [dts_test()] for a more powerful test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -71,14 +77,15 @@ NULL
 
 
 #' Wasserstein Distance Test
-#' A two-sample test based on Wasserstein's distance.
+#' @description A two-sample test based on Wasserstein's distance (`wass_stat`).
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then WASS = Integral |E(x)-F(x)| across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
+#' @details The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{WASS = \int_{x \in R} |E(x)-F(x)|^p}{WASS = Integral |E(x)-F(x)|^p} across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
+#' @seealso [dts_test()] for a more powerful test statistic.
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -87,15 +94,20 @@ NULL
 NULL
 
 
-#' Two Sample Test
+#' DTS Test
 #'
+#' @description A two-sample test based on the DTS test statistic (`dts_stat`). This is the recommended two-sample test in this package because of its power. The DTS statistic is the reweighted integral of the distance between the two ECDFs.
 #' @param a a vector of numbers
 #' @param b a vector of numbers
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power also the power to raise the test stat to
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
-#' @details The DTS test compares two ECDFs by looking at the reweighted Wasserstein distance between the two. If the wass_test extends cvm_test to interval data, then DTS extends ad_test to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then DTS = Integral |E(x)-F(x)|/(G(x)(1-G(x))) across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on AD by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning. This is the same argument as Wasserstein vs AD/CVM/KS. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to WASS, thus (hopefully) giving it extra power.
+#' @details The DTS test compares two ECDFs by looking at the reweighted Wasserstein distance between the two. See the companion paper at [arXiv:2007.01360][https://arxiv.org/abs/2007.01360] or <https://codowd.com/public/DTS.pdf> for details of this test statistic, and non-standard uses of the package (parallel for big N, weighted observations, one sample tests, etc).
+#'
+#' If the [wass_test()] extends [cvm_test()] to interval data, then [dts_test()] extends [ad_test()] to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then \deqn{DTS = \int_{x\in R} {|E(x)-F(x)|^p\over G(x)(1-G(x))}}{DTS = Integral |E(x)-F(x)|^p/(G(x)(1-G(x)))} for all x.
+#' The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on the AD test by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS (and Wasserstein) gain power because they take advantages of the properties of interval data -- i.e. the distances have some meaning. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to Wass, thus (hopefully) giving it extra power.
+#' @seealso [wass_test()], [ad_test()], [cvm_test()] for details on those test statistics. [arXiv:2007.01360](https://arxiv.org/abs/2007.01360) or <https://codowd.com/public/DTS.pdf> for details of this test statistic
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
@@ -108,7 +120,7 @@ NULL
 
 #' Permutation Test Builder
 #'
-#' This function takes a simple two-sample test statistic and produces a function which performs permutation tests using that test stat.
+#' @description This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
 #' @param test_stat_function a function of two vectors producing a positive number, intended as the test-statistic to be used.
 #' @param default.p This allows for some introduction of defaults and parameters. Typically used to control the power functions raise something to.
 #' @return  This function returns a function which will perform permutation tests on given test stat.
@@ -120,4 +132,5 @@ NULL
 #' vec2 = rnorm(20,4)
 #' myfun(vec1,vec2)
 #' @name permutation_test_builder
+#' @seealso [two_sample()]
 NULL
