@@ -1,3 +1,6 @@
+# version 1.1.1
+This update is only fixing up documentation. Fixes a bug that lead to poor formatting, improves formatting of equations, adds graphs for test statistics, adds links between help pages. See v1.1.0 for recent improvements to codebase. 
+
 # version 1.1.0
 This update is primarily fixing a bug which meant that the test stat sorting routine was O(N^2), not O(Nlog(N)). 
 
