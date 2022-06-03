@@ -271,13 +271,10 @@ double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
     if (d[i]<d[i+1]){
       // Absolute Difference between sample CDFs
       height = abs(ecur-fcur);
-      // SD of quantile
-      sd = pow(n*gcur*(1-gcur),0.5);
-      // If we won't divide by 0
-      if (sd > 0) {
-        // update outcome by height to power divided by SD, scaled by dups
-        out += pow(height/sd,power)*dups;
-      }
+      // SD of quantile: properly sqrt(2*gcur*(1-gcur)/n)
+      sd = pow(2*gcur*(1-gcur)/n,0.5);
+      // update outcome by height to power divided by SD, scaled by dups
+      out += pow(height/sd,power)*dups;
       // reset dups counter
       dups = 1.0;
     } else if (d[i] == d[i+1]) {
@@ -396,8 +393,8 @@ double dts_stat(NumericVector a,NumericVector b,double power=1.0) {
     fcur += f[i];
     // Absolute difference in CDFs
     height = abs(ecur-fcur);
-    // SD of joint CDF here
-    sd = pow(n*gcur*(1-gcur),0.5);
+    // SD of joint CDF here: properly sqrt(2*gcur(1-gcur)/n)
+    sd = pow(2*gcur*(1-gcur)/n,0.5);
     // Distance to next observation
     width = d[i+1]-d[i];
     // Update outcome by height/sd to the power times the width
