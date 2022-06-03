@@ -75,12 +75,8 @@ double ks_stat(NumericVector a,NumericVector b, double power=1.0) {
     fcur += f[i];
     // IF the next value is different
     if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // ensuring positivity of distance
-      if (height < 0.0) {
-        height *= -1.0;
-      }
+      // absolute distance between cdfs
+      height = abs(ecur-fcur);
       // If we should update:
       if (height > out) {
         // Updating outcome
@@ -210,12 +206,8 @@ double cvm_stat(NumericVector a,NumericVector b, double power=2.0) {
     fcur += f[i];
     // IF the next value is different
     if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // ensuring positivity of distance
-      if (height < 0.0) {
-        height *= -1.0;
-      }
+      // absolute distance between cdfs
+      height = abs(ecur-fcur);
       // Updating outcome (scaled by number of dups)
       out += pow(height,power)*dups;
       // reset dups counter
@@ -277,12 +269,8 @@ double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
     gcur += 1.0/n;
     // If next value is different
     if (d[i]<d[i+1]){
-      // Difference between sample CDFs
-      height = ecur-fcur;
-      // Absolute value
-      if (height < 0.0) {
-        height *= -1.0;
-      }
+      // Absolute Difference between sample CDFs
+      height = abs(ecur-fcur);
       // SD of quantile
       sd = pow(n*gcur*(1-gcur),0.5);
       // If we won't divide by 0
@@ -349,12 +337,8 @@ double wass_stat(NumericVector a,NumericVector b,double power=1.0) {
     // Height of each cdf at current point
     ecur += e[i];
     fcur += f[i];
-    // Distance between the two
-    height = ecur-fcur;
-    // Taking absolute Value
-    if (height < 0.0) {
-      height *= -1.0;
-    }
+    // Absolute Distance between the two
+    height = abs(ecur-fcur);
     // Width of current step
     width = d[i+1]-d[i];
     // Updating outcome
