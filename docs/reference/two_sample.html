@@ -101,16 +101,16 @@ The test p-value is calculated by randomly resampling two samples of the same si
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">vec1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">4</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">dts_stat</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 39.91374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 43.27199</span>
 <span class="r-in"><span class="fu">dts_test</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  39.91374   0.00025 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  43.27199   0.00025 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"details")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      20      20    2000 </span>
 <span class="r-in"><span class="fu">two_sample</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  39.91374   0.00025 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  43.27199   0.00025 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"details")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      20      20    2000 </span>
@@ -120,7 +120,7 @@ The test p-value is calculated by randomly resampling two samples of the same si
 <span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span><span class="op">]</span>,levels <span class="op">=</span> <span class="va">LETTERS</span>, ordered<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">dts_test</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4.292354  0.484000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4.292354  0.464000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"details")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       5       5    2000 </span>
@@ -131,7 +131,7 @@ The test p-value is calculated by randomly resampling two samples of the same si
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Connor Dowd.</p>
+  <p></p><p>Developed by <a href="http://codowd.com" class="external-link">Connor Dowd</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

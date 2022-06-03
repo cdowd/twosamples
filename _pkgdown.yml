@@ -1,4 +1,6 @@
 url: twosampletest.com
 template:
   bootstrap: 5
-
+authors:
+  Connor Dowd:
+    href: "http://codowd.com"

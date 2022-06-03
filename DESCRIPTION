@@ -14,5 +14,5 @@ Imports: Rcpp (>= 0.12.17)
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-URL: https://twosampletest.com
+URL: https://twosampletest.com, https://github.com/cdowd/twosamples
 BugReports: https://github.com/cdowd/twosamples/issues
