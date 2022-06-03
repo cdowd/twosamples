@@ -22,6 +22,14 @@ You can install the released version of twosamples from
 install.packages("twosamples")
 ```
 
+Or you can install the most recent (possibly unstable) version from
+github:
+
+``` r
+library(remotes)
+install_github("cdowd/twosamples")
+```
+
 ## Example
 
 In this example, we have 100 observations from two different Normal
@@ -33,7 +41,7 @@ vec1 = rnorm(100)
 vec2 = rnorm(100,4)
 two_sample(vec1,vec2)
 #> Test Stat   P-Value 
-#> 0.6239919 0.0002500 
+#>  87.38327   0.00025 
 #> attr(,"details")
 #>      n1      n2 n.boots 
 #>     100     100    2000
@@ -129,7 +137,7 @@ kuiper_stat_R = function(vec1,vec2,power=1) {
 
 The Cramer-Von Mises criterion further extends the intuition of Kuiper
 and KS. It is actually the full sum across every observation X of the
-difference |F(x)-E(x)|. This use of the full joint sample gives it a
+difference \|F(x)-E(x)\|. This use of the full joint sample gives it a
 substantial power gain, particularly against higher moments shifting.
 
 ``` r
@@ -151,11 +159,17 @@ cvm_stat_R = function(vec1,vec2,power=2){
   Ecur = 0
   Fcur = 0
   height = 0
+  dups = 1
   for (i in 1:(n-1)) {
     Ecur = Ecur + e[i]
     Fcur = Fcur + f[i]
     height = abs(Fcur-Ecur)
-    if (d[i] != d[i+1]) out = out + height**power
+    if (d[i] != d[i+1]) {
+      out = out + (height**power)*dups
+      dups = 1
+    } else if (d[i] == d[i+1]) {
+      dups = dups+1
+    }
   }
   out
 }
@@ -167,8 +181,8 @@ Anderson-Darling test starts from the Cramer-Von Mises logic. However,
 they note that some points on the joint ECDF are higher variance than
 others. Because there is more noise in those observations, they should
 recieve a lower weight. More than that, we can even describe the
-‘optimal’ weighting function – it is closely related to the joint ECDF
-- G.
+‘optimal’ weighting function – it is closely related to the joint ECDF -
+G.
 
 ``` r
 ad_stat_R = function(vec1,vec2,power=2){
@@ -190,15 +204,20 @@ ad_stat_R = function(vec1,vec2,power=2){
   Fcur = 0
   Gcur = 0
   height = 0
+  dups = 1
+  
   for (i in 1:(n-1)) {
     Ecur = Ecur + e[i]
     Fcur = Fcur + f[i]
     Gcur = Gcur+1/n
-    sd = (n*Gcur*(1-Gcur))**0.5
+    sd = (2*Gcur*(1-Gcur)/n)**0.5
     height = abs(Fcur-Ecur)
-    if (d[i] != d[i+1]) 
-      if (sd > 0)
-        out = out + (height/sd)**power
+    if (d[i] != d[i+1]) {
+      out = out + ((height/sd)**power)*dups
+      dups = 1
+    } else if (d[i] == d[i+1]) {
+      dups = dups+1
+    }
   }
   out
 }
@@ -248,7 +267,7 @@ wass_stat_R = function(vec1,vec2,power=1) {
 }
 ```
 
-### DTS/two\_sample
+### DTS/two_sample
 
 If the Wasserstein metric improves on CVM by moving it into the realm of
 interval data, then DTS improves on AD by doing the same. Alternately –
@@ -280,11 +299,10 @@ dts_stat_R = function(vec1,vec2,power=1) {
     Ecur = Ecur + e[i]
     Fcur = Fcur + f[i]
     Gcur = Gcur+1/n
-    sd = (n*Gcur*(1-Gcur))**0.5
+    sd = (2*Gcur*(1-Gcur)/n)**0.5
     height = abs(Fcur-Ecur)
     width = d[i+1]-d[i]
-    if (sd > 0)
-      out = out + ((height/sd)**power)*width
+    out = out + ((height/sd)**power)*width
   }
   out
 }
@@ -330,14 +348,15 @@ permutation_test_builder
 order_cpp
 ```
 
-permutation\_test\_builder is a simple function which takes the C++
-coded test statistics and builds permutation tests as outlined above.
-This function is primarily intended for internal use, but if others have
-any interest in it, it is there.
+permutation_test_builder is a simple function which takes the C++ coded
+test statistics and builds permutation tests as outlined above. This
+function is primarily intended for internal use, but if others have any
+interest in it, it is there.
 
-order\_cpp is a simple C++ function which finds the order of a vector.
-It uses bubble sort so it isn’t particularly brilliant. This is the
-primary computational operation involved in each of the test statistics,
-and it is necessary in order to build the ECDFs. Because it is designed
-for internal C++ use, it returns 0 indexed values. Suggestions for
-improving this portion of my algorithm would be appreciated.
+order_stl is a simple C++ function which finds the order of a vector
+using the STL. This is the primary computational operation involved in
+each of the test statistics, and it is necessary in order to build the
+ECDFs. Because it is designed for internal C++ use, it returns 0 indexed
+values, and so is exactly 1 off from the Base R order function.
+Suggestions for improving this portion of my algorithm would be
+appreciated.

@@ -28,6 +28,13 @@ You can install the released version of twosamples from [CRAN](https://CRAN.R-pr
 install.packages("twosamples")
 ```
 
+Or you can install the most recent (possibly unstable) version from github:
+
+```r
+library(remotes)
+install_github("cdowd/twosamples")
+```
+
 ## Example
 
 In this example, we have 100 observations from two different Normal distributions.

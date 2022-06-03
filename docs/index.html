@@ -75,18 +75,22 @@
 <p>You can install the released version of twosamples from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"twosamples"</span><span class="op">)</span></code></pre></div>
+<p>Or you can install the most recent (possibly unstable) version from github:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span>
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"cdowd/twosamples"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>In this example, we have 100 observations from two different Normal distributions.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://twosampletest.com">twosamples</a></span><span class="op">)</span>
 <span class="va">vec1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="reference/two_sample.html">two_sample</a></span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span>
 <span class="co">#&gt; Test Stat   P-Value </span>
-<span class="co">#&gt; 0.6239919 0.0002500 </span>
+<span class="co">#&gt;  87.38327   0.00025 </span>
 <span class="co">#&gt; attr(,"details")</span>
 <span class="co">#&gt;      n1      n2 n.boots </span>
 <span class="co">#&gt;     100     100    2000</span></code></pre></div>
@@ -100,7 +104,7 @@
 <h3 id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov-test"></a>
 </h3>
 <p>The KS test finds the largest difference between the two ECDFs.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ks_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -132,7 +136,7 @@
 <h3 id="kuiper-test">Kuiper Test<a class="anchor" aria-label="anchor" href="#kuiper-test"></a>
 </h3>
 <p>The Kuiper test is much the same as Kolmogorov-Smirnov, but it sums the largest difference in each direction. i.e. it cares about the difference between E(x)-F(x) and F(x)-E(x). In some sense this should be trading some power against mean-shifts for power against variance changes.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">kuiper_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span> 
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -166,7 +170,7 @@
 <h3 id="cramer-von-mises">Cramer-Von Mises<a class="anchor" aria-label="anchor" href="#cramer-von-mises"></a>
 </h3>
 <p>The Cramer-Von Mises criterion further extends the intuition of Kuiper and KS. It is actually the full sum across every observation X of the difference |F(x)-E(x)|. This use of the full joint sample gives it a substantial power gain, particularly against higher moments shifting.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cvm_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">{</span>
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -185,11 +189,17 @@
   <span class="va">Ecur</span> <span class="op">=</span> <span class="fl">0</span>
   <span class="va">Fcur</span> <span class="op">=</span> <span class="fl">0</span>
   <span class="va">height</span> <span class="op">=</span> <span class="fl">0</span>
+  <span class="va">dups</span> <span class="op">=</span> <span class="fl">1</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">Ecur</span> <span class="op">=</span> <span class="va">Ecur</span> <span class="op">+</span> <span class="va">e</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">Fcur</span> <span class="op">=</span> <span class="va">Fcur</span> <span class="op">+</span> <span class="va">f</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">height</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">Fcur</span><span class="op">-</span><span class="va">Ecur</span><span class="op">)</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">!=</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="va">height</span><span class="op">**</span><span class="va">power</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">!=</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="op">(</span><span class="va">height</span><span class="op">**</span><span class="va">power</span><span class="op">)</span><span class="op">*</span><span class="va">dups</span>
+      <span class="va">dups</span> <span class="op">=</span> <span class="fl">1</span>
+    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">==</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">dups</span> <span class="op">=</span> <span class="va">dups</span><span class="op">+</span><span class="fl">1</span>
+    <span class="op">}</span>
   <span class="op">}</span>
   <span class="va">out</span>
 <span class="op">}</span></code></pre></div>
@@ -198,7 +208,7 @@
 <h3 id="anderson-darling">Anderson-Darling<a class="anchor" aria-label="anchor" href="#anderson-darling"></a>
 </h3>
 <p>Anderson-Darling test starts from the Cramer-Von Mises logic. However, they note that some points on the joint ECDF are higher variance than others. Because there is more noise in those observations, they should recieve a lower weight. More than that, we can even describe the ‘optimal’ weighting function – it is closely related to the joint ECDF - G.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ad_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">{</span>
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -218,15 +228,20 @@
   <span class="va">Fcur</span> <span class="op">=</span> <span class="fl">0</span>
   <span class="va">Gcur</span> <span class="op">=</span> <span class="fl">0</span>
   <span class="va">height</span> <span class="op">=</span> <span class="fl">0</span>
+  <span class="va">dups</span> <span class="op">=</span> <span class="fl">1</span>
+  
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">Ecur</span> <span class="op">=</span> <span class="va">Ecur</span> <span class="op">+</span> <span class="va">e</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">Fcur</span> <span class="op">=</span> <span class="va">Fcur</span> <span class="op">+</span> <span class="va">f</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">Gcur</span> <span class="op">=</span> <span class="va">Gcur</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="va">n</span>
-    <span class="va">sd</span> <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">Gcur</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">Gcur</span><span class="op">)</span><span class="op">)</span><span class="op">**</span><span class="fl">0.5</span>
+    <span class="va">sd</span> <span class="op">=</span> <span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">Gcur</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">Gcur</span><span class="op">)</span><span class="op">/</span><span class="va">n</span><span class="op">)</span><span class="op">**</span><span class="fl">0.5</span>
     <span class="va">height</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">Fcur</span><span class="op">-</span><span class="va">Ecur</span><span class="op">)</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">!=</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> 
-      <span class="kw">if</span> <span class="op">(</span><span class="va">sd</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>
-        <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="op">(</span><span class="va">height</span><span class="op">/</span><span class="va">sd</span><span class="op">)</span><span class="op">**</span><span class="va">power</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">!=</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="op">(</span><span class="op">(</span><span class="va">height</span><span class="op">/</span><span class="va">sd</span><span class="op">)</span><span class="op">**</span><span class="va">power</span><span class="op">)</span><span class="op">*</span><span class="va">dups</span>
+      <span class="va">dups</span> <span class="op">=</span> <span class="fl">1</span>
+    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">==</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">dups</span> <span class="op">=</span> <span class="va">dups</span><span class="op">+</span><span class="fl">1</span>
+    <span class="op">}</span>
   <span class="op">}</span>
   <span class="va">out</span>
 <span class="op">}</span></code></pre></div>
@@ -235,7 +250,7 @@
 <h3 id="wasserstein">Wasserstein<a class="anchor" aria-label="anchor" href="#wasserstein"></a>
 </h3>
 <p>The Wasserstein distance is not normally a two-sample distance, but the extension is very simple. In terms of the ECDFs it can actually be described as the area between the ECDFs. Intuitively, the improvement this offers over CVM is that it allows more extreme values to change our conclusions. That is to say – KS, Kuiper, CVM, and AD have all operated on ordinal variables, with no sense of the distance between different rank order observations. Wasserstein (and below DTS) will require interval data. By utilizing the extra information encoded when information is from interval data, Wasserstein and DTS will improve on CVM and AD.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wass_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -269,7 +284,7 @@
 <h3 id="dtstwo_sample">DTS/two_sample<a class="anchor" aria-label="anchor" href="#dtstwo_sample"></a>
 </h3>
 <p>If the Wasserstein metric improves on CVM by moving it into the realm of interval data, then DTS improves on AD by doing the same. Alternately – DTS offers the same improvement over Wasserstein that AD offers over CVM.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dts_stat_R</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span>,<span class="va">power</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span>
   <span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span>
@@ -294,11 +309,10 @@
     <span class="va">Ecur</span> <span class="op">=</span> <span class="va">Ecur</span> <span class="op">+</span> <span class="va">e</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">Fcur</span> <span class="op">=</span> <span class="va">Fcur</span> <span class="op">+</span> <span class="va">f</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
     <span class="va">Gcur</span> <span class="op">=</span> <span class="va">Gcur</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="va">n</span>
-    <span class="va">sd</span> <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">Gcur</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">Gcur</span><span class="op">)</span><span class="op">)</span><span class="op">**</span><span class="fl">0.5</span>
+    <span class="va">sd</span> <span class="op">=</span> <span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">Gcur</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">Gcur</span><span class="op">)</span><span class="op">/</span><span class="va">n</span><span class="op">)</span><span class="op">**</span><span class="fl">0.5</span>
     <span class="va">height</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">Fcur</span><span class="op">-</span><span class="va">Ecur</span><span class="op">)</span>
     <span class="va">width</span> <span class="op">=</span> <span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="va">d</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="va">sd</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>
-      <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="op">(</span><span class="op">(</span><span class="va">height</span><span class="op">/</span><span class="va">sd</span><span class="op">)</span><span class="op">**</span><span class="va">power</span><span class="op">)</span><span class="op">*</span><span class="va">width</span>
+    <span class="va">out</span> <span class="op">=</span> <span class="va">out</span> <span class="op">+</span> <span class="op">(</span><span class="op">(</span><span class="va">height</span><span class="op">/</span><span class="va">sd</span><span class="op">)</span><span class="op">**</span><span class="va">power</span><span class="op">)</span><span class="op">*</span><span class="va">width</span>
   <span class="op">}</span>
   <span class="va">out</span>
 <span class="op">}</span></code></pre></div>
@@ -317,11 +331,11 @@
 <h2 id="internals">Internals<a class="anchor" aria-label="anchor" href="#internals"></a>
 </h2>
 <p>There are two other functions made available by this package.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">permutation_test_builder</span>
 <span class="va">order_cpp</span></code></pre></div>
 <p>permutation_test_builder is a simple function which takes the C++ coded test statistics and builds permutation tests as outlined above. This function is primarily intended for internal use, but if others have any interest in it, it is there.</p>
-<p>order_cpp is a simple C++ function which finds the order of a vector. It uses bubble sort so it isn’t particularly brilliant. This is the primary computational operation involved in each of the test statistics, and it is necessary in order to build the ECDFs. Because it is designed for internal C++ use, it returns 0 indexed values. Suggestions for improving this portion of my algorithm would be appreciated.</p>
+<p>order_stl is a simple C++ function which finds the order of a vector using the STL. This is the primary computational operation involved in each of the test statistics, and it is necessary in order to build the ECDFs. Because it is designed for internal C++ use, it returns 0 indexed values, and so is exactly 1 off from the Base R order function. Suggestions for improving this portion of my algorithm would be appreciated.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
