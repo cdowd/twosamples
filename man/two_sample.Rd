@@ -14,7 +14,7 @@ dts_test(a, b, nboots = 2000, p = default.p)
 two_sample(a, b, nboots = 2000, p = default.p)
 }
 \arguments{
-\item{a}{a vector of numbers}
+\item{a}{a vector of numbers (or factors -- see details)}
 
 \item{b}{a vector of numbers}
 
@@ -37,6 +37,8 @@ If the \code{\link[=wass_test]{wass_test()}} extends \code{\link[=cvm_test]{cvm_
 The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on the AD test by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS (and Wasserstein) gain power because they take advantages of the properties of interval data -- i.e. the distances have some meaning. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to Wass, thus (hopefully) giving it extra power.
 
 In the example plot below, the DTS statistic is the shaded area between the ECDFs, weighted by the variances -- shown by the color of the shading. \figure{dts.png}{Example Wasserstein stat plot}
+
+Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) factors, so long as both have the same levels and orderings. When possible, ordering factors will substantially increase power. The dts test will assume the distance between adjacent factors is 1.
 }
 \section{Functions}{
 \itemize{
@@ -53,6 +55,11 @@ vec2 = rnorm(20,4)
 dts_stat(vec1,vec2)
 dts_test(vec1,vec2)
 two_sample(vec1,vec2)
+
+# Example using ordered factors
+vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
+vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+dts_test(vec1,vec2)
 }
 \seealso{
 \code{\link[=wass_test]{wass_test()}}, \code{\link[=ad_test]{ad_test()}} for the predecessors of this test statistic. \href{https://arxiv.org/abs/2007.01360}{arXiv:2007.01360} or \url{https://codowd.com/public/DTS.pdf} for details of this test statistic

@@ -11,7 +11,7 @@ cvm_stat(a, b, power = 2)
 cvm_test(a, b, nboots = 2000, p = default.p)
 }
 \arguments{
-\item{a}{a vector of numbers}
+\item{a}{a vector of numbers (or factors -- see details)}
 
 \item{b}{a vector of numbers}
 
@@ -31,6 +31,8 @@ A two-sample test based on the Cramer-Von Mises test statistic (\code{cvm_stat})
 The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{CVM = \sum_{x\in k}|E(x)-F(x)|^p}{CVM = SUM_(x in k) |E(x)-F(x)|^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
 
 In the example plot below, the CVM statistic is the sum of the heights of the vertical black lines. \figure{cvm.png}{Example CVM stat plot}
+
+Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) factors, so long as both have the same levels and orderings. When possible, ordering factors will substantially increase power.
 }
 \section{Functions}{
 \itemize{
@@ -42,6 +44,11 @@ In the example plot below, the CVM statistic is the sum of the heights of the ve
 \examples{
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
+cvm_test(vec1,vec2)
+
+# Example using ordered factors
+vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
+vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
 cvm_test(vec1,vec2)
 }
 \seealso{

@@ -3,12 +3,14 @@
 
 #' Order function in C++ using the STL
 #'
-#' Simply finds the order of a vector in c++. Mostly for internals.
+#' Simply finds the order of a vector in c++. Purely for internal use, exposed to user because no reason not to.
+#' order_stl(x)+1 should equal base R order(x).
 #' @param x numeric vector
 #' @return same length vector of integers representing order of input vector
 #' @examples
 #' vec = c(1,4,3,2)
 #' order_stl(vec)
+#' order(vec)-1
 #' @export
 order_stl <- function(x) {
     .Call(`_twosamples_order_stl`, x)
