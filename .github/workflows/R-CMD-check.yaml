@@ -3,8 +3,23 @@
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+      - 'docs/*'
+      - 'README*'
+      - 'twosamples.Rproj'
+      - 'NOTES'
+      - '*.yml'
+      - '.github/*'
   pull_request:
     branches: [main, master]
+    paths-ignore:
+      - 'docs/*'
+      - 'README*'
+      - 'twosamples.Rproj'
+      - 'NOTES'
+      - '*.yml'
+      - '.github/*'
+  
 
 name: R-CMD-check
 
