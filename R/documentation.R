@@ -26,8 +26,8 @@ NULL
 #' ks_test(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' ks_test(vec1,vec2)
 #' @name ks_test
 NULL
@@ -55,8 +55,8 @@ NULL
 #' kuiper_test(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' kuiper_test(vec1,vec2)
 #' @name kuiper_test
 NULL
@@ -84,8 +84,8 @@ NULL
 #' cvm_test(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' cvm_test(vec1,vec2)
 #' @name cvm_test
 NULL
@@ -117,8 +117,8 @@ NULL
 #' ad_test(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' ad_test(vec1,vec2)
 #' @name ad_test
 NULL
@@ -146,8 +146,8 @@ NULL
 #' wass_test(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' wass_test(vec1,vec2)
 #' @name wass_test
 NULL
@@ -164,7 +164,7 @@ NULL
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The DTS test compares two ECDFs by looking at the reweighted Wasserstein distance between the two. See the companion paper at [arXiv:2007.01360](https://arxiv.org/abs/2007.01360) or <https://codowd.com/public/DTS.pdf> for details of this test statistic, and non-standard uses of the package (parallel for big N, weighted observations, one sample tests, etc).
 #'
-#' If the [wass_test()] extends [cvm_test()] to interval data, then [dts_test()] extends [ad_test()] to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then \deqn{DTS = \int_{x\in R} \left({|E(x)-F(x)| \over \sqrt{2G(x)(1-G(x))/n}\right)^p}{DTS =  Integral (|E(x)-F(x)|/sqrt(2G(x)(1-G(x))/n))^p} for all x.
+#' If the [wass_test()] extends [cvm_test()] to interval data, then [dts_test()] extends [ad_test()] to interval data. Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the combined sample, then \deqn{DTS = \int_{x\in R} \left({|E(x)-F(x)| \over \sqrt{2G(x)(1-G(x))/n}}\right)^p}{DTS =  Integral (|E(x)-F(x)|/sqrt(2G(x)(1-G(x))/n))^p} for all x.
 #' The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the DTS test improves on the AD test by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. DTS (and Wasserstein) gain power because they take advantages of the properties of interval data -- i.e. the distances have some meaning. However, DTS, like Anderson-Darling (AD) also downweights noisier observations relative to Wass, thus (hopefully) giving it extra power.
 #'
 #' In the example plot below, the DTS statistic is the shaded area between the ECDFs, weighted by the variances -- shown by the color of the shading.
@@ -181,8 +181,8 @@ NULL
 #' two_sample(vec1,vec2)
 #'
 #' # Example using ordered factors
-#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+#' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+#' vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 #' dts_test(vec1,vec2)
 #' @name two_sample
 NULL
