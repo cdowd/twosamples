@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>twosampletest.com/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>twosampletest.com/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>twosampletest.com/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>twosampletest.com/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/ad_test.html</loc>
+    <loc>twosampletest.com/reference/ad_test.html</loc>
   </url>
   <url>
-    <loc>/reference/cvm_test.html</loc>
+    <loc>twosampletest.com/reference/cvm_test.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>twosampletest.com/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/ks_test.html</loc>
+    <loc>twosampletest.com/reference/ks_test.html</loc>
   </url>
   <url>
-    <loc>/reference/kuiper_test.html</loc>
+    <loc>twosampletest.com/reference/kuiper_test.html</loc>
   </url>
   <url>
-    <loc>/reference/order_stl.html</loc>
+    <loc>twosampletest.com/reference/order_stl.html</loc>
   </url>
   <url>
-    <loc>/reference/permutation_test_builder.html</loc>
+    <loc>twosampletest.com/reference/permutation_test_builder.html</loc>
   </url>
   <url>
-    <loc>/reference/two_sample.html</loc>
+    <loc>twosampletest.com/reference/two_sample.html</loc>
   </url>
   <url>
-    <loc>/reference/wass_test.html</loc>
+    <loc>twosampletest.com/reference/wass_test.html</loc>
   </url>
 </urlset>
