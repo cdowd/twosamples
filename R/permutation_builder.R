@@ -4,7 +4,7 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
   #Takes a function which builds test statistics -- gives a function which returns a permutation based p-value.
   #Function input spec: must take two different vectors. Must take 3rd argument -- though it need not use it.
   fun = function(a,b,nboots=2000,p=default.p){
-    t = test_stat_function(a,b,p)			#Finds test stat
+    test_stat = test_stat_function(a,b,p)			#Finds test stat
     na = length(a)										#Finds length of A
     nb = length(b)
     n = nb+na 									#Finds total length
@@ -15,10 +15,10 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
       e = sample.int(n,na,T)
       f = sample.int(n,nb,T)#Samples indexes
       boot_t = test_stat_function(comb[e],comb[f],p) #boot strap test stat
-      if(boot_t >= t) bigger = 1L+bigger #if new stat is bigger, increment
+      if(boot_t >= test_stat) bigger = 1L+bigger #if new stat is bigger, increment
       reps = 1L+reps
     }
-    out = c(t,bigger/nboots)
+    out = c(test_stat,bigger/nboots)
     if (out[2]==0) out[2] = 1/(2*nboots)
     details = c(na,n-na,nboots)
     names(details) = c("n1","n2","n.boots")
