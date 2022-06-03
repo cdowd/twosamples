@@ -30,7 +30,9 @@ A two-sample test using the Kolmogorov-Smirnov test statistic (\code{ks_stat}).
 \details{
 The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 
-In the example plot below, the KS statistic is the height of the vertical black line. \figure{ks.png}{Example KS stat plot}
+In the example plot below, the KS statistic is the height of the vertical black line.
+
+\figure{ks.png}{Example KS stat plot}
 
 Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) factors, so long as both have the same levels and orderings. When possible, ordering factors will substantially increase power.
 }
@@ -47,8 +49,8 @@ vec2 = rnorm(20,4)
 ks_test(vec1,vec2)
 
 # Example using ordered factors
-vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = T)
-vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=T)
+vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
+vec2 = factor(LETTERS[c(1,2,2,2,4)],levels = LETTERS, ordered=TRUE)
 ks_test(vec1,vec2)
 }
 \seealso{
