@@ -4,11 +4,13 @@ using namespace Rcpp;
 //' Order function in C++ using the STL
 //'
 //' Simply finds the order of a vector in c++. Mostly for internals.
+//' order_stl(x)+1 should equal base R order(x).
 //' @param x numeric vector
 //' @return same length vector of integers representing order of input vector
 //' @examples
 //' vec = c(1,4,3,2)
 //' order_stl(vec)
+//' order(vec)-1
 //' @export
 // [[Rcpp::export]]
 IntegerVector order_stl(NumericVector x) {
