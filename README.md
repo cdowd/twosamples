@@ -1,12 +1,12 @@
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# twosamples
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# twosamples
 
 The goal of twosamples is to allow easy two-sample testing using
 permutations. This package offers quick (O(n^2) worst) and memory light
@@ -46,7 +46,7 @@ vec1 = rnorm(100)
 vec2 = rnorm(100,4)
 two_sample(vec1,vec2)
 #> Test Stat   P-Value 
-#>  94.56363   0.00025 
+#>  92.68541   0.00025 
 #> attr(,"details")
 #>      n1      n2 n.boots 
 #>     100     100    2000

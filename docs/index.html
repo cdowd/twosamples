@@ -67,6 +67,8 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="twosamples">twosamples<a class="anchor" aria-label="anchor" href="#twosamples"></a>
 </h1></div>
+<!-- badges: start -->
+
 <p>The goal of twosamples is to allow easy two-sample testing using permutations. This package offers quick (O(n^2) worst) and memory light (O(n)) code for a number of standard distance metrics between two samples. Using permutations of observed samples to calculate null distributions for those metrics, this package also provides assumption free p-values for the samples coming from the same distribution.</p>
 <p>Details about the DTS statistic’s calculation, and performance can be found <a href="https://arxiv.org/abs/2007.01360" class="external-link">here.</a></p>
 <div class="section level2">
@@ -90,7 +92,7 @@
 <span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="reference/two_sample.html">two_sample</a></span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span>
 <span class="co">#&gt; Test Stat   P-Value </span>
-<span class="co">#&gt;  87.38327   0.00025 </span>
+<span class="co">#&gt;  92.68541   0.00025 </span>
 <span class="co">#&gt; attr(,"details")</span>
 <span class="co">#&gt;      n1      n2 n.boots </span>
 <span class="co">#&gt;     100     100    2000</span></code></pre></div>
@@ -370,7 +372,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

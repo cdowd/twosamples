@@ -17,3 +17,4 @@ export(wass_stat)
 export(wass_test)
 importFrom(Rcpp,sourceCpp)
 useDynLib(twosamples, .registration = TRUE)
+
