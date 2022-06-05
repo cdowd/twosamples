@@ -46,7 +46,7 @@ vec1 = rnorm(100)
 vec2 = rnorm(100,4)
 two_sample(vec1,vec2)
 #> Test Stat   P-Value 
-#>  96.70439   0.00025 
+#>  87.60986   0.00025 
 #> attr(,"details")
 #>      n1      n2 n.boots 
 #>     100     100    2000
@@ -185,7 +185,7 @@ cvm_stat_R = function(vec1,vec2,power=2){
 Anderson-Darling test starts from the Cramer-Von Mises logic. However,
 they note that some points on the joint ECDF are higher variance than
 others. Because there is more noise in those observations, they should
-recieve a lower weight. More than that, we can even describe the
+receive a lower weight. More than that, we can even describe the
 ‘optimal’ weighting function – it is closely related to the joint ECDF -
 G.
 

@@ -15,7 +15,7 @@
 6. rebuild docs, build site.
 7. devtools::check_rhub()
 8. update cran-comments.md
-9. Submit (devtools::)
+9. Submit (devtools::release())
 
 
 

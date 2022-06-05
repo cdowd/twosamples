@@ -19,7 +19,7 @@ I expect this update to be purely cosmetic for the vast majority of users.
 
 - Website using pkgdown now exists at https://twosampletest.com
 - link to website in description
-- Fixed an error in the documention describing `ad_stat` and `dts_stat` -- in which a square root term was dropped
+- Fixed an error in the documentation describing `ad_stat` and `dts_stat` -- in which a square root term was dropped
 - updated discussion of order_stl
 - added some notes about ability to use factors (ordered or not)
 

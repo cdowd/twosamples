@@ -164,7 +164,7 @@ cvm_stat_R = function(vec1,vec2,power=2){
 ```
 
 ### Anderson-Darling
-Anderson-Darling test starts from the Cramer-Von Mises logic. However, they note that some points on the joint ECDF are higher variance than others. Because there is more noise in those observations, they should recieve a lower weight. More than that, we can even describe the 'optimal' weighting function -- it is closely related to the joint ECDF - G.
+Anderson-Darling test starts from the Cramer-Von Mises logic. However, they note that some points on the joint ECDF are higher variance than others. Because there is more noise in those observations, they should receive a lower weight. More than that, we can even describe the 'optimal' weighting function -- it is closely related to the joint ECDF - G.
 
 ```{r ad, eval=F} 
 ad_stat_R = function(vec1,vec2,power=2){
