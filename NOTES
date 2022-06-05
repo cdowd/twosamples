@@ -3,22 +3,29 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 # Release steps
-1. make changes
-2. check r-cmd-check passes on github/website
-3. check reverse dependencies (revdepcheck::revdep_check())
-  - may need to edit ~/.R/MAKEVARS to get FRESA.CAD to install.
-    - FC = usr/local/opt/gcc/bin/gfortran
-      F77 = /usr/local/opt/gcc/bin/gfortran
-      FLIBS = -L/usr/local/opt/gcc/lib
-4. update news
-5. bump version number
-6. rebuild docs, build site.
-7. devtools::check_rhub()
-8. devtools::check_win_devel()
-8. update cran-comments.md
-9. Submit (devtools::release())
+1.  make changes
+2.  check r-cmd-check passes on github/website
+3.  check reverse dependencies (revdepcheck::revdep_check())
+     - may need to edit ~/.R/MAKEVARS to get FRESA.CAD to install.
+       - FC = usr/local/opt/gcc/bin/gfortran
+         F77 = /usr/local/opt/gcc/bin/gfortran
+         FLIBS = -L/usr/local/opt/gcc/lib
+4.  update news
+5.  bump version number
+6.  rebuild docs, build site. (re-knit README.Rmd)
+7.  devtools::spell_check()
+8.  devtools::check_rhub()
+9.  devtools::check_win_devel()
+10. update cran-comments.md
+11. Submit (devtools::release())
 
-
+# Packages used for release/updates
+- devtools
+- revdepcheck
+- usethis
+- pkgdown
+- rhub
+- spellcheck
 
 Future:
 Multiple Dimensions (Sampling Routine)
