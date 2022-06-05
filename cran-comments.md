@@ -1,13 +1,23 @@
 ## Test environments
-* local Debian install, R 3.6.2
-* ubuntu 16.04 (on travis-ci), R 4.0.0
-* Rhub: Debian Devel, Fedora Devel, Ubuntu release, Windows Devel
+* local macOS (ARM) install, R 4.1.2
+* github actions: macOS-latest (r-release), windows-latest (r-release), ubuntu-latest (r-devel), ubuntu-latest (r-release), ubuntu-latest (r-oldrel-1)
+* Rhub: Windows Server (r-devel), Ubuntu LTS (r-release), Fedora (r-devel), debian (r-devel)
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.
 
-There was one Note: Possibly mispelled word "DTS" in DESCRIPTION. 
-- This is the name of one of the test statistics. 
+There were two NOTES: 
+1. Maintainer change 
+  - No real change, I am updating my email now that my association with Uchicago has ended, and while I can still use the old email.
+2. Only on Windows Server (R-devel): "checking for detritus in temp directory", "found the following files -- 'lastMikTeXException"
+  - I have no idea what this is about. It was only an issue on one of 10 testing platforms. I have no ability to test further to diagnose it. It is likely related to the LaTeX in the documents, but without further visibility I'm unable to fix it. 
 
-## Downstream dependencies
-There are no downstream dependencies listed on CRAN.
+
+## Downstream dependencies: revdepcheck results
+
+I checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * I saw 0 new problems
+ * I failed to check 0 packages
+
+

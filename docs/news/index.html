@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">twosamples</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,36 @@
       <small>Source: <a href="https://github.com/cdowd/twosamples/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="version-120">version 1.2.0<a class="anchor" aria-label="anchor" href="#version-120"></a></h2>
+<p>This version is primarily bug fixes and documentation updates. <strong>These bug fixes may affect outputs users see</strong>.</p>
+<div class="section level5">
+<h5 id="summary-1-2-0">Summary<a class="anchor" aria-label="anchor" href="#summary-1-2-0"></a></h5>
+<p>I expect this update to be purely cosmetic for the vast majority of users. - For a few users of <code>ad_test</code> or <code>cvm_test</code> it is possible that re-running code will make significant differences to conclusions. - For the rare users of <code>ad_test</code> or <code>dts_test</code> (aka <code>two_sample</code>) who relied on the scale of the test stat (rather than merely the p-value), this update will change outputs substantially. In principal this change is merely re-scaling everything by <span class="math inline">(<em>n</em><sup><em>p</em></sup>)/(2<sup><em>p</em>/2</sup>)</span>.</p>
+</div>
+<div class="section level5">
+<h5 id="main-code-changes-1-2-0">Main code changes:<a class="anchor" aria-label="anchor" href="#main-code-changes-1-2-0"></a></h5>
+<ul><li>Fixed a major bug in how <code>ad_stat</code> and <code>cvm_stat</code> treated duplicates. This bug lead to excessive power in some situations. Re-running code, p-values and test stats may change.</li>
+<li>Fixed a minor bug in how <code>ad_stat</code> and <code>dts_stat</code> calculated standard deviations. Re-running code this will change the scale/location of the test stat, but should not affect p-values.</li>
+<li>Some minor performance improvements: e.g. eliminated some unnecessary comparisons <code>if (sd &gt;0)</code>.</li>
+<li>renamed a functions internal variables to prevent an unlikely namespace conflict.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="some-documentation-changes-1-2-0">Some documentation changes:<a class="anchor" aria-label="anchor" href="#some-documentation-changes-1-2-0"></a></h5>
+<ul><li>Website using pkgdown now exists at <a href="https://twosampletest.com" class="uri">https://twosampletest.com</a>
+</li>
+<li>link to website in description</li>
+<li>Fixed an error in the documention describing <code>ad_stat</code> and <code>dts_stat</code> – in which a square root term was dropped</li>
+<li>updated discussion of order_stl</li>
+<li>added some notes about ability to use factors (ordered or not)</li>
+</ul></div>
+<div class="section level5">
+<h5 id="some-development-oriented-changes-1-2-0">Some development oriented changes:<a class="anchor" aria-label="anchor" href="#some-development-oriented-changes-1-2-0"></a></h5>
+<ul><li>added some automated testing of the basic functions</li>
+<li>added reverse dependency testing</li>
+<li>added automated R-CMD-CHECK for each github commit</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="version-111">version 1.1.1<a class="anchor" aria-label="anchor" href="#version-111"></a></h2><p class="text-muted">CRAN release: 2020-07-19</p>
 <p>This update is only fixing up documentation. Fixes a bug that lead to poor formatting, improves formatting of equations, adds graphs for test statistics, adds links between help pages. See v1.1.0 for recent improvements to codebase.</p>
