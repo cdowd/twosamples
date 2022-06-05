@@ -75,8 +75,12 @@ double ks_stat(NumericVector a,NumericVector b, double power=1.0) {
     fcur += f[i];
     // IF the next value is different
     if (d[i]<d[i+1]){
-      // absolute distance between cdfs
-      height = abs(ecur-fcur);
+      // distance between cdfs
+      height = ecur-fcur;
+      // simple absolute value of distance
+      if (height < 0.0) {
+        height *= -1.0;
+      }
       // If we should update:
       if (height > out) {
         // Updating outcome
@@ -206,8 +210,12 @@ double cvm_stat(NumericVector a,NumericVector b, double power=2.0) {
     fcur += f[i];
     // IF the next value is different
     if (d[i]<d[i+1]){
-      // absolute distance between cdfs
-      height = abs(ecur-fcur);
+      // distance between cdfs
+      height = ecur-fcur;
+      // simple absolute value of distance
+      if (height < 0.0) {
+        height *= -1.0;
+      }
       // Updating outcome (scaled by number of dups)
       out += pow(height,power)*dups;
       // reset dups counter
@@ -269,8 +277,12 @@ double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
     gcur += 1.0/n;
     // If next value is different
     if (d[i]<d[i+1]){
-      // Absolute Difference between sample CDFs
-      height = abs(ecur-fcur);
+      // distance between cdfs
+      height = ecur-fcur;
+      // simple absolute value of distance
+      if (height < 0.0) {
+        height *= -1.0;
+      }
       // SD of quantile: properly sqrt(2*gcur*(1-gcur)/n)
       sd = pow(2*gcur*(1-gcur)/n,0.5);
       // update outcome by height to power divided by SD, scaled by dups
@@ -334,8 +346,12 @@ double wass_stat(NumericVector a,NumericVector b,double power=1.0) {
     // Height of each cdf at current point
     ecur += e[i];
     fcur += f[i];
-    // Absolute Distance between the two
-    height = abs(ecur-fcur);
+    // distance between cdfs
+    height = ecur-fcur;
+    // simple absolute value of distance
+    if (height < 0.0) {
+      height *= -1.0;
+    }
     // Width of current step
     width = d[i+1]-d[i];
     // Updating outcome
@@ -391,8 +407,12 @@ double dts_stat(NumericVector a,NumericVector b,double power=1.0) {
     gcur += 1/n;
     ecur += e[i];
     fcur += f[i];
-    // Absolute difference in CDFs
-    height = abs(ecur-fcur);
+    // distance between cdfs
+    height = ecur-fcur;
+    // simple absolute value of distance
+    if (height < 0.0) {
+      height *= -1.0;
+    }
     // SD of joint CDF here: properly sqrt(2*gcur(1-gcur)/n)
     sd = pow(2*gcur*(1-gcur)/n,0.5);
     // Distance to next observation

@@ -1,3 +1,34 @@
+# version 1.2.0
+This version is primarily bug fixes and documentation updates. **These bug fixes may affect outputs users see**. 
+
+#### Summary
+
+I expect this update to be purely cosmetic for the vast majority of users.
+- For a few users of `ad_test` or `cvm_test` it is possible that re-running code will make significant differences to conclusions. 
+- For the rare users of `ad_test` or `dts_test` (aka `two_sample`) who relied on the scale of the test stat (rather than merely the p-value), this update will change outputs substantially. In principal this change is merely re-scaling everything by $(n^p)/(2^{p/2})$. 
+
+
+#### Main code changes:
+
+- Fixed a major bug in how `ad_stat` and `cvm_stat` treated duplicates. This bug lead to excessive power in some situations. Re-running code, p-values and test stats may change.
+- Fixed a minor bug in how `ad_stat` and `dts_stat` calculated standard deviations. Re-running code this will change the scale/location of the test stat, but should not affect p-values. 
+- Some minor performance improvements: e.g. eliminated some unnecessary comparisons `if (sd >0)`. 
+- renamed a functions internal variables to prevent an unlikely namespace conflict. 
+
+#### Some documentation changes: 
+
+- Website using pkgdown now exists at https://twosampletest.com
+- link to website in description
+- Fixed an error in the documention describing `ad_stat` and `dts_stat` -- in which a square root term was dropped
+- updated discussion of order_stl
+- added some notes about ability to use factors (ordered or not)
+
+#### Some development oriented changes:
+- added some automated testing of the basic functions
+- added reverse dependency testing
+- added automated R-CMD-CHECK for each github commit
+
+
 # version 1.1.1
 This update is only fixing up documentation. Fixes a bug that lead to poor formatting, improves formatting of equations, adds graphs for test statistics, adds links between help pages. See v1.1.0 for recent improvements to codebase. 
 

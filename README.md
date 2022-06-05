@@ -46,7 +46,7 @@ vec1 = rnorm(100)
 vec2 = rnorm(100,4)
 two_sample(vec1,vec2)
 #> Test Stat   P-Value 
-#>  92.68541   0.00025 
+#>  96.70439   0.00025 
 #> attr(,"details")
 #>      n1      n2 n.boots 
 #>     100     100    2000
