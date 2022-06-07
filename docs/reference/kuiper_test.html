@@ -97,7 +97,7 @@
 <span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">4</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">kuiper_test</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.00000   0.00025 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.95000   0.00025 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"details")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      20      20    2000 </span>
@@ -107,7 +107,7 @@
 <span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span><span class="op">]</span>,levels <span class="op">=</span> <span class="va">LETTERS</span>, ordered<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">kuiper_test</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     0.400     0.565 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0.4000    0.5605 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"details")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       5       5    2000 </span>
