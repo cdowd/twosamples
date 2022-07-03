@@ -5,7 +5,7 @@
 \alias{cvm_stat}
 \title{Cramer-von Mises Test}
 \usage{
-cvm_test(a, b, nboots = 2000, p = default.p)
+cvm_test(a, b, nboots = 2000, p = default.p, keep.boots = T, keep.samples = F)
 
 cvm_stat(a, b, power = def_power)
 }
@@ -17,6 +17,10 @@ cvm_stat(a, b, power = def_power)
 \item{nboots}{Number of bootstrap iterations}
 
 \item{p}{power to raise test stat to}
+
+\item{keep.boots}{Should the bootstrap values be saved in the output?}
+
+\item{keep.samples}{Should the samples be saved in the output?}
 
 \item{power}{power to raise test stat to}
 }
@@ -45,7 +49,10 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 \examples{
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
-cvm_test(vec1,vec2)
+out = cvm_test(vec1,vec2)
+out
+summary(out)
+plot(out)
 
 # Example using ordered factors
 vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)

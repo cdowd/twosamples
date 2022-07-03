@@ -6,9 +6,16 @@
 \alias{dts_stat}
 \title{DTS Test}
 \usage{
-dts_test(a, b, nboots = 2000, p = default.p)
+dts_test(a, b, nboots = 2000, p = default.p, keep.boots = T, keep.samples = F)
 
-two_sample(a, b, nboots = 2000, p = default.p)
+two_sample(
+  a,
+  b,
+  nboots = 2000,
+  p = default.p,
+  keep.boots = T,
+  keep.samples = F
+)
 
 dts_stat(a, b, power = def_power)
 }
@@ -20,6 +27,10 @@ dts_stat(a, b, power = def_power)
 \item{nboots}{Number of bootstrap iterations}
 
 \item{p}{power to raise test stat to}
+
+\item{keep.boots}{Should the bootstrap values be saved in the output?}
+
+\item{keep.samples}{Should the samples be saved in the output?}
 
 \item{power}{also the power to raise the test stat to}
 }
@@ -54,7 +65,10 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
 dts_stat(vec1,vec2)
-dts_test(vec1,vec2)
+out = dts_test(vec1,vec2)
+out
+summary(out)
+plot(out)
 two_sample(vec1,vec2)
 
 # Example using ordered factors
