@@ -7,11 +7,11 @@
 permutation_test_builder = function(test_stat_function,default.p=2.0) {
   #Takes a function which builds test statistics -- gives a function which returns a permutation based p-value.
   #Function input spec: must take two different vectors. Must take 3rd argument -- though it need not use it.
-  fun = function(veca,vecb,nboots=2000,p=default.p){
-    na = length(veca)
-    nb = length(vecb)
+  fun = function(a,b,nboots=2000,p=default.p){
+    na = length(a)
+    nb = length(b)
     n  = na+nb
-    comb = c(veca,vecb)
+    comb = c(a,b)
     vec_labels = c(rep(T,na),rep(F,nb))
     ord_inds = order(comb)
     comb = comb[ord_inds]

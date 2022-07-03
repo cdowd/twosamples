@@ -5,18 +5,18 @@
 \alias{cvm_stat}
 \title{Cramer-von Mises Test}
 \usage{
-cvm_test(veca, vecb, nboots = 2000, p = default.p)
+cvm_test(a, b, nboots = 2000, p = default.p)
 
 cvm_stat(a, b, power = def_power)
 }
 \arguments{
-\item{nboots}{Number of bootstrap iterations}
-
-\item{p}{power to raise test stat to}
-
 \item{a}{a vector of numbers (or factors -- see details)}
 
 \item{b}{a vector of numbers}
+
+\item{nboots}{Number of bootstrap iterations}
+
+\item{p}{power to raise test stat to}
 
 \item{power}{power to raise test stat to}
 }
