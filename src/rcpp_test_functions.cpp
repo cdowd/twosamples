@@ -1,425 +1,354 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' Order function in C++ using the STL
-//'
-//' Simply finds the order of a vector in c++. Purely for internal use, exposed to user because no reason not to.
-//' order_stl(x)+1 should equal base R order(x).
-//' @param x numeric vector
-//' @return same length vector of integers representing order of input vector
-//' @examples
-//' vec = c(1,4,3,2)
-//' order_stl(vec)
-//' order(vec)-1
-//' @export
-// [[Rcpp::export]]
-IntegerVector order_stl(NumericVector x) {
-  int n = x.size();
-  std::vector<std::pair<double, int> > paired(n);
-  for (int i = 0; i < n; i++) {
-    paired[i] = std::make_pair(x[i], i);
+// Notes:
+// 1. Using `abs` instead of `if(height<0) height*=-1.0;` breaks on some systems
+// 2. `sqrt` != `sqrtf`. `sqrt` is untested on non-local systems.
+//      - may also break.
+//      - can always revert to `pow(x,0.5)`
+// 3. Should double check gapvar calc is _correct_
+
+// Internal function to grab sample size of sample A when not provided explicitly.
+// Should never really be used in default use.
+double sample_a_size(LogicalVector labs){
+  // calculate sample size using labels
+  double n  = labs.size(); // Find joint sample size
+  double na = 0.0;         // Initialize na
+  for (int i=0;i<n;i++){   // for each observation
+    if (labs[i]){          //   If labeled TRUE
+      na += 1.0;           //     add 1 to tally
+    }
   }
-  std::sort(paired.begin(), paired.end());
-  IntegerVector indices(n);
-  for (int i = 0; i < n; i++) {
-    indices[i] = paired[i].second;
-  }
-  return indices;
+  return na;               // output
 }
 
-
-//' @describeIn ks_test Kolmogorov-Smirnov test statistic
-//' @export
 // [[Rcpp::export]]
-double ks_stat(NumericVector a,NumericVector b, double power=1.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-  // Initializing CDF & full sample vectors
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-  // Filling CDF & full sample vector
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
-    }
+double ks_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {              // If na is default val
+    na = sample_a_size(labs); //  calculate using labels.
   }
-  // Finding proper order
-  IntegerVector order = order_stl(d);
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
 
-  // Sorted cdf & sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
+  // Pre-calculating inverses of sample sizes
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
 
-  // Initializing CDF heights & distances
-  double height=0.0;
-  double ecur = 0.0;
-  double fcur = 0.0;
-  // Initializing outcome
-  double out=0.0;
+  // Initializing multiple variables
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double out     = 0.0; // max(height)
+  double height  = 0.0; // ecur-fcur
 
-  // For loop doing actual work
-  // Stops at n-1 (b/c at n both are equal)
+  // For loop doing work. For each observation...
   for (int i=0;i+1<n;i++){
-    // Current height of CDFs
-    ecur += e[i];
-    fcur += f[i];
-    // IF the next value is different
-    if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // simple absolute value of distance
-      if (height < 0.0) {
-        height *= -1.0;
-      }
-      // If we should update:
-      if (height > out) {
-        // Updating outcome
-        out = height;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva; //  add 1/na
+    } else {        // If sample b
+      fcur += divb; //  add 1/nb
+    }
+
+    if (joint[i+1] != joint[i]) {  // If not a dup spot
+      height = ecur-fcur;          //  grab diff
+      if (height > out) {          //  If bigger,
+        out = height;              //   replace
+      } else if (-height > out) {  //  If negative is bigger,
+        out = -height;             //   replace
       }
     }
   }
+  // raise to power, return
   out = pow(out,power);
   return out;
 }
 
-//' @describeIn kuiper_test  Kuiper Test statistic
-//' @export
 // [[Rcpp::export]]
-double kuiper_stat(NumericVector a,NumericVector b, double power=1.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-  // Initializing CDF & full sample vectors
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-  // Filling CDF & full sample vector
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
-    }
+double kuiper_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {             // If na is default val
+    na = sample_a_size(labs); // calculate using labels.
   }
-  // Finding proper order
-  IntegerVector order = order_stl(d);
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
 
-  // Filling sorted cdf & sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
+  // Pre-calculating inverses of sample sizes
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
 
-  // Initializing CDF heights & distances
-  double height=0.0;
-  double ecur = 0.0;
-  double fcur = 0.0;
-  // Initializing outcomes
-  double up = 0.0;
-  double down = 0.0;
+  // Initializing multiple variables
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double up      = 0.0; // largest positive value seen
+  double down    = 0.0; // largest negative value seen
+  double height  = 0.0; // ecur-fcur
 
-  // For loop doing actual work
-  // Stops at n-1 (b/c at n both are equal)
+  // For loop doing work. For each observation...
   for (int i=0;i+1<n;i++){
-    // Current height of CDFs
-    ecur += e[i];
-    fcur += f[i];
-    // IF the next value is different
-    if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // If we should update:
-      if (height > up) {
-        // Updating maximum positive value
-        up = height;
-      }
-      if (height < down) {
-        // Updating minimum negative value
-        down = height;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva; //  add 1/na
+    } else {        // If sample b
+      fcur += divb; //  add 1/nb
+    }
+
+    if (joint[i+1] != joint[i]) { // If not a dup spot
+      height = ecur-fcur;         //  grab diff
+      if (height < down) {        //  If gap is smallest value
+        down = height;            //   down is gap
+      } else if (height > up) {   //  If gap is largest value
+        up = height;              //   up is gap
       }
     }
   }
-  // Sum and power distances
-  down = pow(-1.0*down,power);
-  up   = pow(up,power);
-  double out = up + down;
+  // -down and up to powers, sum, return.
+  double out = pow(up,power)+pow(-down,power);
   return out;
 }
 
-
-//' @describeIn cvm_test  Cramer-Von Mises Test statistic
-//' @export
 // [[Rcpp::export]]
-double cvm_stat(NumericVector a,NumericVector b, double power=2.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-  // Initializing CDF & full sample vectors
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-  // Filling CDF & full sample vector
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
-    }
+double cvm_stat_presort(NumericVector joint,LogicalVector labs,double power=2.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {              // If na is default val
+    na = sample_a_size(labs); //  calculate using labels.
   }
-  // Finding proper order
-  IntegerVector order = order_stl(d);
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
 
-  // Filling sorted cdf & sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
+  // Pre-calculating inverses of sample sizes
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
 
-  // Initializing CDF heights & distances
-  double height = 0.0;
-  double ecur = 0.0;
-  double fcur = 0.0;
-  // Initializing outcome
-  double out = 0.0;
-  // Initializing duplicates counter
-  double dups = 1.0;
+  // Bools indicating if power is a convenient number.
+  bool pow1 = power == 1.0; // when power=1, height^power = height
 
-  // For loop doing actual work
-  // Stops at n-1 (b/c at n both are equal)
+  // Initializing multiple variables
+  double height  = 0.0; // abs(ecur-fcur)
+  double dups    = 1.0; // counter for dups
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double out     = 0.0; // output
+  double summand = 0.0; // height^power
+
+  // For loop doing work. For each observation...
   for (int i=0;i+1<n;i++){
-    // Current height of CDFs
-    ecur += e[i];
-    fcur += f[i];
-    // IF the next value is different
-    if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // simple absolute value of distance
-      if (height < 0.0) {
-        height *= -1.0;
-      }
-      // Updating outcome (scaled by number of dups)
-      out += pow(height,power)*dups;
-      // reset dups counter
-      dups = 1.0;
-    } else if (d[i] == d[i+1]) {
-      // if duplicates, increment dups counter, do nothing else until non-dups
-      dups += 1.0;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva; //  add 1/na
+    } else {        // If sample b
+      fcur += divb; //  add 1/nb
+    }
+
+    // Absolute value of gap
+    height = ecur-fcur; // grab diff
+    if (height < 0.0) { // If diff is negative
+      height *= -1.0;   //  flip sign
+    }
+
+    // Find Summand
+    // If we can simplify calc, do it
+    if (pow1) {                    // If power=1,
+      summand = height;            //  height^power = height
+    } else {                       // Else
+      summand = pow(height,power); //  height^power
+    }
+
+    if (joint[i+1] != joint[i]) { // If not a dup spot
+      out += summand*dups;        //  summand*num dups
+      dups = 1.0;                 //  reset dups counter
+    } else {                      // Else
+      dups += 1.0;                //  increment dups counter
     }
   }
   return out;
 }
 
-
-//' @describeIn ad_test  Anderson-Darling Test statistic
-//' @export
 // [[Rcpp::export]]
-double ad_stat(NumericVector a,NumericVector b, double power=2.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-  // Initializing cdf & full sample vectors
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-  // Filling CDF & full sample vectors
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
-    }
+double ad_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {              // If na is default val
+    na = sample_a_size(labs); //  calculate using labels.
   }
-  // Finding proper order
-  IntegerVector order = order_stl(d);
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
 
-  // Filling sorted CDF & sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
-  // Initializing cdfs (each & joint), diff, outcome, sd, dup counter
-  double height = 0.0;
-  double ecur = 0.0;
-  double fcur = 0.0;
-  double gcur = 0.0;
-  double sd = 1.0;
-  double out = 0.0;
-  double dups = 1.0;
+  // Pre-calculating inverses of sample sizes
+  double divn = 1/n;   // for gcur
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
 
-  // For loop doing actual work
+  // Bools indicating if power is a convenient number.
+  bool pow1 = power == 1.0; // If pow=1, height^power = height
+  bool pow2 = power == 2.0; // If pow=2, (height/sqrt(var))^power = height^2/var
+
+
+  // Initializing multiple variables
+  double height  = 0.0; // abs(ecur-fcur)
+  double dups    = 1.0; // counter for dups
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double gcur    = 0.0; // mean j < point
+  double out     = 0.0; // output
+  double gapvar  = 1.0; // var(height)
+  double summand = 0.0; // (height/sqrt(gapvar))^power
+
+  // For loop doing work. For each observation...
   for (int i=0;i+1<n;i++){
-    // Current height of each sample cdf, joint cdf
-    ecur += e[i];
-    fcur += f[i];
-    gcur += 1.0/n;
-    // If next value is different
-    if (d[i]<d[i+1]){
-      // distance between cdfs
-      height = ecur-fcur;
-      // simple absolute value of distance
-      if (height < 0.0) {
-        height *= -1.0;
-      }
-      // SD of quantile: properly sqrt(2*gcur*(1-gcur)/n)
-      sd = pow(2*gcur*(1-gcur)/n,0.5);
-      // update outcome by height to power divided by SD, scaled by dups
-      out += pow(height/sd,power)*dups;
-      // reset dups counter
-      dups = 1.0;
-    } else if (d[i] == d[i+1]) {
-      // if duplicates -- increment duplicates counter.
-      dups += 1.0;
+    // Height of joint ecdf at observation
+    gcur += divn;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva;//   add 1/na
+    } else {        // If sample b
+      fcur += divb;//   add 1/nb
+    }
+
+    // Absolute value of gap
+    height = ecur-fcur; // grab diff
+    if (height < 0.0) { // If diff is negative
+      height *= -1.0;  //   flip sign
+    }
+
+    // Find Summand
+    // Variance of gap between ECDFs = 2*var(ECDF) at point.
+    gapvar = 2*gcur*(1-gcur)/n; //double check again.. rats.
+    // If we can simplify calc, do it
+    if (pow2) {                                 // If pow=2
+      summand = pow(height,2.0)/gapvar;         //  height^2/var
+    } else if (pow1) {                          // Else If pow=1
+      summand = height/sqrt(gapvar);            //  height/sqrt(var)
+    } else {                                    // Else
+      summand = pow(height/sqrt(gapvar),power); //  (height/sqrt(var))^power
+    }
+
+    if (joint[i+1] != joint[i]) { // If not a dup spot
+      out += summand*dups;        //  summand*num dups
+      dups = 1.0;                 //  reset dups counter
+    } else {                      // Else
+      dups += 1.0;                //  increment dups counter
     }
   }
   return out;
 }
 
-
-//' @describeIn wass_test Wasserstein metric between two ECDFs
-//' @export
 // [[Rcpp::export]]
-double wass_stat(NumericVector a,NumericVector b,double power=1.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-
-  //Initializing CDF vectors & full sample vector
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-
-  // Filling CDF & Full sample vectors
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
-    }
+double wass_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {              // If na is default val
+    na = sample_a_size(labs); //  calculate using labels.
   }
-  // Finding proper order
-  IntegerVector order = order_stl(d);
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
 
-  // Filling ordered cdf, sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
+  // Pre-calculating inverses of sample sizes
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
 
-  // Initializing current distances
-  double ecur = 0.0;
-  double fcur = 0.0;
-  // Initializing heights and widths
-  double height = 0.0;
-  double width = 0.0;
-  // Initializing outcome value
-  double out=0.0;
+  // Bools indicating if power is a convenient number.
+  bool pow1 = power == 1.0; // when power=1, height^power = height
 
-  // For loop doing the actual work
+  // Initializing multiple variables
+  double height  = 0.0; // abs(gap)
+  double width   = 0.0; // joint[i+1]-joint[i]
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double out     = 0.0; // output
+  double summand = 0.0; // height^power
+
+  // For loop doing work. For each observation...
   for (int i=0;i+1<n;i++){
-    // Height of each cdf at current point
-    ecur += e[i];
-    fcur += f[i];
-    // distance between cdfs
-    height = ecur-fcur;
-    // simple absolute value of distance
-    if (height < 0.0) {
-      height *= -1.0;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva;//   add 1/n_a to F_a
+    } else {        // If sample b
+      fcur += divb;//   add 1/n_b to F_b
     }
-    // Width of current step
-    width = d[i+1]-d[i];
-    // Updating outcome
-    out += (pow(height,power)*width);
-  }
-  return out;
-}
 
-//' @describeIn two_sample Test statistic based on a weighted area between ECDFs
-//' @export
-// [[Rcpp::export]]
-double dts_stat(NumericVector a,NumericVector b,double power=1.0) {
-  // Sample Sizes
-  double na = a.size();
-  double nb = b.size();
-  double n = na+nb;
-  // Initializing CDF & full sample vectors
-  NumericVector d(n);
-  NumericVector e(n);
-  NumericVector f(n);
-  // Filling CDF & full sample vectors
-  for (double i=0.0;i<n;i++){
-    if (i < na) {
-      d[i] = a[i];
-      e[i] = 1.0/na;
-      f[i] = 0.0;
-    } else {
-      d[i] = b[i-na];
-      e[i] = 0.0;
-      f[i] = 1.0/nb;
+    // Absolute value of gap
+    height = ecur-fcur; // grab diff
+    if (height < 0.0) { // If diff is negative
+      height *= -1.0;   //  flip sign
     }
-  }
-  // Finding order for vectors
-  IntegerVector order = order_stl(d);
 
-  // Filling ordered cdf, sample vectors
-  d = d[order];
-  e = e[order];
-  f = f[order];
-
-  // Initializing CDFs, width, outcome, sd, cdf diff
-  double height = 0.0;
-  double width = 0.0;
-  double ecur = 0.0;
-  double fcur = 0.0;
-  double gcur = 0.0;
-  double out=0.0;
-  double sd = 1.0;
-
-  // For loop doing work
-  for (int i=0;i+1<n;i++){
-    // Height of joint cdf, individual cdfs at point
-    gcur += 1/n;
-    ecur += e[i];
-    fcur += f[i];
-    // distance between cdfs
-    height = ecur-fcur;
-    // simple absolute value of distance
-    if (height < 0.0) {
-      height *= -1.0;
+    //Find Summand
+    // If we can simplify calc, do it
+    if (pow1) {                    // If pow=1
+      summand = height;            //  height
+    } else {                       // Else
+      summand = pow(height,power); //  height^power
     }
-    // SD of joint CDF here: properly sqrt(2*gcur(1-gcur)/n)
-    sd = pow(2*gcur*(1-gcur)/n,0.5);
+
     // Distance to next observation
-    width = d[i+1]-d[i];
-    // Update outcome by height/sd to the power times the width
-    out += pow(height/sd,power)*width;
+    width = joint[i+1]-joint[i];
+
+    //Add summand to output
+    out += summand*width; // width for "integration" instead of summing.
   }
   return out;
 }
 
+// [[Rcpp::export]]
+double dts_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+  // Getting sample Sizes
+  if (na == 0) {              // If na is default val
+    na = sample_a_size(labs); //  calculate using labels.
+  }
+  double n  = joint.size();   // Joint Sample
+  double nb = n-na;           // subtraction for n_b.
+
+  // Pre-calculating inverses of sample sizes
+  double divn = 1/n;   // for gcur
+  double diva = 1/na;  // for ecur
+  double divb = 1/nb;  // for fcur
+
+  // Bools indicating if power is a convenient number.
+  bool pow1 = power == 1.0; // If pow=1, height^power = height
+  bool pow2 = power == 2.0; // If pow=2, (height/sqrt(var))^power = height^2/var
+
+  // Initializing multiple variables
+  double height  = 0.0; // abs(ecur-fcur)
+  double width   = 0.0; // joint[i+1]-joint[i]
+  double ecur    = 0.0; // mean a < point
+  double fcur    = 0.0; // mean b < point
+  double gcur    = 0.0; // mean j < point
+  double out     = 0.0; // output
+  double gapvar  = 1.0; // var(height)
+  double summand = 0.0; // (height/sqrt(gapvar))^power
+
+  // For loop doing work. For each observation...
+  for (int i=0;i+1<n;i++){
+    // Height of joint ecdf at observation
+    gcur += divn;
+    // Individual ECDFs at observation.
+    if (labs[i]) {  // If sample a
+      ecur += diva; //  add 1/na
+    } else {        // If sample b
+      fcur += divb; //  add 1/nb
+    }
+
+    // Absolute value of gap
+    height = ecur-fcur; // grab diff
+    if (height < 0.0) { // If diff is negative
+      height *= -1.0;   //  flip sign
+    }
+
+    // Find Summand
+    // Variance of gap between ECDFs = 2*var(ECDF) at point.
+    gapvar = 2*gcur*(1-gcur)/n; //double check again.. rats.
+    // If we can simplify calc, do it
+    if (pow1) {                                 // If pow=1
+      summand = height/sqrt(gapvar);            //  height/sqrt(var)
+    } else if (pow2) {                          // Else If pow=2
+      summand = pow(height,2.0)/gapvar;         //  height^2/var
+    } else  {                                   // Else
+      summand = pow(height/sqrt(gapvar),power); //  (height/sqrt(var))^power
+    }
+
+    // Distance to next observation
+    width = joint[i+1]-joint[i];
+    // Add summand to output
+    out += summand*width; // width for "integration" instead of summing.
+  }
+  return out;
+}
