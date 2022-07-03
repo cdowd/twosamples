@@ -10,104 +10,98 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// order_stl
-IntegerVector order_stl(NumericVector x);
-RcppExport SEXP _twosamples_order_stl(SEXP xSEXP) {
+// ks_stat_presort
+double ks_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_ks_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(order_stl(x));
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
+    Rcpp::traits::input_parameter< double >::type power(powerSEXP);
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(ks_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
-// ks_stat
-double ks_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_ks_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
+// kuiper_stat_presort
+double kuiper_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_kuiper_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
     Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(ks_stat(a, b, power));
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(kuiper_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
-// kuiper_stat
-double kuiper_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_kuiper_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
+// cvm_stat_presort
+double cvm_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_cvm_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
     Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(kuiper_stat(a, b, power));
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(cvm_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
-// cvm_stat
-double cvm_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_cvm_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
+// ad_stat_presort
+double ad_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_ad_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
     Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(cvm_stat(a, b, power));
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(ad_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
-// ad_stat
-double ad_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_ad_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
+// wass_stat_presort
+double wass_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_wass_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
     Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(ad_stat(a, b, power));
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(wass_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
-// wass_stat
-double wass_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_wass_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
+// dts_stat_presort
+double dts_stat_presort(NumericVector joint, LogicalVector labs, double power, double na);
+RcppExport SEXP _twosamples_dts_stat_presort(SEXP jointSEXP, SEXP labsSEXP, SEXP powerSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type joint(jointSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type labs(labsSEXP);
     Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(wass_stat(a, b, power));
-    return rcpp_result_gen;
-END_RCPP
-}
-// dts_stat
-double dts_stat(NumericVector a, NumericVector b, double power);
-RcppExport SEXP _twosamples_dts_stat(SEXP aSEXP, SEXP bSEXP, SEXP powerSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
-    Rcpp::traits::input_parameter< double >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(dts_stat(a, b, power));
+    Rcpp::traits::input_parameter< double >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(dts_stat_presort(joint, labs, power, na));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_twosamples_order_stl", (DL_FUNC) &_twosamples_order_stl, 1},
-    {"_twosamples_ks_stat", (DL_FUNC) &_twosamples_ks_stat, 3},
-    {"_twosamples_kuiper_stat", (DL_FUNC) &_twosamples_kuiper_stat, 3},
-    {"_twosamples_cvm_stat", (DL_FUNC) &_twosamples_cvm_stat, 3},
-    {"_twosamples_ad_stat", (DL_FUNC) &_twosamples_ad_stat, 3},
-    {"_twosamples_wass_stat", (DL_FUNC) &_twosamples_wass_stat, 3},
-    {"_twosamples_dts_stat", (DL_FUNC) &_twosamples_dts_stat, 3},
+    {"_twosamples_ks_stat_presort", (DL_FUNC) &_twosamples_ks_stat_presort, 4},
+    {"_twosamples_kuiper_stat_presort", (DL_FUNC) &_twosamples_kuiper_stat_presort, 4},
+    {"_twosamples_cvm_stat_presort", (DL_FUNC) &_twosamples_cvm_stat_presort, 4},
+    {"_twosamples_ad_stat_presort", (DL_FUNC) &_twosamples_ad_stat_presort, 4},
+    {"_twosamples_wass_stat_presort", (DL_FUNC) &_twosamples_wass_stat_presort, 4},
+    {"_twosamples_dts_stat_presort", (DL_FUNC) &_twosamples_dts_stat_presort, 4},
     {NULL, NULL, 0}
 };
 
