@@ -12,6 +12,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The KS test compares two ECDFs by looking at the maximum difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KS = max |E(x)-F(x)|^p} for values of x in the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 #'
@@ -24,7 +26,10 @@ NULL
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' ks_test(vec1,vec2)
+#' out = ks_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
 #'
 #' # Example using ordered factors
 #' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
@@ -43,6 +48,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The Kuiper test compares two ECDFs by looking at the maximum positive and negative difference between them. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{KUIPER = |max_x E(x)-F(x)|^p + |max_x F(x)-E(x)|^p}. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample.
 #'
@@ -55,7 +62,11 @@ NULL
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' kuiper_test(vec1,vec2)
+#' out = kuiper_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
+#'
 #'
 #' # Example using ordered factors
 #' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
@@ -74,6 +85,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The CVM test compares two ECDFs by looking at the sum of the squared differences between them -- evaluated at each point in the joint sample. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{CVM = \sum_{x\in k}|E(x)-F(x)|^p}{CVM = SUM_(x in k) |E(x)-F(x)|^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the CVM test improves on KS by using the full joint sample, rather than just the maximum distance -- this gives it greater power against shifts in higher moments, like variance changes.
 #'
@@ -86,7 +99,10 @@ NULL
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' cvm_test(vec1,vec2)
+#' out = cvm_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
 #'
 #' # Example using ordered factors
 #' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
@@ -106,6 +122,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The AD test compares two ECDFs by looking at the weighted sum of the squared differences between them -- evaluated at each point in the joint sample. The weights are determined by the variance of the joint ECDF at that point, which peaks in the middle of the joint distribution (see figure below). Formally -- if E is the ECDF of sample 1, F is the ECDF of sample 2, and G is the ECDF of the joint sample then \deqn{AD = \sum_{x \in k} \left({|E(x)-F(x)| \over \sqrt{2G(x)(1-G(x))/n} }\right)^p }{AD =  SUM_(x in k) (|E(x)-F(x)|/sqrt(2G(x)*(1-G(x)))/n)^p} where k is the joint sample. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the AD test improves on the CVM test by giving lower weight to noisy observations.
 #'
@@ -122,7 +140,10 @@ NULL
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' ad_test(vec1,vec2)
+#' out = ad_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
 #'
 #' # Example using ordered factors
 #' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
@@ -141,6 +162,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power power to raise test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The Wasserstein test compares two ECDFs by looking at the Wasserstein distance between the two. This is of course the area between the two ECDFs. Formally -- if E is the ECDF of sample 1 and F is the ECDF of sample 2, then \deqn{WASS = \int_{x \in R} |E(x)-F(x)|^p}{WASS = Integral |E(x)-F(x)|^p} across all x. The test p-value is calculated by randomly resampling two samples of the same size using the combined sample. Intuitively the Wasserstein test improves on CVM by allowing more extreme observations to carry more weight. At a higher level -- CVM/AD/KS/etc only require ordinal data. Wasserstein gains its power because it takes advantages of the properties of interval data -- i.e. the distances have some meaning.
 #'
@@ -153,7 +176,10 @@ NULL
 #' @examples
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' wass_test(vec1,vec2)
+#' out = wass_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
 #'
 #' # Example using ordered factors
 #' vec1 = factor(LETTERS[1:5],levels = LETTERS,ordered = TRUE)
@@ -173,6 +199,8 @@ NULL
 #' @param nboots Number of bootstrap iterations
 #' @param p power to raise test stat to
 #' @param power also the power to raise the test stat to
+#' @param keep.boots Should the bootstrap values be saved in the output?
+#' @param keep.samples Should the samples be saved in the output?
 #' @return Output is a length 2 Vector with test stat and p-value in that order. That vector has 3 attributes -- the sample sizes of each sample, and the number of bootstraps performed for the pvalue.
 #' @details The DTS test compares two ECDFs by looking at the reweighted Wasserstein distance between the two. See the companion paper at [arXiv:2007.01360](https://arxiv.org/abs/2007.01360) or <https://codowd.com/public/DTS.pdf> for details of this test statistic, and non-standard uses of the package (parallel for big N, weighted observations, one sample tests, etc).
 #'
@@ -189,7 +217,10 @@ NULL
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
 #' dts_stat(vec1,vec2)
-#' dts_test(vec1,vec2)
+#' out = dts_test(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
 #' two_sample(vec1,vec2)
 #'
 #' # Example using ordered factors
