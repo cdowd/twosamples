@@ -12,9 +12,8 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
     nboots = as.integer(nboots)					#Speeds up comparison below.
     reps = bigger = 0L							  #Initializes Counters
     while (reps < nboots) {						#Loops over vector
-      e = sample.int(n,na,T)
-      f = sample.int(n,nb,T)#Samples indexes
-      boot_t = test_stat_function(comb[e],comb[f],p) #boot strap test stat
+      e = sample.int(n,na,F)
+      boot_t = test_stat_function(comb[e],comb[-e],p) #boot strap test stat
       if(boot_t >= test_stat) bigger = 1L+bigger #if new stat is bigger, increment
       reps = 1L+reps
     }
