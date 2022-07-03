@@ -330,16 +330,3 @@ Broadly, under this null, observations from sample 1 and sample 2 are exchangeab
 
 Moreover, unlike other, more general, two-sample procedures we do not rely on any properties of the underlying distribution. Some procedures require continuity, derivatives, or smoothness to get their asymptotic and finite sample guarantees. Those are procedures which estimate the underlying density, rather than simply working working the ECDF. The testing procedures in this package only rely on the statement that observations are i.i.d.
 The Independence is necessary for the exchangeability statement to hold. The identicality is necessary for the null hypothesis to be a sensible claim.
-
-## Internals
-There are two other functions made available by this package. 
-
-`permutation_test_builder()` is a simple function which takes the C++ coded test statistics and builds permutation tests as outlined above. This function is primarily intended for internal use, but if others have any interest in it, it is there.
-
-`order_stl()` is a simple C++ function which finds the order of a vector using the STL. This is the primary computational operation involved in each of the test statistics, and it is necessary in order to build the ECDFs. Because it is designed for internal C++ use, it returns 0 indexed values, and so is exactly 1 off from the Base R order function. Suggestions for improving this portion of my algorithm would be appreciated.
-
-```{r eval=T}
-vec = rnorm(10)
-order_stl(vec)
-order(vec)-1
-```

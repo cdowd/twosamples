@@ -1,10 +1,5 @@
 
 # Internals
-test_that("order_stl is one less than base-r order", {
-  vec = rnorm(100)
-  expect_equal(order_stl(vec),order(vec)-1)
-})
-
 test_that("permutation_builder outputs a function", {
   f = function(vec1,vec2,p=2) (mean(vec1^p)-mean(vec2^p))^(1/p)
   expect_type(permutation_test_builder(f),"closure")

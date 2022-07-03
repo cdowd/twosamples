@@ -2,6 +2,7 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
+# KS test -----------
 
 #' Kolmogorov-Smirnov Test
 #'
@@ -32,6 +33,8 @@ NULL
 #' @name ks_test
 NULL
 
+# Kuiper test ---------
+
 #' Kuiper Test
 #'
 #' @description A two-sample test based on the Kuiper test statistic (`kuiper_stat`).
@@ -61,6 +64,8 @@ NULL
 #' @name kuiper_test
 NULL
 
+# CVM test ------------
+
 #' Cramer-von Mises Test
 #'
 #' @description A two-sample test based on the Cramer-Von Mises test statistic (`cvm_stat`).
@@ -89,6 +94,9 @@ NULL
 #' cvm_test(vec1,vec2)
 #' @name cvm_test
 NULL
+
+
+# AD test ------------------
 
 #' Anderson-Darling Test
 #'
@@ -124,6 +132,8 @@ NULL
 NULL
 
 
+# Wass test ---------------
+
 #' Wasserstein Distance Test
 #' @description A two-sample test based on Wasserstein's distance (`wass_stat`).
 #' @param a a vector of numbers (or factors -- see details)
@@ -152,6 +162,8 @@ NULL
 #' @name wass_test
 NULL
 
+
+# DTS test ----------------------
 
 #' DTS Test
 #'
@@ -188,15 +200,17 @@ NULL
 NULL
 
 
+# Perm Builder ---------------------
+
 #' Permutation Test Builder
 #'
-#' @description This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
-#' @param test_stat_function a function of two vectors producing a positive number, intended as the test-statistic to be used.
+#' @description (Warning! This function has changed substantially between v1.2.0 and v2.0.0) This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
+#' @param test_stat_function a function of the joint vector and a label vector producing a positive number, intended as the test-statistic to be used.
 #' @param default.p This allows for some introduction of defaults and parameters. Typically used to control the power functions raise something to.
 #' @return  This function returns a function which will perform permutation tests on given test stat.
 #' @details test_stat_function must be structured to take two separate vectors, and then a third value. i.e. (fun = function(vec1,vec2,val1) ...). See examples.
 #' @examples
-#' mean_stat = function(a,b,p) abs(mean(a)-mean(b))**p
+#' mean_stat = function(joint,label,p) abs(mean(joint[label])-mean(joint[!label]))**p
 #' myfun = permutation_test_builder(mean_stat,2.0)
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
