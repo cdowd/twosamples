@@ -210,8 +210,8 @@ NULL
 #' @return  This function returns a function which will perform permutation tests on given test stat.
 #' @details test_stat_function must be structured to take two separate vectors, and then a third value. i.e. (fun = function(vec1,vec2,val1) ...). See examples.
 #' @examples
-#' mean_stat = function(joint,label,p) abs(mean(joint[label])-mean(joint[!label]))**p
-#' myfun = permutation_test_builder(mean_stat,2.0)
+#' mean_stat = function(joint,label,p,na) abs(mean(joint[label])-mean(joint[!label]))**p
+#' myfun = twosamples:::permutation_test_builder(mean_stat,2.0)
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
 #' myfun(vec1,vec2)
