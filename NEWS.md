@@ -1,3 +1,32 @@
+# version 2.0.0
+This is a large update. Two big changes:
+1. Substantial speed improvements -- should improve both absolute speed and scaling
+2. Added generics for plotting, summaries, printing.
+
+This lead to many changes under the hood. As a consequence, `permutation_test_builder` is substantially different (and no longer exported), and `order_stl` no longer exists.
+
+#### Speed
+Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from $$O(KN\log(N))$$ to $$O(KN)+O(N \log(N))$$. 
+
+- Particularly for large samples or large numbers of bootstraps, this means a substantial improvement in speed. 
+- This required reworking the underlying C++ `_stat` functions as well as the `permutation_test_builder`. 
+  - Instead of breaking code in unpredictable ways, this function is no longer exported. If you used it, archived copies can be found on github, or by emailing me. 
+- Functions `*_stat` that are substantially similar to the old ones still exist, but are no longer what is used by `permutation_test_builder`.
+- These changes likely save memory, though this is offset by the new default of storing bootstrap outputs. 
+
+#### Classes
+There is now a 'twosamples' class, and generics for `print`, `summary`, and `plot`. This should make the printed behavior much better. As well as making it easy to see a fair bit of information using summary. 
+
+- plotting currently shows a histogram of the bootstrap values and a red line where the test-statistic is.
+  - This required making the `*_test` functions export the bootstrap values. If you have memory intensive applications, this can be turned off with a toggle `keep.boots`, at the cost of no longer being able to use the plotting. 
+  - In the future I may add the ability to plot the ECDFs and the test stat images. This is the reason for the (currently useless) `keep.samples` toggle which is turned off.
+
+#### Possible breaking changes
+- In order to only sort once, this is now a proper permutation test again. This should also resolve some classes of potential validity issues. Proofs in the associated paper are (at the moment) not relevant to this for the same reason.
+- `order_stl` no longer exists. I do not believe anybody used this function outside its internal package use. 
+- `permutation_test_builder` is no longer exported. I am not aware of anyone using this function outstide its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.
+
+
 # version 1.2.0
 This version is primarily bug fixes and documentation updates. **These bug fixes may affect outputs users see**. 
 
