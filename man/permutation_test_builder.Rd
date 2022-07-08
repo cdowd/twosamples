@@ -15,10 +15,28 @@ permutation_test_builder(test_stat_function, default.p = 2)
 This function returns a function which will perform permutation tests on given test stat.
 }
 \description{
-(Warning! This function has changed substantially between v1.2.0 and v2.0.0) This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
+(\strong{Warning!} This function has changed substantially between v1.2.0 and v2.0.0) This function takes a two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat. This is an internal function of the \code{twosamples} package.
 }
 \details{
-test_stat_function must be structured to take two separate vectors, and then a third value. i.e. (fun = function(vec1,vec2,val1) ...). See examples.
+test_stat_function must be structured to take two vectors -- the first a combined sample vector and the second a logical vector indicating which sample each value came from, as well as a third and fourth value. i.e. (fun = function(jointvec,labelvec,val1,val2) ...). See examples.
+\subsection{Conversion Function}{
+
+Test stat functions designed to work with the prior version of \code{permutation_test_builder} will not work.
+E.g. If your test statistic is\preformatted{mean_diff_stat = function(x,y,pow) abs(mean(x)-mean(y))^pow
+}
+
+then \code{permutation_test_builder(mean_diff_stat,1)} will no longer work as intended, but it will if you run the below code first.\preformatted{perm_stat_helper = function(stat_fn,def_power) \{
+  output = function(joint,vec_labels,power=def_power,na) \{
+    a = joint[vec_labels]
+    b = joint[!vec_labels]
+    stat_fn(a,b,power)
+  \}
+  output
+\}
+
+mean_diff_stat = perm_stat_helper(mean_diff_stat)
+}
+}
 }
 \section{Functions}{
 \itemize{
@@ -30,7 +48,11 @@ mean_stat = function(joint,label,p,na) abs(mean(joint[label])-mean(joint[!label]
 myfun = twosamples:::permutation_test_builder(mean_stat,2.0)
 vec1 = rnorm(20)
 vec2 = rnorm(20,4)
-myfun(vec1,vec2)
+out = myfun(vec1,vec2)
+out
+summary(out)
+plot(out)
+
 }
 \seealso{
 \code{\link[=two_sample]{two_sample()}}

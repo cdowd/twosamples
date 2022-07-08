@@ -235,17 +235,75 @@ NULL
 
 #' Permutation Test Builder
 #'
-#' @description (Warning! This function has changed substantially between v1.2.0 and v2.0.0) This function takes a simple two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat.
+#' @description (**Warning!** This function has changed substantially between v1.2.0 and v2.0.0) This function takes a two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat. This is an internal function of the `twosamples` package.
 #' @param test_stat_function a function of the joint vector and a label vector producing a positive number, intended as the test-statistic to be used.
 #' @param default.p This allows for some introduction of defaults and parameters. Typically used to control the power functions raise something to.
 #' @return  This function returns a function which will perform permutation tests on given test stat.
-#' @details test_stat_function must be structured to take two separate vectors, and then a third value. i.e. (fun = function(vec1,vec2,val1) ...). See examples.
+#' @details test_stat_function must be structured to take two vectors -- the first a combined sample vector and the second a logical vector indicating which sample each value came from, as well as a third and fourth value. i.e. (fun = function(jointvec,labelvec,val1,val2) ...). See examples.
+#'
+#' ### Conversion Function
+#' Test stat functions designed to work with the prior version of `permutation_test_builder` will not work.
+#' E.g. If your test statistic is
+#' ```
+#' mean_diff_stat = function(x,y,pow) abs(mean(x)-mean(y))^pow
+#' ```
+#' then `permutation_test_builder(mean_diff_stat,1)` will no longer work as intended, but it will if you run the below code first.
+#' ```
+#' perm_stat_helper = function(stat_fn,def_power) {
+#'   output = function(joint,vec_labels,power=def_power,na) {
+#'     a = joint[vec_labels]
+#'     b = joint[!vec_labels]
+#'     stat_fn(a,b,power)
+#'   }
+#'   output
+#' }
+#'
+#' mean_diff_stat = perm_stat_helper(mean_diff_stat)
+#' ```
 #' @examples
 #' mean_stat = function(joint,label,p,na) abs(mean(joint[label])-mean(joint[!label]))**p
 #' myfun = twosamples:::permutation_test_builder(mean_stat,2.0)
 #' vec1 = rnorm(20)
 #' vec2 = rnorm(20,4)
-#' myfun(vec1,vec2)
+#' out = myfun(vec1,vec2)
+#' out
+#' summary(out)
+#' plot(out)
+#'
 #' @name permutation_test_builder
 #' @seealso [two_sample()]
+NULL
+
+# twosamples-class ---------------------
+
+#' twosamples_class
+#'
+#' @description Objects of Class twosamples are output by all of the `*_test` functions in the `twosamples` package.
+#'
+#' @details
+#' By default they consist of:a length 2 vector, the first item being the test statistic, the second the p-value.
+#' That vector has the following attributes:
+#'
+#' 1. details: length 3 vector with the sample sizes for each sample and the number of bootstraps
+#' 2. test_type: a string describing the type of the test statistic
+#'
+#' It may also have two more attributes, depending on options used when running the `*_test` function. These are useful for plotting and combining test runs.
+#'
+#' 1. bootstraps: a vector containing all the bootstrapped null values
+#' 2. samples: a list containing both the samples that were tested
+#'
+#' and by virtue of being a named length 2 vector of class "twosamples" it has the following two attributes:
+#' 1. names: c("Test Stat","P-Value")
+#' 2. class: "twosamples"
+#'
+#' Multiple Twosamples objects made by the same `*_test` routine being run on the same data can be combined (getting correct p-value and correct attributes) with the function `combine_twosamples()`.
+#'
+#' @param x twosamples object
+#' @param object twosamples-object to summarize
+#'
+#' @returns
+#' - `print.twosamples()` returns nothing
+#' - `summarize.twosamples()` returns nothing
+#' @seealso [plot.twosamples()], [combine.twosamples()]
+#' @name twosamples_class
 NULL

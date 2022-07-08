@@ -17,5 +17,6 @@ RoxygenNote: 7.1.2
 URL: https://twosampletest.com, https://github.com/cdowd/twosamples
 BugReports: https://github.com/cdowd/twosamples/issues
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ggplot2
 Config/testthat/edition: 3
