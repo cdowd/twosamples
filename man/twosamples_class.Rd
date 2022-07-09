@@ -13,6 +13,8 @@
 \arguments{
 \item{x}{twosamples object}
 
+\item{...}{other parameters to be passed to print or summary functions}
+
 \item{object}{twosamples-object to summarize}
 }
 \value{
