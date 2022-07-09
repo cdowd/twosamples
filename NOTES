@@ -12,12 +12,13 @@
          FLIBS = -L/usr/local/opt/gcc/lib
 4.  update news
 5.  bump version number
-6.  rebuild docs, build site. (re-knit README.Rmd)
-7.  devtools::spell_check()
-8.  devtools::check_rhub()
-9.  devtools::check_win_devel()
-10. update cran-comments.md
-11. Submit (devtools::release())
+6.  rebuild docs (re-knit README.Rmd, devtools::document())
+7.  build site. (pkgdown::build_site())
+8.  devtools::spell_check()
+9.  devtools::check_rhub()
+10.  devtools::check_win_devel()
+11. update cran-comments.md
+12. Submit (devtools::release())
 
 # Packages used for release/updates
 - devtools
@@ -29,9 +30,7 @@
 
 Future:
 Multiple Dimensions (Sampling Routine)
-Relax RCPP dependence
 Clean up 'permutation_test_interpreter'
-Glance at functions under 'leftovers.R'
 
 Notes:
 Switching if(x<0) x = -1*x to x=abs(x) doesn't work for all R platforms....
