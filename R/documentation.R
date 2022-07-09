@@ -1,4 +1,6 @@
+## usethis namespace: start
 #' @useDynLib twosamples, .registration = TRUE
+## usethis namespace: end
 NULL
 
 # KS test -----------
