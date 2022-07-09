@@ -105,7 +105,7 @@ combine.twosamples = function(x,y,check.sample=T) {
     stop("These test outputs are not from the same test type")
   if (x[1] != y[1])
     stop("These test statistics are different, probably these objects are not based on the same samples")
-  if (!is.null(attr(x,"samples")) & !is.null(attr(x,"samples")) & check.sample){
+  if (!is.null(attr(x,"samples")) & !is.null(attr(y,"samples")) & check.sample){
     xa = sort(attr(x,"samples")$a)
     xb = sort(attr(x,"samples")$b)
     ya = sort(attr(y,"samples")$a)
@@ -114,6 +114,9 @@ combine.twosamples = function(x,y,check.sample=T) {
       if (!identical(list(xa,xb),list(yb,ya)))
        stop("These test outputs are not from the same samples")
   }
+  if (is.null(attr(x,"bootstraps")) | is.null(attr(y,"bootstraps")))
+    stop("One of these test statistics does not have bootstraps, combined simply by using a weighted average p-value and updating nboots")
+
   out = x
   bootstraps = c(attr(x,"bootstraps"),attr(y,"bootstraps"))
   out[2] = mean(bootstraps >= out[1])
