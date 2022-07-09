@@ -31,5 +31,6 @@ x. combine fn?
   -x basically, test correctness (class, test type, samples/test stat), concat boots, change nboots, recalc pval
   - document
 7. switch to cpp11?
-  - easy enough
-  - should i....
+  -x easy enough
+  -x should i....
+  - should mention in news and readme
