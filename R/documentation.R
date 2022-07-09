@@ -301,6 +301,7 @@ NULL
 #'
 #' @param x twosamples object
 #' @param object twosamples-object to summarize
+#' @param alpha  Significance threshold for determining null rejection
 #' @param ... other parameters to be passed to print or summary functions
 #'
 #' @returns
