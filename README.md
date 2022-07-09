@@ -6,6 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml)
+
+[![pages-build-deployment](https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment)
+
 <!-- badges: end -->
 
 The goal of twosamples is to allow easy two-sample testing using
@@ -35,6 +38,12 @@ library(remotes)
 install_github("cdowd/twosamples")
 ```
 
+#### System Requirements
+
+Going forward (v2.0.0 onwards), `twosamples` depends on having C++11
+installed. This is true of most R platforms and available for all of
+them.
+
 ## Example
 
 In this example, we have 100 observations from two different Normal
@@ -46,10 +55,9 @@ vec1 = rnorm(100)
 vec2 = rnorm(100,4)
 two_sample(vec1,vec2)
 #> Test Stat   P-Value 
-#>  92.22830   0.00025 
-#> attr(,"details")
-#>      n1      n2 n.boots 
-#>     100     100    2000
+#>  88.42894   0.00025
+#> No bootstrap values were more extreme than the observed value. 
+#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
 ```
 
 ## Metric Example Calculations
@@ -426,28 +434,3 @@ testing procedures in this package only rely on the statement that
 observations are i.i.d. The Independence is necessary for the
 exchangeability statement to hold. The identicality is necessary for the
 null hypothesis to be a sensible claim.
-
-## Internals
-
-There are two other functions made available by this package.
-
-`permutation_test_builder()` is a simple function which takes the C++
-coded test statistics and builds permutation tests as outlined above.
-This function is primarily intended for internal use, but if others have
-any interest in it, it is there.
-
-`order_stl()` is a simple C++ function which finds the order of a vector
-using the STL. This is the primary computational operation involved in
-each of the test statistics, and it is necessary in order to build the
-ECDFs. Because it is designed for internal C++ use, it returns 0 indexed
-values, and so is exactly 1 off from the Base R order function.
-Suggestions for improving this portion of my algorithm would be
-appreciated.
-
-``` r
-vec = rnorm(10)
-order_stl(vec)
-#>  [1] 9 6 5 8 7 0 4 1 3 2
-order(vec)-1
-#>  [1] 9 6 5 8 7 0 4 1 3 2
-```

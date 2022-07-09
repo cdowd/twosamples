@@ -18,6 +18,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml)
+
+[![pages-build-deployment](https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment)
+
 <!-- badges: end -->
 
 The goal of twosamples is to allow easy two-sample testing using permutations. This package offers quick (O(n^2) worst) and memory light (O(n)) code for a number of standard distance metrics between two samples. Using permutations of observed samples to calculate null distributions for those metrics, this package also provides assumption free p-values for the samples coming from the same distribution.
@@ -40,6 +43,9 @@ Or you can install the most recent (possibly unstable) version from github:
 library(remotes)
 install_github("cdowd/twosamples")
 ```
+
+#### System Requirements
+Going forward (v2.0.0 onwards), `twosamples` depends on having C++11 installed. This is true of most R platforms and available for all of them. 
 
 ## Example
 
