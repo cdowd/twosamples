@@ -17,10 +17,10 @@ x. classes
   -x add keep.sample toggle to perm_fun
   -x add keep.boot, keep.samples to docs
   -x add print/summary/plot examples to docs.
-4. plots2?
-  - add ECDF plotting functions? (ugh)
-  - add ECDF diff plotting? (ugh ugh)
-    - and like... also show nulls? (ugh ugh ugh)
+n. plots2?
+  -n add ECDF plotting functions? (ugh)
+  -n add ECDF diff plotting? (ugh ugh)
+    -n and like... also show nulls? (ugh ugh ugh)
 5. check docs
   - readme.Rmd needs most of the work
   - possibly example R code??
@@ -35,6 +35,15 @@ x. switch to cpp11?
   -x should i....
   -x should mention in news and readme
 8. double check gapvar calc...
-9. ditch ggplot??
-  - its genuinely an uglier plot at the moment...
-  - useful maybe for the future... but worry about that later?
+x. ditch ggplot??
+  -x its genuinely an uglier plot at the moment...
+  -x useful maybe for the future... but worry about that later?
+  
+  
+Future:
+1. Improved plotting
+  - add ECDF plotting functions? (ugh)
+  - add ECDF diff plotting? (ugh ugh)
+    - and like... also show nulls? (ugh ugh ugh)
+  - ggplot2?
+  

@@ -43,10 +43,8 @@ summary.twosamples = function(object,alpha=0.05,...) {
 #' with a vertical line marking the value of the test statistic.
 #'
 #' @param x an object produced by one of the twosamples `*_test` functions
-#' @param plot_type which plot to create? one or multiple of "boots_hist", "ECDF" (not functional yet), and  "ECDF_gap" (not functional yet)
+#' @param plot_type which plot to create? only current option is "boots_hist",
 #' @param nbins how many bins (or breaks) in the histogram
-#' @param ggplot Should the function use ggplot2 (if available)?
-#' @param silent suppress messages?
 #' @param ... other parameters to be passed to plotting functions
 #'
 #' @return Produces a plot (or in the case of ggplot=T, a ggplot object)
@@ -57,7 +55,7 @@ summary.twosamples = function(object,alpha=0.05,...) {
 #' plot(out)
 #'
 #' @export
-plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=F,...) {
+plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,...) {
   if ("ECDF" %in% plot_type) {
     stop("ECDF plots have not yet been implemented. \n This feature may be coming soon")
   }
@@ -73,25 +71,17 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=
     title = paste0(test_type,": Boostrap Distribution + Test Stat")
     subtitle = paste0("p-val = ",x[2])
     xlab = "Boostrapped Test Stat Values, Test stat at red line"
-    if (requireNamespace("ggplot2",quietly = TRUE) & ggplot) {
-      ggplot2::ggplot(data.frame(boots=boots),ggplot2::aes(x=boots)) +
-        ggplot2::geom_histogram(bins=nbins,...)+
-        ggplot2::geom_vline(xintercept=test_stat,col="red")+
-        ggplot2::labs(title=title,subtitle=subtitle)+
-        ggplot2::xlab(xlab)
-    } else {
-      #`graphics` is in r-base, every R install should have.
-     lims = lims*c(0.95,1.05)
-     graphics::hist(boots,...,breaks=nbins,
+    #`graphics` is in r-base, every R install should have.
+    if (test_stat > max(boots)) lims[2] = lims[2]*1.1
+    graphics::hist(boots,...,breaks=nbins,
           main = title,
           sub=subtitle,
           xlim=lims,
           xlab=xlab,
           freq=F)
-     graphics::abline(v = x[1],col=2)
-     if(!silent & ggplot) message("Prettier plots are available if you install `ggplot2`")
-    }
+    graphics::abline(v = x[1],col=2)
   }
+  return(invisible(NULL))
 }
 
 #' Combine two objects of class `twosamples`

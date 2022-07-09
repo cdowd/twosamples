@@ -4,18 +4,14 @@
 \alias{plot.twosamples}
 \title{Default plots for \code{twosamples} objects}
 \usage{
-\method{plot}{twosamples}(x, plot_type = c("boots_hist"), nbins = 50, ggplot = T, silent = F, ...)
+\method{plot}{twosamples}(x, plot_type = c("boots_hist"), nbins = 50, ...)
 }
 \arguments{
 \item{x}{an object produced by one of the twosamples \verb{*_test} functions}
 
-\item{plot_type}{which plot to create? one or multiple of "boots_hist", "ECDF" (not functional yet), and  "ECDF_gap" (not functional yet)}
+\item{plot_type}{which plot to create? only current option is "boots_hist",}
 
 \item{nbins}{how many bins (or breaks) in the histogram}
-
-\item{ggplot}{Should the function use ggplot2 (if available)?}
-
-\item{silent}{suppress messages?}
 
 \item{...}{other parameters to be passed to plotting functions}
 }
