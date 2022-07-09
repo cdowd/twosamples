@@ -1,3 +1,10 @@
+5. check docs
+  - readme.Rmd needs most of the work
+  - possibly example R code??
+  -x dependency changes
+  -x could do a quick doc for plot.twosamples
+8. double check gapvar calc...
+10. favicon?
 x. switch test
   -x new tests
   -x new permutation fn
@@ -21,11 +28,6 @@ n. plots2?
   -n add ECDF plotting functions? (ugh)
   -n add ECDF diff plotting? (ugh ugh)
     -n and like... also show nulls? (ugh ugh ugh)
-5. check docs
-  - readme.Rmd needs most of the work
-  - possibly example R code??
-  -x dependency changes
-  -x could do a quick doc for plot.twosamples
 x. combine fn?
   -x add test vals correctly?
   -x basically, test correctness (class, test type, samples/test stat), concat boots, change nboots, recalc pval
@@ -34,16 +36,15 @@ x. switch to cpp11?
   -x easy enough
   -x should i....
   -x should mention in news and readme
-8. double check gapvar calc...
 x. ditch ggplot??
   -x its genuinely an uglier plot at the moment...
   -x useful maybe for the future... but worry about that later?
-  
-  
+
+
 Future:
 1. Improved plotting
   - add ECDF plotting functions? (ugh)
   - add ECDF diff plotting? (ugh ugh)
     - and like... also show nulls? (ugh ugh ugh)
   - ggplot2?
-  
+
