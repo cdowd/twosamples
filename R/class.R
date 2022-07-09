@@ -27,6 +27,7 @@ summary.twosamples = function(object,...) {
 #' @param nbins how many bins (or breaks) in the histogram
 #' @param ggplot Should the function use ggplot2 (if available)?
 #' @param silent suppress messages?
+#' @param ... other parameters to be passed to plotting functions
 #'
 #' @return Produces a plot (or in the case of ggplot=T, a ggplot object)
 #' @seealso [dts_test()], [twosamples_class], [combine.twosamples]

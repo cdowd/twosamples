@@ -300,6 +300,7 @@ NULL
 #'
 #' @param x twosamples object
 #' @param object twosamples-object to summarize
+#' @param ... other parameters to be passed to print or summary functions
 #'
 #' @returns
 #' - `print.twosamples()` returns nothing
