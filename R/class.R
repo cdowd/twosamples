@@ -19,7 +19,7 @@ summary.twosamples = function(object,alpha=0.05,...) {
   print(attr(object,"details"))
   cat("=========================\n")
   if (!is.null(attr(object,"bootstraps"))) {
-    q95 = quantile(attr(object,"bootstraps"),1-alpha)
+    q95 = stats::quantile(attr(object,"bootstraps"),1-alpha)
     cat("Test stat rejection threshold for alpha =",alpha,"is:",q95,"\n")
   }
   if (object[2] < alpha) {
