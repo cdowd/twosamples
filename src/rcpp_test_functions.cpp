@@ -1,5 +1,5 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11.hpp"
+using namespace cpp11;
 
 // Notes:
 // 1. Using `abs` instead of `if(height<0) height*=-1.0;` breaks on some systems
@@ -8,26 +8,9 @@ using namespace Rcpp;
 //      - can always revert to `pow(x,0.5)`
 // 3. Should double check gapvar calc is _correct_
 
-// Internal function to grab sample size of sample A when not provided explicitly.
-// Should never really be used in default use.
-double sample_a_size(LogicalVector labs){
-  // calculate sample size using labels
-  double n  = labs.size(); // Find joint sample size
-  double na = 0.0;         // Initialize na
-  for (int i=0;i<n;i++){   // for each observation
-    if (labs[i]){          //   If labeled TRUE
-      na += 1.0;           //     add 1 to tally
-    }
-  }
-  return na;               // output
-}
-
-// [[Rcpp::export]]
-double ks_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+[[cpp11::register]]
+double ks_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {              // If na is default val
-    na = sample_a_size(labs); //  calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 
@@ -64,12 +47,9 @@ double ks_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,d
   return out;
 }
 
-// [[Rcpp::export]]
-double kuiper_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+[[cpp11::register]]
+double kuiper_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {             // If na is default val
-    na = sample_a_size(labs); // calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 
@@ -107,12 +87,9 @@ double kuiper_stat_presort(NumericVector joint,LogicalVector labs,double power=1
   return out;
 }
 
-// [[Rcpp::export]]
-double cvm_stat_presort(NumericVector joint,LogicalVector labs,double power=2.0,double na=0.0) {
+[[cpp11::register]]
+double cvm_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {              // If na is default val
-    na = sample_a_size(labs); //  calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 
@@ -164,12 +141,9 @@ double cvm_stat_presort(NumericVector joint,LogicalVector labs,double power=2.0,
   return out;
 }
 
-// [[Rcpp::export]]
-double ad_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+[[cpp11::register]]
+double ad_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {              // If na is default val
-    na = sample_a_size(labs); //  calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 
@@ -232,12 +206,9 @@ double ad_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,d
   return out;
 }
 
-// [[Rcpp::export]]
-double wass_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+[[cpp11::register]]
+double wass_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {              // If na is default val
-    na = sample_a_size(labs); //  calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 
@@ -288,12 +259,9 @@ double wass_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0
   return out;
 }
 
-// [[Rcpp::export]]
-double dts_stat_presort(NumericVector joint,LogicalVector labs,double power=1.0,double na=0.0) {
+[[cpp11::register]]
+double dts_stat_presort(doubles joint,logicals labs,double power,double na) {
   // Getting sample Sizes
-  if (na == 0) {              // If na is default val
-    na = sample_a_size(labs); //  calculate using labels.
-  }
   double n  = joint.size();   // Joint Sample
   double nb = n-na;           // subtraction for n_b.
 

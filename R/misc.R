@@ -14,7 +14,7 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
     na = length(a)
     nb = length(b)
     n  = na+nb
-    comb = c(a,b)
+    comb = as.numeric(c(a,b))
     vec_labels = c(rep(T,na),rep(F,nb))
     ord_inds = order(comb)
     comb = comb[ord_inds]
@@ -51,7 +51,7 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
 # This function helps maintain syntax stability between v1.2.0 (and prior) and v2.0.0 onwards
 stat_fn_builder = function(presort_stat_fn,def_power) {
   output = function(a,b,power=def_power) {
-    joint = c(a,b)
+    joint = as.numeric(c(a,b))
     na = length(a)
     nb = length(b)
     labs = c(rep(T,na),rep(F,nb))
