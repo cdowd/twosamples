@@ -8,7 +8,7 @@
 \usage{
 \method{print}{twosamples}(x, ...)
 
-\method{summary}{twosamples}(object, ...)
+\method{summary}{twosamples}(object, alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{twosamples object}
@@ -16,6 +16,8 @@
 \item{...}{other parameters to be passed to print or summary functions}
 
 \item{object}{twosamples-object to summarize}
+
+\item{alpha}{Significance threshold for determining null rejection}
 }
 \value{
 \itemize{
