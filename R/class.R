@@ -5,6 +5,7 @@
 print.twosamples = function(x,...) {
   print(x[1:2])
   if (x[2] == 1/(2*attr(x,"details")[3])) message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  invisible(NULL)
 }
 
 #' @describeIn twosamples_class Summary method for objects of class twosamples
@@ -14,6 +15,7 @@ summary.twosamples = function(object,...) {
   print(object[1:2])
   print(attr(object,"details"))
   if (object[2] == 1/(2*attr(object,"details")[3])) message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  return(invisible(NULL))
 }
 
 #' Default plots for `twosamples` objects
@@ -27,6 +29,7 @@ summary.twosamples = function(object,...) {
 #' @param nbins how many bins (or breaks) in the histogram
 #' @param ggplot Should the function use ggplot2 (if available)?
 #' @param silent suppress messages?
+#' @param ... other parameters to be passed to plotting functions
 #'
 #' @return Produces a plot (or in the case of ggplot=T, a ggplot object)
 #' @seealso [dts_test()], [twosamples_class], [combine.twosamples]

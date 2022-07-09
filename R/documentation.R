@@ -1,5 +1,4 @@
 #' @useDynLib twosamples, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
 NULL
 
 # KS test -----------
@@ -300,6 +299,8 @@ NULL
 #'
 #' @param x twosamples object
 #' @param object twosamples-object to summarize
+#' @param ... other parameters to be passed to print or summary functions
+
 #'
 #' @returns
 #' - `print.twosamples()` returns nothing
