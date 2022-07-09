@@ -10,11 +10,27 @@ print.twosamples = function(x,...) {
 
 #' @describeIn twosamples_class Summary method for objects of class twosamples
 #' @export
-summary.twosamples = function(object,...) {
+summary.twosamples = function(object,alpha=0.05,...) {
   cat(attr(object,"test_type"),"\n") #need to stow test type in attr somehow. function `f` below starts figuring this out.
-  print(object[1:2])
+  cat("=========================\n")
+  cat("Test Statistic:",object[1],"\n")
+  cat("       P-Value:",object[2],ifelse(object[2]<alpha,"*\n","\n"))
+  cat("- - - - - - - - - - - - -\n")
   print(attr(object,"details"))
-  if (object[2] == 1/(2*attr(object,"details")[3])) message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  cat("=========================\n")
+  if (!is.null(attr(object,"bootstraps"))) {
+    q95 = quantile(attr(object,"bootstraps"),1-alpha)
+    cat("Test stat rejection threshold for alpha =",alpha,"is:",q95,"\n")
+  }
+  if (object[2] < alpha) {
+    cat("Null rejected: samples are from different distributions")
+  } else {
+    cat("Null not rejected: samples may be from same distribution")
+  }
+  if (object[2] == 1/(2*attr(object,"details")[3])) {
+    cat("\n Max observed bootstrap value:",max(attr(object,"bootstraps")), "\n")
+    message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  }
   return(invisible(NULL))
 }
 
@@ -56,7 +72,7 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=
     test_type = attr(x,"test_type")
     title = paste0(test_type,": Boostrap Distribution + Test Stat")
     subtitle = paste0("p-val = ",x[2])
-    xlab = "Boostrapped Test Stat Values, Test stat in red"
+    xlab = "Boostrapped Test Stat Values, Test stat at red line"
     if (requireNamespace("ggplot2",quietly = TRUE) & ggplot) {
       ggplot2::ggplot(data.frame(boots=boots),ggplot2::aes(x=boots)) +
         ggplot2::geom_histogram(bins=nbins,...)+
@@ -65,6 +81,7 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=
         ggplot2::xlab(xlab)
     } else {
       #`graphics` is in r-base, every R install should have.
+     lims = lims*c(0.95,1.05)
      graphics::hist(boots,...,breaks=nbins,
           main = title,
           sub=subtitle,
