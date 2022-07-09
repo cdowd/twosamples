@@ -1,5 +1,6 @@
+## usethis namespace: start
 #' @useDynLib twosamples, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
+## usethis namespace: end
 NULL
 
 # KS test -----------

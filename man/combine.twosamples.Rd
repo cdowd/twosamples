@@ -4,12 +4,14 @@
 \alias{combine.twosamples}
 \title{Combine two objects of class \code{twosamples}}
 \usage{
-combine.twosamples(x, y)
+combine.twosamples(x, y, check.sample = T)
 }
 \arguments{
 \item{x}{a twosamples object}
 
 \item{y}{a different twosamples object from the same \verb{*_test} function run on the same data}
+
+\item{check.sample}{check that the samples saved in each object are the same? (can be slow)}
 }
 \value{
 a twosamples object that correctly re-calculates the p-value and determines all the other attributes

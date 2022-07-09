@@ -5,6 +5,7 @@
 print.twosamples = function(x,...) {
   print(x[1:2])
   if (x[2] == 1/(2*attr(x,"details")[3])) message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  return(invisible(NULL))
 }
 
 #' @describeIn twosamples_class Summary method for objects of class twosamples
@@ -14,7 +15,10 @@ summary.twosamples = function(object,...) {
   print(object[1:2])
   print(attr(object,"details"))
   if (object[2] == 1/(2*attr(object,"details")[3])) message("No bootstrap values were more extreme than the observed value. \n p-value = 1/(2*bootstraps) is an imprecise placeholder")
+  return(invisible(NULL))
 }
+
+
 
 #' Default plots for `twosamples` objects
 #'
@@ -79,6 +83,7 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=
 #' It only works if both objects were created with "keep.boots=T" This function is intended for one main purposes: combining parallized null calculations and then plotting those combined outputs.
 #' @param x a twosamples object
 #' @param y a different twosamples object from the same `*_test` function run on the same data
+#' @param check.sample check that the samples saved in each object are the same? (can be slow)
 #'
 #' @return a twosamples object that correctly re-calculates the p-value and determines all the other attributes
 #' @examples
@@ -93,14 +98,14 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,ggplot=T,silent=
 #' plot(combined)
 #' @seealso [twosamples_class], [plot.twosamples], [dts_test]
 #' @export
-combine.twosamples = function(x,y) {
-  if (class(y) != "twosamples" | class(x) != "twosamples")
+combine.twosamples = function(x,y,check.sample=T) {
+  if (!inherits(y, "twosamples") | !inherits(x,"twosamples"))
     stop("One of these test statistics is not from the twosamples package")
   if (attr(x,"test_type") != attr(y,"test_type"))
     stop("These test outputs are not from the same test type")
   if (x[1] != y[1])
     stop("These test statistics are different, probably these objects are not based on the same samples")
-  if (!is.null(attr(x,"samples")) & !is.null(attr(x,"samples"))){
+  if (!is.null(attr(x,"samples")) & !is.null(attr(x,"samples")) & check.sample){
     xa = sort(attr(x,"samples")$a)
     xb = sort(attr(x,"samples")$b)
     ya = sort(attr(y,"samples")$a)
@@ -120,3 +125,5 @@ combine.twosamples = function(x,y) {
     attr(out,"samples") = attr(y,"samples")
   out
 }
+
+
