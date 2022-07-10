@@ -19,6 +19,7 @@
 10.  devtools::check_win_devel()
 11. update cran-comments.md
 12. Submit (devtools::release())
+13. delete ~/.R/MAKEVARS
 
 # Packages used for release/updates
 - devtools

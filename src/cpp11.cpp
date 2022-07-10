@@ -5,42 +5,42 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double ks_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_ks_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
     return cpp11::as_sexp(ks_stat_presort(cpp11::as_cpp<cpp11::decay_t<doubles>>(joint), cpp11::as_cpp<cpp11::decay_t<logicals>>(labs), cpp11::as_cpp<cpp11::decay_t<double>>(power), cpp11::as_cpp<cpp11::decay_t<double>>(na)));
   END_CPP11
 }
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double kuiper_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_kuiper_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
     return cpp11::as_sexp(kuiper_stat_presort(cpp11::as_cpp<cpp11::decay_t<doubles>>(joint), cpp11::as_cpp<cpp11::decay_t<logicals>>(labs), cpp11::as_cpp<cpp11::decay_t<double>>(power), cpp11::as_cpp<cpp11::decay_t<double>>(na)));
   END_CPP11
 }
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double cvm_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_cvm_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
     return cpp11::as_sexp(cvm_stat_presort(cpp11::as_cpp<cpp11::decay_t<doubles>>(joint), cpp11::as_cpp<cpp11::decay_t<logicals>>(labs), cpp11::as_cpp<cpp11::decay_t<double>>(power), cpp11::as_cpp<cpp11::decay_t<double>>(na)));
   END_CPP11
 }
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double ad_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_ad_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
     return cpp11::as_sexp(ad_stat_presort(cpp11::as_cpp<cpp11::decay_t<doubles>>(joint), cpp11::as_cpp<cpp11::decay_t<logicals>>(labs), cpp11::as_cpp<cpp11::decay_t<double>>(power), cpp11::as_cpp<cpp11::decay_t<double>>(na)));
   END_CPP11
 }
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double wass_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_wass_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
     return cpp11::as_sexp(wass_stat_presort(cpp11::as_cpp<cpp11::decay_t<doubles>>(joint), cpp11::as_cpp<cpp11::decay_t<logicals>>(labs), cpp11::as_cpp<cpp11::decay_t<double>>(power), cpp11::as_cpp<cpp11::decay_t<double>>(na)));
   END_CPP11
 }
-// rcpp_test_functions.cpp
+// stat_functions.cpp
 double dts_stat_presort(doubles joint, logicals labs, double power, double na);
 extern "C" SEXP _twosamples_dts_stat_presort(SEXP joint, SEXP labs, SEXP power, SEXP na) {
   BEGIN_CPP11
