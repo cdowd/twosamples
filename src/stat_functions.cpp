@@ -1,5 +1,8 @@
-#include "cpp11.hpp"
+#include "cpp11/doubles.hpp"
+#include "cpp11/logicals.hpp"
 using namespace cpp11;
+// could also just do "#include "cpp11.hpp"
+
 
 // Notes:
 // 1. Using `abs` instead of `if(height<0) height*=-1.0;` breaks on some systems
