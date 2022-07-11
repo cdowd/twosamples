@@ -6,8 +6,7 @@ using namespace cpp11;
 
 // Notes:
 // 1. Using `abs` instead of `if(height<0) height*=-1.0;` breaks on some systems
-// 2. `sqrt` != `sqrtf`. `sqrt` is untested on non-local systems.
-//      - may also break.
+// 2. `sqrt` != `sqrtf`. `sqrt` is not fully tested on non-local systems.
 //      - can always revert to `pow(x,0.5)`
 // 3. Should double check gapvar calc is _correct_
 
@@ -189,7 +188,7 @@ double ad_stat_presort(doubles joint,logicals labs,double power,double na) {
 
     // Find Summand
     // Variance of gap between ECDFs = 2*var(ECDF) at point.
-    gapvar = 2*gcur*(1-gcur)/n; //double check again.. rats.
+    gapvar = 2*gcur*(1-gcur)/n;
     // If we can simplify calc, do it
     if (pow2) {                                 // If pow=2
       summand = pow(height,2.0)/gapvar;         //  height^2/var
@@ -306,7 +305,7 @@ double dts_stat_presort(doubles joint,logicals labs,double power,double na) {
 
     // Find Summand
     // Variance of gap between ECDFs = 2*var(ECDF) at point.
-    gapvar = 2*gcur*(1-gcur)/n; //double check again.. rats.
+    gapvar = 2*gcur*(1-gcur)/n;
     // If we can simplify calc, do it
     if (pow1) {                                 // If pow=1
       summand = height/sqrt(gapvar);            //  height/sqrt(var)

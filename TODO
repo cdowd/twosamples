@@ -1,11 +1,13 @@
+# Current
 5. check docs
   - readme.Rmd needs most of the work
   - possibly example R code??
+    - maybe delete??? or link to github version?
   -x dependency changes
   -x could do a quick doc for plot.twosamples
-8. double check gapvar calc...
-10. favicon?
-11. simplify headers?
+6. fix rhub issue w/ testthat suggests.
+x. double check gapvar calc...
+x. simplify headers?
 x. switch test
   -x new tests
   -x new permutation fn
@@ -42,10 +44,15 @@ x. ditch ggplot??
   -x useful maybe for the future... but worry about that later?
 
 
-Future:
+# Future:
 1. Improved plotting
   - add ECDF plotting functions? (ugh)
   - add ECDF diff plotting? (ugh ugh)
     - and like... also show nulls? (ugh ugh ugh)
   - ggplot2?
+2. Favicon/logo
+
+# Speculative
+1. Multiple Dimensions???
+2. Clean up 'permutation_test_interpreter'??
 
