@@ -5,7 +5,7 @@
     - maybe delete??? or link to github version?
   -x dependency changes
   -x could do a quick doc for plot.twosamples
-6. fix rhub issue w/ testthat suggests.
+x. fix rhub issue w/ testthat suggests. (Bailed on RHUB)
 x. double check gapvar calc...
 x. simplify headers?
 x. switch test
@@ -27,10 +27,6 @@ x. classes
   -x add keep.sample toggle to perm_fun
   -x add keep.boot, keep.samples to docs
   -x add print/summary/plot examples to docs.
-n. plots2?
-  -n add ECDF plotting functions? (ugh)
-  -n add ECDF diff plotting? (ugh ugh)
-    -n and like... also show nulls? (ugh ugh ugh)
 x. combine fn?
   -x add test vals correctly?
   -x basically, test correctness (class, test type, samples/test stat), concat boots, change nboots, recalc pval
@@ -55,4 +51,9 @@ x. ditch ggplot??
 # Speculative
 1. Multiple Dimensions???
 2. Clean up 'permutation_test_interpreter'??
+3. Vignettes?
+  - permutation tests
+  - power
+  - speed/memory
+  - functionality
 
