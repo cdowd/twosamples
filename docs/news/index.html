@@ -46,8 +46,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="version-200">version 2.0.0<a class="anchor" aria-label="anchor" href="#version-200"></a></h2>
-<p>This is a large update. Three big changes: 1. Substantial speed improvements – should improve both absolute speed and scaling 2. Added generics for plot, summary, print. 3. Switched from the package <code>Rcpp</code> to <code>cpp11</code> for the backend. This removes a runtime dependency on <code>Rcpp</code>, but adds one on <code>C++11</code> and adds a compile time dependency on <code>cpp11</code>.</p>
-<p>Together, all this lead to many changes under the hood. As a consequence, <code>permutation_test_builder</code> is substantially different (and no longer exported), and <code>order_stl</code> no longer exists.</p>
+<p>This is a large update. Three big changes:</p>
+<ol style="list-style-type: decimal"><li>Substantial speed improvements – should improve both absolute speed and scaling</li>
+<li>Added generics for plot, summary, print.</li>
+<li>Switched from the package <code>Rcpp</code> to <code>cpp11</code> for the backend. This removes a runtime dependency on <code>Rcpp</code>, but adds one on <code>C++11</code> and adds a compile time dependency on <code>cpp11</code>.</li>
+</ol><p>Together, all this lead to many changes under the hood. As a consequence, <code>permutation_test_builder</code> is substantially different (and no longer exported), and <code>order_stl</code> no longer exists.</p>
 <div class="section level5">
 <h5 id="speed-2-0-0">Speed<a class="anchor" aria-label="anchor" href="#speed-2-0-0"></a></h5>
 <p>Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from <span class="math display"><em>O</em>(<em>K</em><em>N</em>log(<em>N</em>))</span> to <span class="math display"><em>O</em>(<em>K</em><em>N</em>) + <em>O</em>(<em>N</em>log(<em>N</em>))</span>.</p>
@@ -72,7 +75,7 @@
 <li>
 <code>order_stl</code> no longer exists. I do not believe anybody used this function outside its internal package use.</li>
 <li>
-<code>permutation_test_builder</code> is no longer exported. I am not aware of anyone using this function outstide its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.</li>
+<code>permutation_test_builder</code> is no longer exported. I am not aware of anyone using this function outside its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.</li>
 <li>Dependency switch from <code>Rcpp</code> to <code>cpp11</code> and an additional system requirement of <code>C++11</code>.</li>
 </ul></div>
 </div>

@@ -47,7 +47,7 @@ summary.twosamples = function(object,alpha=0.05,...) {
 #' @param nbins how many bins (or breaks) in the histogram
 #' @param ... other parameters to be passed to plotting functions
 #'
-#' @return Produces a plot (or in the case of ggplot=T, a ggplot object)
+#' @return Produces a plot
 #' @seealso [dts_test()], [twosamples_class], [combine.twosamples]
 #'
 #' @examples

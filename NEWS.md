@@ -1,5 +1,6 @@
 # version 2.0.0
 This is a large update. Three big changes:
+
 1. Substantial speed improvements -- should improve both absolute speed and scaling
 2. Added generics for plot, summary, print.
 3. Switched from the package `Rcpp` to `cpp11` for the backend. This removes a runtime dependency on `Rcpp`, but adds one on `C++11` and adds a compile time dependency on `cpp11`.
@@ -25,7 +26,7 @@ There is now a 'twosamples' class, and generics for `print`, `summary`, and `plo
 #### Possible breaking changes
 - In order to only sort once, this is now a proper permutation test again. This should also resolve some classes of potential validity issues. Proofs in the associated paper are (at the moment) not relevant to this for the same reason.
 - `order_stl` no longer exists. I do not believe anybody used this function outside its internal package use. 
-- `permutation_test_builder` is no longer exported. I am not aware of anyone using this function outstide its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.
+- `permutation_test_builder` is no longer exported. I am not aware of anyone using this function outside its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.
 - Dependency switch from `Rcpp` to `cpp11` and an additional system requirement of `C++11`. 
 
 

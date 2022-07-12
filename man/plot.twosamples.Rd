@@ -16,7 +16,7 @@
 \item{...}{other parameters to be passed to plotting functions}
 }
 \value{
-Produces a plot (or in the case of ggplot=T, a ggplot object)
+Produces a plot
 }
 \description{
 Typically for now this will produce a histogram of the
