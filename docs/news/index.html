@@ -53,7 +53,7 @@
 </ol><p>Together, all this lead to many changes under the hood. As a consequence, <code>permutation_test_builder</code> is substantially different (and no longer exported), and <code>order_stl</code> no longer exists.</p>
 <div class="section level5">
 <h5 id="speed-2-0-0">Speed<a class="anchor" aria-label="anchor" href="#speed-2-0-0"></a></h5>
-<p>Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from <span class="math display"><em>O</em>(<em>K</em><em>N</em>log(<em>N</em>))</span> to <span class="math display"><em>O</em>(<em>K</em><em>N</em>) + <em>O</em>(<em>N</em>log(<em>N</em>))</span>.</p>
+<p>Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from <span class="math inline"><em>O</em>(<em>K</em><em>N</em>log(<em>N</em>))</span> to <span class="math inline"><em>O</em>(<em>K</em><em>N</em>) + <em>O</em>(<em>N</em>log(<em>N</em>))</span>.</p>
 <ul><li>Particularly for large samples or large numbers of bootstraps, this means a substantial improvement in speed.</li>
 <li>This required reworking the underlying C++ <code>_stat</code> functions as well as the <code>permutation_test_builder</code>.
 <ul><li>Instead of breaking code in unpredictable ways, this function is no longer exported. If you used it, archived copies can be found on github (particularly under the example R code versions), or by emailing me.</li>

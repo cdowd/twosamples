@@ -8,7 +8,7 @@ This is a large update. Three big changes:
 Together, all this lead to many changes under the hood. As a consequence, `permutation_test_builder` is substantially different (and no longer exported), and `order_stl` no longer exists. 
 
 #### Speed
-Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from $$O(KN\log(N))$$ to $$O(KN)+O(N \log(N))$$. 
+Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from $O(KN\log(N))$ to $O(KN)+O(N \log(N))$. 
 
 - Particularly for large samples or large numbers of bootstraps, this means a substantial improvement in speed. 
 - This required reworking the underlying C++ `_stat` functions as well as the `permutation_test_builder`. 
