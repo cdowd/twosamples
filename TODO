@@ -1,46 +1,6 @@
 # Current
-14. submit.
-x. rebuild site.
-x. check docs
-  -x readme.Rmd needs most of the work
-  -x possibly example R code??
-    -x maybe delete??? or link to github version?
-  -x dependency changes
-  -x could do a quick doc for plot.twosamples
-x. plot rounding -> signif
-x. fix rhub issue w/ testthat suggests. (Bailed on RHUB)
-x. double check gapvar calc...
-x. simplify headers?
-x. switch test
-  -x new tests
-  -x new permutation fn
-  -x new test_stat builder fn
-  -x check exports
-    -x test_stat fns
-    -x test fns
-x. inverse fn?
-  -x takes old test stat fn, makes it amenable to new perm builder
-  -x add docs?
-  -x done exclusively inside the perm_test_builder docs.
-x. classes
-  -x add class to perm fn
-  -x add print/summary fns
-  -x add boot toggle to perm_fun
-  -x add plot fn
-  -x add keep.sample toggle to perm_fun
-  -x add keep.boot, keep.samples to docs
-  -x add print/summary/plot examples to docs.
-x. combine fn?
-  -x add test vals correctly?
-  -x basically, test correctness (class, test type, samples/test stat), concat boots, change nboots, recalc pval
-  - document
-x. switch to cpp11?
-  -x easy enough
-  -x should i....
-  -x should mention in news and readme
-x. ditch ggplot??
-  -x its genuinely an uglier plot at the moment...
-  -x useful maybe for the future... but worry about that later?
+1. fix arXiv paper/proofs
+2. vignettes
 
 
 # Future:
