@@ -4,21 +4,19 @@
 # I've left them here this way because I find they are a clearer
 # demonstration of how the test stat works.
 
-
 dts_stat_R = function(vec1,vec2,power=1) {
   n1 = length(vec1)
   n2 = length(vec2)
   n = n1+n2
 
   joint.sample = c(vec1,vec2)
-  ee = c(rep(1/n1,n1),rep(0,   n2))
-  ff = c(rep(0,   n1),rep(1/n2,n2))
+  e = c(rep(1/n1,n1),rep(0,   n2))
+  f = c(rep(0,   n1),rep(1/n2,n2))
 
   ind = order(joint.sample)
-  d = e = f = numeric(n)
   d = joint.sample[ind]
-  e = ee[ind]
-  f = ff[ind]
+  e = e[ind]
+  f = f[ind]
 
   out = 0
   Ecur = 0
@@ -30,11 +28,10 @@ dts_stat_R = function(vec1,vec2,power=1) {
     Ecur = Ecur + e[i]
     Fcur = Fcur + f[i]
     Gcur = Gcur+1/n
-    sd = (n*Gcur*(1-Gcur))**0.5
+    sd = (2*Gcur*(1-Gcur)/n)**0.5
     height = abs(Fcur-Ecur)
     width = d[i+1]-d[i]
-    if (sd > 0)
-      out = out + ((height/sd)**power)*width
+    out = out + ((height/sd)^power)*width
   }
   out
 }
@@ -126,28 +123,33 @@ ad_stat_R = function(vec1,vec2,power=2){
   n = n1+n2
 
   joint.sample = c(vec1,vec2)
-  ee = c(rep(1/n1,n1),rep(0,   n2))
-  ff = c(rep(0,   n1),rep(1/n2,n2))
+  e = c(rep(1/n1,n1),rep(0,   n2))
+  f = c(rep(0,   n1),rep(1/n2,n2))
 
   ind = order(joint.sample)
   d = joint.sample[ind]
-  e = ee[ind]
-  f = ff[ind]
+  e = e[ind]
+  f = f[ind]
 
   out = 0
   Ecur = 0
   Fcur = 0
   Gcur = 0
   height = 0
+  dups = 1
+
   for (i in 1:(n-1)) {
     Ecur = Ecur + e[i]
     Fcur = Fcur + f[i]
     Gcur = Gcur+1/n
-    sd = (n*Gcur*(1-Gcur))**0.5
+    sd = (2*Gcur*(1-Gcur)/n)**0.5
     height = abs(Fcur-Ecur)
-    if (d[i] != d[i+1])
-      if (sd > 0)
-        out = out + (height/sd)**power
+    if (d[i] != d[i+1]) {
+      out = out + ((height/sd)^power)*dups
+      dups = 1
+    } else if (d[i] == d[i+1]) {
+      dups = dups+1
+    }
   }
   out
 }
@@ -225,7 +227,7 @@ ks_test_R     = permutation_test_builder_old(ks_stat_R,    1.0)
 kuiper_test_R = permutation_test_builder_old(kuiper_stat_R,1.0)
 cvm_test_R    = permutation_test_builder_old(cvm_stat_R,   2.0)
 ad_test_R     = permutation_test_builder_old(ad_stat_R,    2.0)
-wass_test_R   = permutaiton_test_builder_old(wass_stat_R,  1.0)
+wass_test_R   = permutation_test_builder_old(wass_stat_R,  1.0)
 dts_test_R    = permutation_test_builder_old(dts_stat_R,   1.0)
 
 
