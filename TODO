@@ -1,10 +1,13 @@
 # Current
-5. check docs
-  - readme.Rmd needs most of the work
-  - possibly example R code??
-    - maybe delete??? or link to github version?
+14. submit.
+13. rebuild site.
+x. check docs
+  -x readme.Rmd needs most of the work
+  -x possibly example R code??
+    -x maybe delete??? or link to github version?
   -x dependency changes
   -x could do a quick doc for plot.twosamples
+x. plot rounding -> signif
 x. fix rhub issue w/ testthat suggests. (Bailed on RHUB)
 x. double check gapvar calc...
 x. simplify headers?
@@ -54,6 +57,5 @@ x. ditch ggplot??
 3. Vignettes?
   - permutation tests
   - power
-  - speed/memory
   - functionality
 

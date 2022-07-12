@@ -28,6 +28,8 @@ The goal of twosamples is to allow easy two-sample testing using permutations. T
 
 Details about the DTS statistic's calculation, and performance can be found [here.](https://arxiv.org/abs/2007.01360)
 
+Example R code which works to build test functions can be found on github [here.](https://github.com/cdowd/twosamples/blob/main/R/Extras/test_stats_R.R) This code uses the release v1.0.0 algorithm for simplicity, and is in R rather than C++, so is substantially slower. 
+
 
 ## Installation
 
@@ -45,7 +47,7 @@ install_github("cdowd/twosamples")
 ```
 
 #### System Requirements
-Going forward (v2.0.0 onwards), `twosamples` depends on having C++11 installed. This is true of most R platforms and available for all of them. 
+Going forward (v2.0.0 onwards), `twosamples` depends on having C++11 installed. This is true of most R platforms and available for all of them. Compilation also requires headers from the `cpp11` package. 
 
 ## Example
 
@@ -55,7 +57,10 @@ In this example, we have 100 observations from two different Normal distribution
 library(twosamples)
 vec1 = rnorm(100)
 vec2 = rnorm(100,4)
-two_sample(vec1,vec2)
+output = two_sample(vec1,vec2)
+output
+summary(output)
+plot(output)
 ```
 
 ## Metric Example Calculations
@@ -64,7 +69,7 @@ This section will review each of the different tests offered. I'll offer a brief
 Each of these test statistics looks at the ECDFs which samples correspond to. I'll refer to E(x) as the ECDF of sample 1, F(x) as the ECDF of sample 2, and G(x) as the ECDF of the joint sample. The ECDF of course takes a real input and returns a value corresponding to the portion of the sample which was observed less than or equal to that point. 
 
 ### Kolmogorov-Smirnov Test
-The KS test finds the largest difference between the two ECDFs. See `ks_test()`.
+The KS test finds the largest (vertical) difference between the two ECDFs. See `ks_test()`.
 
 <details><summary>Demonstration R Code Calculating Test Statistic</summary>
 ```{r ks, eval=F}

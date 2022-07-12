@@ -21,6 +21,12 @@ free p-values for the samples coming from the same distribution.
 Details about the DTS statistic’s calculation, and performance can be
 found [here.](https://arxiv.org/abs/2007.01360)
 
+Example R code which works to build test functions can be found on
+github
+[here.](https://github.com/cdowd/twosamples/blob/main/R/Extras/test_stats_R.R)
+This code uses the release v1.0.0 algorithm for simplicity, and is in R
+rather than C++, so is substantially slower.
+
 ## Installation
 
 You can install the released version of twosamples from
@@ -42,7 +48,7 @@ install_github("cdowd/twosamples")
 
 Going forward (v2.0.0 onwards), `twosamples` depends on having C++11
 installed. This is true of most R platforms and available for all of
-them.
+them. Compilation also requires headers from the `cpp11` package.
 
 ## Example
 
@@ -53,12 +59,30 @@ distributions.
 library(twosamples)
 vec1 = rnorm(100)
 vec2 = rnorm(100,4)
-two_sample(vec1,vec2)
+output = two_sample(vec1,vec2)
+output
 #> Test Stat   P-Value 
-#>  88.42894   0.00025
+#>  93.31879   0.00025
 #> No bootstrap values were more extreme than the observed value. 
 #>  p-value = 1/(2*bootstraps) is an imprecise placeholder
+summary(output)
+#> DTS Test 
+#> =========================
+#> Test Statistic: 93.31879 
+#>        P-Value: 0.00025 *
+#> - - - - - - - - - - - - -
+#>      n1      n2 n.boots 
+#>     100     100    2000 
+#> =========================
+#> Test stat rejection threshold for alpha = 0.05 is: 17.33049 
+#> Null rejected: samples are from different distributions
+#>  Max observed bootstrap value: 29.1542
+#> No bootstrap values were more extreme than the observed value. 
+#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
+plot(output)
 ```
+
+<img src="man/figures/example1-1.png" width="100%" />
 
 ## Metric Example Calculations
 
@@ -77,8 +101,8 @@ point.
 
 ### Kolmogorov-Smirnov Test
 
-The KS test finds the largest difference between the two ECDFs. See
-`ks_test()`.
+The KS test finds the largest (vertical) difference between the two
+ECDFs. See `ks_test()`.
 
 <details>
 <summary>

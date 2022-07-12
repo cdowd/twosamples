@@ -11,16 +11,13 @@
 6.  rebuild docs (re-knit README.Rmd, devtools::document())
 7.  build site. (pkgdown::build_site())
 8.  devtools::spell_check()
-9.  devtools::check_rhub()
-10. devtools::check_win_devel()
-11. update cran-comments.md
-12. Submit (devtools::release())
-13. delete ~/.R/MAKEVARS
+10. update cran-comments.md
+11. Submit (devtools::release())
+12. delete ~/.R/MAKEVARS
 
 # Packages used for release/updates
 - devtools
 - revdepcheck
 - usethis
 - pkgdown
-- rhub
 - spellcheck

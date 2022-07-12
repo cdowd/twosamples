@@ -69,7 +69,7 @@ plot.twosamples = function(x,plot_type=c("boots_hist"),nbins=50,...) {
     lims = range(c(boots,test_stat))
     test_type = attr(x,"test_type")
     title = paste0(test_type,": Boostrap Distribution + Test Stat")
-    subtitle = paste0("p-val = ",x[2]," | Test stat = ",round(x[1],1))
+    subtitle = paste0("p-val = ",x[2]," | Test stat =~",signif(x[1],3))
     xlab = "Boostrapped Test Stat Values, Test stat at red line"
     #`graphics` is in r-base, every R install should have.
     if (test_stat > max(boots)) lims[2] = lims[2]*1.1
