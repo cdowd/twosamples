@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">twosamples</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,38 @@
       <small>Source: <a href="https://github.com/cdowd/twosamples/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.0" id="version-200">version 2.0.0<a class="anchor" aria-label="anchor" href="#version-200"></a></h2>
+<p>This is a large update. Three big changes: 1. Substantial speed improvements – should improve both absolute speed and scaling 2. Added generics for plot, summary, print. 3. Switched from the package <code>Rcpp</code> to <code>cpp11</code> for the backend. This removes a runtime dependency on <code>Rcpp</code>, but adds one on <code>C++11</code> and adds a compile time dependency on <code>cpp11</code>.</p>
+<p>Together, all this lead to many changes under the hood. As a consequence, <code>permutation_test_builder</code> is substantially different (and no longer exported), and <code>order_stl</code> no longer exists.</p>
+<div class="section level5">
+<h5 id="speed-2-0-0">Speed<a class="anchor" aria-label="anchor" href="#speed-2-0-0"></a></h5>
+<p>Each run of a *_test function now only sorts the data one time. Denoting the joint sample size N and the number of bootstraps K, this update moves the code from <span class="math display"><em>O</em>(<em>K</em><em>N</em>log(<em>N</em>))</span> to <span class="math display"><em>O</em>(<em>K</em><em>N</em>) + <em>O</em>(<em>N</em>log(<em>N</em>))</span>.</p>
+<ul><li>Particularly for large samples or large numbers of bootstraps, this means a substantial improvement in speed.</li>
+<li>This required reworking the underlying C++ <code>_stat</code> functions as well as the <code>permutation_test_builder</code>.
+<ul><li>Instead of breaking code in unpredictable ways, this function is no longer exported. If you used it, archived copies can be found on github (particularly under the example R code versions), or by emailing me.</li>
+</ul></li>
+<li>Functions <code>*_stat</code> that are syntactically identical to the old ones still exist, but are no longer what is used by <code>permutation_test_builder</code>.</li>
+<li>These changes likely reduced memory requirements for most users, though this is offset by the new default of storing bootstrap outputs.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="classes-2-0-0">Classes<a class="anchor" aria-label="anchor" href="#classes-2-0-0"></a></h5>
+<p>There is now a ‘twosamples’ class, and generics for <code>print</code>, <code>summary</code>, and <code>plot</code>, as well as a function for combining outputs correctly. This should make the printed behavior much better. As well as making it easy to see a fair bit of information using summary.</p>
+<ul><li>plotting currently shows a histogram of the bootstrap values and a red line where the test-statistic is.
+<ul><li>This required making the <code>*_test</code> functions export the bootstrap values. If you have memory intensive applications, this can be turned off with a toggle <code>keep.boots</code>, at the cost of no longer being able to use the plotting.</li>
+<li>In the future I may add the ability to plot the ECDFs and the test stat images. This is the main reason for the <code>keep.samples</code> toggle which is turned off by default.</li>
+</ul></li>
+</ul></div>
+<div class="section level5">
+<h5 id="possible-breaking-changes-2-0-0">Possible breaking changes<a class="anchor" aria-label="anchor" href="#possible-breaking-changes-2-0-0"></a></h5>
+<ul><li>In order to only sort once, this is now a proper permutation test again. This should also resolve some classes of potential validity issues. Proofs in the associated paper are (at the moment) not relevant to this for the same reason.</li>
+<li>
+<code>order_stl</code> no longer exists. I do not believe anybody used this function outside its internal package use.</li>
+<li>
+<code>permutation_test_builder</code> is no longer exported. I am not aware of anyone using this function outstide its internal package use. A similar function is still available, but will require changing the syntax of functions for its inputs.</li>
+<li>Dependency switch from <code>Rcpp</code> to <code>cpp11</code> and an additional system requirement of <code>C++11</code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="version-120">version 1.2.0<a class="anchor" aria-label="anchor" href="#version-120"></a></h2><p class="text-muted">CRAN release: 2022-06-06</p>
 <p>This version is primarily bug fixes and documentation updates. <strong>These bug fixes may affect outputs users see</strong>.</p>

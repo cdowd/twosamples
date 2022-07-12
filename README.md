@@ -58,27 +58,22 @@ distributions.
 ``` r
 library(twosamples)
 vec1 = rnorm(100)
-vec2 = rnorm(100,4)
+vec2 = rnorm(100,0.5)
 output = two_sample(vec1,vec2)
 output
 #> Test Stat   P-Value 
-#>  93.31879   0.00025
-#> No bootstrap values were more extreme than the observed value. 
-#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
+#>  9.695461  0.027500
 summary(output)
 #> DTS Test 
 #> =========================
-#> Test Statistic: 93.31879 
-#>        P-Value: 0.00025 *
+#> Test Statistic: 9.695461 
+#>        P-Value: 0.0275 *
 #> - - - - - - - - - - - - -
 #>      n1      n2 n.boots 
 #>     100     100    2000 
 #> =========================
-#> Test stat rejection threshold for alpha = 0.05 is: 17.33049 
+#> Test stat rejection threshold for alpha = 0.05 is: 8.896328 
 #> Null rejected: samples are from different distributions
-#>  Max observed bootstrap value: 29.1542
-#> No bootstrap values were more extreme than the observed value. 
-#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
 plot(output)
 ```
 

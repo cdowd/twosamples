@@ -16,6 +16,9 @@
     <loc>https://twosampletest.com/reference/ad_test.html</loc>
   </url>
   <url>
+    <loc>https://twosampletest.com/reference/combine.twosamples.html</loc>
+  </url>
+  <url>
     <loc>https://twosampletest.com/reference/cvm_test.html</loc>
   </url>
   <url>
@@ -28,13 +31,16 @@
     <loc>https://twosampletest.com/reference/kuiper_test.html</loc>
   </url>
   <url>
-    <loc>https://twosampletest.com/reference/order_stl.html</loc>
-  </url>
-  <url>
     <loc>https://twosampletest.com/reference/permutation_test_builder.html</loc>
   </url>
   <url>
+    <loc>https://twosampletest.com/reference/plot.twosamples.html</loc>
+  </url>
+  <url>
     <loc>https://twosampletest.com/reference/two_sample.html</loc>
+  </url>
+  <url>
+    <loc>https://twosampletest.com/reference/twosamples_class.html</loc>
   </url>
   <url>
     <loc>https://twosampletest.com/reference/wass_test.html</loc>

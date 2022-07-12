@@ -30,7 +30,7 @@
     
     <a class="navbar-brand me-2" href="index.html">twosamples</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,8 +69,11 @@
 </h1></div>
 <!-- badges: start -->
 
+
+<!-- badges: end -->
 <p>The goal of twosamples is to allow easy two-sample testing using permutations. This package offers quick (O(n^2) worst) and memory light (O(n)) code for a number of standard distance metrics between two samples. Using permutations of observed samples to calculate null distributions for those metrics, this package also provides assumption free p-values for the samples coming from the same distribution.</p>
 <p>Details about the DTS statistic’s calculation, and performance can be found <a href="https://arxiv.org/abs/2007.01360" class="external-link">here.</a></p>
+<p>Example R code which works to build test functions can be found on github <a href="https://github.com/cdowd/twosamples/blob/main/R/Extras/test_stats_R.R" class="external-link">here.</a> This code uses the release v1.0.0 algorithm for simplicity, and is in R rather than C++, so is substantially slower.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -81,6 +84,11 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span>
 <span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"cdowd/twosamples"</span><span class="op">)</span></code></pre></div>
+<div class="section level4">
+<h4 id="system-requirements">System Requirements<a class="anchor" aria-label="anchor" href="#system-requirements"></a>
+</h4>
+<p>Going forward (v2.0.0 onwards), <code>twosamples</code> depends on having C++11 installed. This is true of most R platforms and available for all of them. Compilation also requires headers from the <code>cpp11</code> package.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -89,13 +97,24 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://twosampletest.com">twosamples</a></span><span class="op">)</span>
 <span class="va">vec1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
-<span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">4</span><span class="op">)</span>
-<span class="fu"><a href="reference/two_sample.html">two_sample</a></span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span>
+<span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0.5</span><span class="op">)</span>
+<span class="va">output</span> <span class="op">=</span> <span class="fu"><a href="reference/two_sample.html">two_sample</a></span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span>
+<span class="va">output</span>
 <span class="co">#&gt; Test Stat   P-Value </span>
-<span class="co">#&gt;  92.22830   0.00025 </span>
-<span class="co">#&gt; attr(,"details")</span>
+<span class="co">#&gt;  9.695461  0.027500</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span>
+<span class="co">#&gt; DTS Test </span>
+<span class="co">#&gt; =========================</span>
+<span class="co">#&gt; Test Statistic: 9.695461 </span>
+<span class="co">#&gt;        P-Value: 0.0275 *</span>
+<span class="co">#&gt; - - - - - - - - - - - - -</span>
 <span class="co">#&gt;      n1      n2 n.boots </span>
-<span class="co">#&gt;     100     100    2000</span></code></pre></div>
+<span class="co">#&gt;     100     100    2000 </span>
+<span class="co">#&gt; =========================</span>
+<span class="co">#&gt; Test stat rejection threshold for alpha = 0.05 is: 8.896328 </span>
+<span class="co">#&gt; Null rejected: samples are from different distributions</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/example1-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="metric-example-calculations">Metric Example Calculations<a class="anchor" aria-label="anchor" href="#metric-example-calculations"></a>
@@ -105,7 +124,7 @@
 <div class="section level3">
 <h3 id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov-test"></a>
 </h3>
-<p>The KS test finds the largest difference between the two ECDFs. See <code><a href="reference/ks_test.html">ks_test()</a></code>.</p>
+<p>The KS test finds the largest (vertical) difference between the two ECDFs. See <code><a href="reference/ks_test.html">ks_test()</a></code>.</p>
 <details><summary>
 Demonstration R Code Calculating Test Statistic
 </summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -355,19 +374,6 @@ Demonstration R Code Calculating Test Statistic
 <p>Broadly, under this null, observations from sample 1 and sample 2 are exchangeable.That is – by randomly swapping observations between the samples, we can generate a new, equally likely data set from the same (Null) DGP. Then we can calculate our metric for distance between the samples on this data set. By repeating this procedure many times, we can generate a null distribution for our distance metric. We can then compare our observed distance to the null distribution. Because distances are non-negative, this will be a one-sided comparison. (Though if you wanted to test whether a sample was hyper-regular you could do that by looking at the one-sided test to the bottom).</p>
 <p>Moreover, unlike other, more general, two-sample procedures we do not rely on any properties of the underlying distribution. Some procedures require continuity, derivatives, or smoothness to get their asymptotic and finite sample guarantees. Those are procedures which estimate the underlying density, rather than simply working working the ECDF. The testing procedures in this package only rely on the statement that observations are i.i.d. The Independence is necessary for the exchangeability statement to hold. The identicality is necessary for the null hypothesis to be a sensible claim.</p>
 </div>
-<div class="section level2">
-<h2 id="internals">Internals<a class="anchor" aria-label="anchor" href="#internals"></a>
-</h2>
-<p>There are two other functions made available by this package.</p>
-<p><code><a href="reference/permutation_test_builder.html">permutation_test_builder()</a></code> is a simple function which takes the C++ coded test statistics and builds permutation tests as outlined above. This function is primarily intended for internal use, but if others have any interest in it, it is there.</p>
-<p><code><a href="reference/order_stl.html">order_stl()</a></code> is a simple C++ function which finds the order of a vector using the STL. This is the primary computational operation involved in each of the test statistics, and it is necessary in order to build the ECDFs. Because it is designed for internal C++ use, it returns 0 indexed values, and so is exactly 1 off from the Base R order function. Suggestions for improving this portion of my algorithm would be appreciated.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vec</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="reference/order_stl.html">order_stl</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 9 6 5 8 7 0 4 1 3 2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
-<span class="co">#&gt;  [1] 9 6 5 8 7 0 4 1 3 2</span></code></pre></div>
-</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -405,6 +411,7 @@ Demonstration R Code Calculating Test Statistic
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/cdowd/twosamples/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment" class="external-link"><img src="https://github.com/cdowd/twosamples/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main" alt="pages-build-deployment"></a></li>
 </ul>
 </div>
 
