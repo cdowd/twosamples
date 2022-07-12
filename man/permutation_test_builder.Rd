@@ -46,8 +46,9 @@ mean_diff_stat = perm_stat_helper(mean_diff_stat)
 \examples{
 mean_stat = function(joint,label,p,na) abs(mean(joint[label])-mean(joint[!label]))**p
 myfun = twosamples:::permutation_test_builder(mean_stat,2.0)
+set.seed(314159)
 vec1 = rnorm(20)
-vec2 = rnorm(20,4)
+vec2 = rnorm(20,0.5)
 out = myfun(vec1,vec2)
 out
 summary(out)

@@ -2,7 +2,7 @@ pandoc: 2.17.1.1
 pkgdown: 2.0.3
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-07-12T01:42Z
+last_built: 2022-07-12T02:13Z
 urls:
   reference: https://twosampletest.com/reference
   article: https://twosampletest.com/articles

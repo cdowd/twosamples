@@ -102,28 +102,24 @@ E.g. If your test statistic is</p><div class="sourceCode"><pre><code><span class
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mean_stat</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">joint</span>,<span class="va">label</span>,<span class="va">p</span>,<span class="va">na</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">joint</span><span class="op">[</span><span class="va">label</span><span class="op">]</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">joint</span><span class="op">[</span><span class="op">!</span><span class="va">label</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">**</span><span class="va">p</span></span>
 <span class="r-in"><span class="va">myfun</span> <span class="op">=</span> <span class="fu">twosamples</span><span class="fu">:::</span><span class="fu">permutation_test_builder</span><span class="op">(</span><span class="va">mean_stat</span>,<span class="fl">2.0</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">314159</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">vec1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">vec2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">out</span> <span class="op">=</span> <span class="fu">myfun</span><span class="op">(</span><span class="va">vec1</span>,<span class="va">vec2</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">out</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Test Stat   P-Value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  15.17796   0.00025 </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No bootstrap values were more extreme than the observed value. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  p-value = 1/(2*bootstraps) is an imprecise placeholder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.005096  0.005000 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MEAN Test </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Test Statistic: 15.17796 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        P-Value: 0.00025 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Test Statistic: 1.005096 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        P-Value: 0.005 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - - - - - - - - - - - - -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      n1      n2 n.boots </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      20      20    2000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Test stat rejection threshold for alpha = 0.05 is: 1.712824 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Test stat rejection threshold for alpha = 0.05 is: 0.5232561 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null rejected: samples are from different distributions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max observed bootstrap value: 4.586186 </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No bootstrap values were more extreme than the observed value. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  p-value = 1/(2*bootstraps) is an imprecise placeholder</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="permutation_test_builder-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>

@@ -47,8 +47,9 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }}
 
 \examples{
+set.seed(314159)
 vec1 = rnorm(20)
-vec2 = rnorm(20,4)
+vec2 = rnorm(20,0.5)
 out = wass_test(vec1,vec2)
 out
 summary(out)
