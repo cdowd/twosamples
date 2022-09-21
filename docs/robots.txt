@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://twosampletest.com/sitemap.xml
