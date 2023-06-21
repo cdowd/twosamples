@@ -9,12 +9,7 @@
 
 
 ## R CMD check results
-0 errors | 0 warnings | 1 note
-
-NOTE: Specified C++11: please drop specification unless essential
-  
-- This package relies on the package cpp11 for compilation, which requires C++11 to be available. I cannot remove that specification at this time. 
-
+0 errors | 0 warnings | 0 notes
 
 ## Downstream dependencies: revdepcheck results
 
