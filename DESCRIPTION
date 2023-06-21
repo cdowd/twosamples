@@ -11,7 +11,6 @@ Description: Fast randomization based two sample tests.
 License: GPL (>= 2)
 Encoding: UTF-8
 LinkingTo: cpp11
-SystemRequirements: C++11
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://twosampletest.com, https://github.com/cdowd/twosamples
