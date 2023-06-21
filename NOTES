@@ -13,6 +13,7 @@
 8.  devtools::spell_check()
 10. update cran-comments.md
 11. Submit (devtools::release())
+    - will prompt devtools::check_rhub() and devtools::check_win_devel()
 12. delete ~/.R/MAKEVARS
 
 # Packages used for release/updates

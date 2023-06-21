@@ -1,11 +1,12 @@
 ## Test environments
-Github actions: 
+- Github actions: 
   - macOS-latest   (r-release)
   - windows-latest (r-release)
   - ubuntu-latest  (r-release)
   - ubuntu-latest  (r-devel)
   - ubuntu-latest  (r-oldrel)
   - ubuntu-latest  (r-oldrel-1)
+
 
 ## R CMD check results
 0 errors | 0 warnings | 1 note
