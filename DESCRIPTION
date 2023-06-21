@@ -1,7 +1,7 @@
 Package: twosamples
 Type: Package
 Title: Fast Permutation Based Two Sample Tests
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: 
     person("Connor", "Dowd", , "cd@codowd.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9782-0931"))
@@ -13,7 +13,7 @@ Encoding: UTF-8
 LinkingTo: cpp11
 SystemRequirements: C++11
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 URL: https://twosampletest.com, https://github.com/cdowd/twosamples
 BugReports: https://github.com/cdowd/twosamples/issues
 Suggests: testthat (>= 3.0.0)

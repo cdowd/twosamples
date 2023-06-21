@@ -1,8 +1,8 @@
 # Release steps
 1.  make changes
 2.  check r-cmd-check passes on github/website
-3.  check reverse dependencies (revdepcheck::revdep_check())
-     - edit ~/.R/MAKEVARS to get FRESA.CAD to install.
+3.  check reverse dependencies (revdepcheck::revdep_check(num_workers=4))
+     - edit (create if needed) ~/.R/MAKEVARS to get FRESA.CAD to install.
        - FC = usr/local/opt/gcc/bin/gfortran
          F77 = /usr/local/opt/gcc/bin/gfortran
          FLIBS = -L/usr/local/opt/gcc/lib
@@ -17,7 +17,7 @@
 
 # Packages used for release/updates
 - devtools
-- revdepcheck
+- revdepcheck (install: devtools::install_github('r-lib/revdepcheck'))
 - usethis
 - pkgdown
 - spellcheck

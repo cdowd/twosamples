@@ -1,3 +1,16 @@
+# version 2.0.1
+This update contains a single minor bugfix. 
+
+#### Summary
+Some of the unit tests use random numbers, one of those unit tests looking at 
+the function `combine.twosamples` failed  to consider default (desired) behavior 
+for some possible values of those random numbers, and would occasionally fail. 
+This was a minor issue that would not negatively impact any users, _except_ that
+it would occasionally cause a CRAN check to fail, which could cause trouble. 
+This update aims to fix the _test_, leaving all actual functionality unchanged, 
+so that there should not be further CRAN check failures from this issue. 
+
+
 # version 2.0.0
 This is a large update. Three big changes:
 
