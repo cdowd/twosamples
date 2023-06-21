@@ -1,5 +1,4 @@
 ## Test environments
-- local: macOS (M1) install, R 4.1.2
 - github actions: 
   - macOS-latest   (r-release)
   - windows-latest (r-release)
