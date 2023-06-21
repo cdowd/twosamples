@@ -79,7 +79,7 @@ test_that("Classes are working",{
   expect_s3_class(comb,"twosamples")
   expect_length(attr(comb,"bootstraps"),4000)
   expect_equal(unname(attr(comb,"details")[3]),4000)
-  explicit_pval_comb = ifelse(comb[2] == 1/8000,0,comb[2])
+  explicit_pval_comb = unname(ifelse(comb[2] == 1/8000,0,comb[2]))
   explicit_pval_both = mean(ifelse(c(out[2],out2[2]) == 1/4000,0,c(out[2],out2[2])))
   expect_equal(explicit_pval_comb,explicit_pval_both)
   out3 = ks_test(vec1,vec2)
