@@ -62,18 +62,23 @@ vec2 = rnorm(100,0.5)
 output = two_sample(vec1,vec2)
 output
 #> Test Stat   P-Value 
-#>  9.695461  0.027500
+#>  14.89630   0.00025
+#> No bootstrap values were more extreme than the observed value. 
+#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
 summary(output)
 #> DTS Test 
 #> =========================
-#> Test Statistic: 9.695461 
-#>        P-Value: 0.0275 *
+#> Test Statistic: 14.8963 
+#>        P-Value: 0.00025 *
 #> - - - - - - - - - - - - -
 #>      n1      n2 n.boots 
 #>     100     100    2000 
 #> =========================
-#> Test stat rejection threshold for alpha = 0.05 is: 8.896328 
+#> Test stat rejection threshold for alpha = 0.05 is: 9.532266 
 #> Null rejected: samples are from different distributions
+#>  Max observed bootstrap value: 13.77085
+#> No bootstrap values were more extreme than the observed value. 
+#>  p-value = 1/(2*bootstraps) is an imprecise placeholder
 plot(output)
 ```
 

@@ -48,11 +48,11 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }
 \section{Functions}{
 \itemize{
-\item \code{kuiper_test}: Permutation based two sample Kuiper test
+\item \code{kuiper_test()}: Permutation based two sample Kuiper test
 
-\item \code{kuiper_stat}: Permutation based two sample Kuiper test
+\item \code{kuiper_stat()}: Permutation based two sample Kuiper test
+
 }}
-
 \examples{
 set.seed(314159)
 vec1 = rnorm(20)

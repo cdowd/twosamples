@@ -22,10 +22,14 @@ test_stat_function must be structured to take two vectors -- the first a combine
 \subsection{Conversion Function}{
 
 Test stat functions designed to work with the prior version of \code{permutation_test_builder} will not work.
-E.g. If your test statistic is\preformatted{mean_diff_stat = function(x,y,pow) abs(mean(x)-mean(y))^pow
-}
+E.g. If your test statistic is
 
-then \code{permutation_test_builder(mean_diff_stat,1)} will no longer work as intended, but it will if you run the below code first.\preformatted{perm_stat_helper = function(stat_fn,def_power) \{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mean_diff_stat = function(x,y,pow) abs(mean(x)-mean(y))^pow
+}\if{html}{\out{</div>}}
+
+then \code{permutation_test_builder(mean_diff_stat,1)} will no longer work as intended, but it will if you run the below code first.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{perm_stat_helper = function(stat_fn,def_power) \{
   output = function(joint,vec_labels,power=def_power,na) \{
     a = joint[vec_labels]
     b = joint[!vec_labels]
@@ -35,14 +39,14 @@ then \code{permutation_test_builder(mean_diff_stat,1)} will no longer work as in
 \}
 
 mean_diff_stat = perm_stat_helper(mean_diff_stat)
-}
+}\if{html}{\out{</div>}}
 }
 }
 \section{Functions}{
 \itemize{
-\item \code{permutation_test_builder}: Takes a test statistic, returns a testing function.
-}}
+\item \code{permutation_test_builder()}: Takes a test statistic, returns a testing function.
 
+}}
 \examples{
 mean_stat = function(joint,label,p,na) abs(mean(joint[label])-mean(joint[!label]))**p
 myfun = twosamples:::permutation_test_builder(mean_stat,2.0)

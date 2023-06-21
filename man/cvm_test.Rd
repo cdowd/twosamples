@@ -41,11 +41,11 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }
 \section{Functions}{
 \itemize{
-\item \code{cvm_test}: Permutation based two sample Cramer-Von Mises test
+\item \code{cvm_test()}: Permutation based two sample Cramer-Von Mises test
 
-\item \code{cvm_stat}: Permutation based two sample Cramer-Von Mises test
+\item \code{cvm_stat()}: Permutation based two sample Cramer-Von Mises test
+
 }}
-
 \examples{
 set.seed(314159)
 vec1 = rnorm(20)

@@ -52,11 +52,11 @@ Multiple Twosamples objects made by the same \verb{*_test} routine being run on 
 }
 \section{Functions}{
 \itemize{
-\item \code{print.twosamples}: Print method for objects of class twosamples
+\item \code{print(twosamples)}: Print method for objects of class twosamples
 
-\item \code{summary.twosamples}: Summary method for objects of class twosamples
+\item \code{summary(twosamples)}: Summary method for objects of class twosamples
+
 }}
-
 \seealso{
 \code{\link[=plot.twosamples]{plot.twosamples()}}, \code{\link[=combine.twosamples]{combine.twosamples()}}
 }

@@ -54,13 +54,13 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }
 \section{Functions}{
 \itemize{
-\item \code{dts_test}: Permutation based two sample test
+\item \code{dts_test()}: Permutation based two sample test
 
-\item \code{two_sample}: Recommended two-sample test
+\item \code{two_sample()}: Recommended two-sample test
 
-\item \code{dts_stat}: Permutation based two sample test
+\item \code{dts_stat()}: Permutation based two sample test
+
 }}
-
 \examples{
 set.seed(314159)
 vec1 = rnorm(20)

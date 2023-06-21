@@ -41,11 +41,11 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }
 \section{Functions}{
 \itemize{
-\item \code{wass_test}: Permutation based two sample test using Wasserstein metric
+\item \code{wass_test()}: Permutation based two sample test using Wasserstein metric
 
-\item \code{wass_stat}: Permutation based two sample test using Wasserstein metric
+\item \code{wass_stat()}: Permutation based two sample test using Wasserstein metric
+
 }}
-
 \examples{
 set.seed(314159)
 vec1 = rnorm(20)

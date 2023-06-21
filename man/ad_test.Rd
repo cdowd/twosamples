@@ -45,11 +45,11 @@ Inputs \code{a} and \code{b} can also be vectors of ordered (or unordered) facto
 }
 \section{Functions}{
 \itemize{
-\item \code{ad_test}: Permutation based two sample Anderson-Darling test
+\item \code{ad_test()}: Permutation based two sample Anderson-Darling test
 
-\item \code{ad_stat}: Permutation based two sample Anderson-Darling test
+\item \code{ad_stat()}: Permutation based two sample Anderson-Darling test
+
 }}
-
 \examples{
 set.seed(314159)
 vec1 = rnorm(20)
