@@ -1,5 +1,5 @@
 ## Test environments
-- github actions: 
+Github actions: 
   - macOS-latest   (r-release)
   - windows-latest (r-release)
   - ubuntu-latest  (r-release)
@@ -8,7 +8,12 @@
   - ubuntu-latest  (r-oldrel-1)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs, or NOTES.
+0 errors | 0 warnings | 1 note
+
+NOTE: Specified C++11: please drop specification unless essential
+  
+- This package relies on the package cpp11 for compilation, which requires C++11 to be available. I cannot remove that specification at this time. 
+
 
 ## Downstream dependencies: revdepcheck results
 
