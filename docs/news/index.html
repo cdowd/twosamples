@@ -46,11 +46,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="version-201">version 2.0.1<a class="anchor" aria-label="anchor" href="#version-201"></a></h2>
-<p>This update contains a single minor bugfix.</p>
+<p>This update contains two minor bugfixes.</p>
 <div class="section level5">
 <h5 id="summary-2-0-1">Summary<a class="anchor" aria-label="anchor" href="#summary-2-0-1"></a></h5>
-<p>Some of the unit tests use random numbers, one of those unit tests looking at the function <code>combine.twosamples</code> failed to consider default (desired) behavior for some possible values of those random numbers, and would occasionally fail. This was a minor issue that would not negatively impact any users, <em>except</em> that it would occasionally cause a CRAN check to fail, which could cause trouble. This update aims to fix the <em>test</em>, leaving all actual functionality unchanged, so that there should not be further CRAN check failures from this issue.</p>
-</div>
+<ol style="list-style-type: decimal"><li>Some of the unit tests use random numbers, one of those unit tests looking at the function <code>combine.twosamples</code> failed to consider default (desired) behavior for some possible values of those random numbers, and would occasionally fail. This was a minor issue that would not negatively impact any users, <em>except</em> that it would occasionally cause a CRAN check to fail, which could cause trouble. This update aims to fix the <em>test</em>, leaving all actual functionality unchanged, so that there should not be further CRAN check failures from this issue.</li>
+<li>Removed “C++11” from “System Requirements” – as per current CRAN guidelines. The presence of C++11 as a requirement caused a note for R-CMD-Check in R4.3.0 and up. Currently, the lack of such a requirement does not affect compilation on any tested systems.</li>
+</ol></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="version-200">version 2.0.0<a class="anchor" aria-label="anchor" href="#version-200"></a></h2><p class="text-muted">CRAN release: 2022-07-12</p>
