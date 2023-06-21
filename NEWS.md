@@ -1,7 +1,6 @@
 # version 2.0.1
 This update contains two minor bugfixes. 
 
-#### Summary
 1. Some of the unit tests use random numbers, one of those unit tests looking at 
 the function `combine.twosamples` failed  to consider default (desired) behavior 
 for some possible values of those random numbers, and would occasionally fail. 
