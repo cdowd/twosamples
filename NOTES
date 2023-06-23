@@ -13,7 +13,9 @@
 8.  devtools::spell_check()
 10. update cran-comments.md
 11. Submit (devtools::release())
-    - will prompt devtools::check_rhub() and devtools::check_win_devel()
+    - will prompt devtools::check_rhub() and devtools::check_win_devel(), ignore it they're unreliable. github actions check is all we need now.
+12. approve email confirming request
+13. on message that being uploaded to cran: usethis::use_github_release() [may require a token]
 12. delete ~/.R/MAKEVARS
 
 # Packages used for release/updates

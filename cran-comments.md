@@ -1,7 +1,3 @@
-## Resubmission
-This is a resubmission. In this version I have:
-* removed the C+11 System Requirement from DESCRIPTION
-
 ## Test environments
 - Github actions: 
   - macOS-latest   (r-release)
