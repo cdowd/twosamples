@@ -11,7 +11,10 @@ kuiper_test(
   nboots = 2000,
   p = default.p,
   keep.boots = T,
-  keep.samples = F
+  keep.samples = F,
+  weights.a = NULL,
+  weights.b = NULL,
+  paired = FALSE
 )
 
 kuiper_stat(a, b, power = def_power)
@@ -28,6 +31,12 @@ kuiper_stat(a, b, power = def_power)
 \item{keep.boots}{Should the bootstrap values be saved in the output?}
 
 \item{keep.samples}{Should the samples be saved in the output?}
+
+\item{weights.a}{Weights for observations in sample a. Not currently implemented -- reserved for future use.}
+
+\item{weights.b}{Weights for observations in sample b. Not currently implemented -- reserved for future use.}
+
+\item{paired}{Logical. If TRUE, performs a paired test where samples are assumed to be in corresponding order. Samples must have equal length.}
 
 \item{power}{power to raise test stat to}
 }

@@ -263,9 +263,6 @@ NULL
 #' @description (**Warning!** This function has changed substantially between v1.2.0 and v2.0.0) This function takes a two-sample test statistic and produces a function which performs randomization tests (sampling with replacement) using that test stat. This is an internal function of the `twosamples` package.
 #' @param test_stat_function a function of the joint vector and a label vector producing a positive number, intended as the test-statistic to be used.
 #' @param default.p This allows for some introduction of defaults and parameters. Typically used to control the power functions raise something to.
-#' @param weights.a Weights for observations in sample a. Not currently implemented -- reserved for future use.
-#' @param weights.b Weights for observations in sample b. Not currently implemented -- reserved for future use.
-#' @param paired Logical. If TRUE, performs a paired test where samples are assumed to be in corresponding order. Samples must have equal length.
 #' @return  This function returns a function which will perform permutation tests on given test stat.
 #' @details test_stat_function must be structured to take two vectors -- the first a combined sample vector and the second a logical vector indicating which sample each value came from, as well as a third and fourth value. i.e. (fun = function(jointvec,labelvec,val1,val2) ...). See examples.
 #'

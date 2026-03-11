@@ -12,7 +12,7 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LinkingTo: cpp11
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 URL: https://twosampletest.com, https://github.com/cdowd/twosamples
 BugReports: https://github.com/cdowd/twosamples/issues
 Suggests: testthat (>= 3.0.0)
