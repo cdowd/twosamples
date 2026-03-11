@@ -10,7 +10,13 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
 
   # little function that finds the *_stat name and saves it for later use.
   fun.name = toupper(strsplit(as.character(match.call()[2]),"_")[[1]][1])
-  fun = function(a,b,nboots=2000,p=default.p,keep.boots=T,keep.samples=F){
+
+  fun = function(a,b,nboots=2000,p=default.p,keep.boots=T,keep.samples=F,
+                 weights.a=NULL,weights.b=NULL,paired=FALSE){
+    # Weights not yet implemented
+    if (!is.null(weights.a) || !is.null(weights.b)) {
+      stop("Weights are not currently implemented.")
+    }
     na = length(a)
     nb = length(b)
     n  = na+nb
@@ -20,13 +26,32 @@ permutation_test_builder = function(test_stat_function,default.p=2.0) {
     comb = comb[ord_inds]
     vec_labels = vec_labels[ord_inds]
 
+    # For paired resampling: track which pair each sorted element belongs to
+    # pair_id maps each element in the sorted combined vector to its pair index (1..na)
+    if (paired) {
+      if (na != nb) {
+        stop("For a paired test, samples must have equal length.")
+      }
+      pair_id = c(1:na, 1:na)[ord_inds]
+      # For each pair, find the two positions in the sorted vector
+      # pair_pos[j,] gives the two indices in `comb` that belong to pair j
+      pair_pos = matrix(order(pair_id), ncol=2, byrow=TRUE)
+      flips = cbind(1:na,1) #initialize flips mat
+    }
+
     test_stat = test_stat_function(comb,vec_labels,p,na)			#Finds test stat
     nboots = as.integer(nboots)					#Speeds up comparison below.
     reps = bigger = 0L							  #Initializes Counter
     if (keep.boots) boots = numeric(nboots) #initialize storage of boots
     while (reps < nboots) {						#Loops over vector
       vec_labels = rep(F,n)
-      vec_labels[sample.int(n,na,F)] = T #Samples indexes
+      if (paired) {
+        # For each pair, randomly pick which of its two elements is labeled "a"
+        flips[,2] = sample.int(2L, na, replace=T) # 1 or 2 for each pair
+        vec_labels[pair_pos[flips]] = T
+      } else {
+        vec_labels[sample.int(n,na,F)] = T #samples indexes
+      }
       boot_t = test_stat_function(comb,vec_labels,p,na) #boot strap test stat
       if(boot_t >= test_stat) bigger = 1L+bigger #if new stat is bigger, increment
       reps = 1L+reps

@@ -65,6 +65,28 @@ test_that("power against obvious null rejection",{
   expect_lt(dts_test(vec1,vec2)[2],0.05)
 })
 
+# paired tests
+test_that("paired test runs and returns twosamples class",{
+  out = dts_test(rnorm(20),rnorm(20),paired=TRUE)
+  expect_s3_class(out,"twosamples")
+})
+
+test_that("paired test errors on unequal lengths",{
+  expect_error(dts_test(rnorm(10),rnorm(20),paired=TRUE))
+})
+
+test_that("weights error when provided",{
+  expect_error(dts_test(rnorm(10),rnorm(10),weights.a=rep(1,10)))
+  expect_error(dts_test(rnorm(10),rnorm(10),weights.b=rep(1,10)))
+})
+
+test_that("paired test has power on obvious shift",{
+  base = rnorm(200)
+  a = base + rnorm(200,0,0.1)
+  b = base + rnorm(200,1,0.1)
+  expect_lt(dts_test(a,b,paired=TRUE)[2],0.05)
+})
+
 #Class functions are quasi functional
 test_that("Classes are working",{
   vec1 = rnorm(100)
